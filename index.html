@@ -1,8 +1,428 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!DOCTYPE html>
+
 <html>
-<head><title>Apache HAWQ (incubating)</title></head>
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+<link rel="canonical" href="http://hawq.incubator.apache.org/"/>
+
+<title>Apache HAWQ</title>
+
+<link href='images/favicon.ico' rel='shortcut icon' type='image/vnd.microsoft.icon'>
+
+<link rel="stylesheet" type="text/css" href="style/master.css">
+
+<script src="script/smooth.js" type="text/javascript"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68036004-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
 <body>
-<img src="hawq.png" alt="HAWQ">
-<p>HAWQ is expected to land in a few weeks. Check back soon!</p>
+
+  <a class="scroll-point pt-top" id="top"></a>
+
+  <div id="header">
+
+    <div class="wrap">
+
+      <a class="logo" href="#top">
+        <img src="images/logo-hawq.png" alt=""/>
+      </a>
+
+
+      <div class="menu">
+        <a href="#about">About</a>
+        <a href="http://hawq.docs.pivotal.io/index.html">Docs</a>
+        <a href="#contribute">Contribute</a>
+        <a href="#mailing-lists">Mailing Lists</a>
+        <!-- <a href="#download">Download</a> -->
+        <a href="#more">More&hellip;</a>
+      </div>
+
+      <form class="menu-dropdown">
+        <select onchange="location = this.options[this.selectedIndex].value;">
+          <option value="#about">About</option>
+          <option value="#contribute">Contribute</option>
+          <option value="#mailing-lists">Mailing Lists</option>
+          <!-- <option value="#download">Download</option> -->
+          <option value="#more">More&hellip;</option>
+        </select>
+      </form>
+
+    </div>
+
+    <div class="shadow"></div>
+
+  </div>
+
+  <div class="header-placeholder"></div>
+
+  <div class="grid leadin">
+
+    <div class="wrap">
+
+      <!-- <img src="images/logo-hawq-placeholder.jpg" alt=""/> -->
+
+      <ul class="text-block">
+        <!-- <li><h1><strong>Apache HAWQ (incubating)</strong> is</h1></li> -->
+        <li><h1><strong>Apache Hadoop Native SQL.</strong> </h1></li>
+        <li><h1><strong>Advanced</strong>, MPP, elastic query engine  </h1></li>
+        <li><h1>and <strong>analytic database</strong> for <strong>enterprises</strong>.</h1></li>
+        <li><h1>Now <strong>incubating</strong> with Apache.</h1></li>
+      </ul>
+
+<!--       <div class="button-container">
+        <a class="button" href="#download">DOWNLOAD<small class="download-version">Version #</small></a>
+      </div> -->
+
+    </div>
+
+  </div>
+
+  <a class="scroll-point pt-about" id="about"></a>
+
+  <div class="wrap feature">
+
+    <h2 class="icon icon-about">Apache Hadoop Native SQL. <br />Advanced Analytics MPP Database for Enterprises.</h2>
+
+    <p>In a class by itself, only Apache HAWQ (incubating) combines exceptional MPP-based analytics performance, robust ANSI SQL compliance, Hadoop ecosystem integration and manageability, and flexible data-store format support. All natively in Hadoop. No connectors required.</p>
+    
+    <p>Built from a decade’s worth of massively parallel processing (MPP) expertise developed through the creation of the Pivotal Greenplum® enterprise database and open source PostgreSQL, HAWQ enables to you to swiftly and interactively query Hadoop data, natively via HDFS.</p>
+
+    <p>HAWQ is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the <a href="http://incubator.apache.org">Incubator</a>. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.</p>
+    <p>
+
+    <table>
+      <tr>
+        <td valign='top'>
+          <p><strong>Exceptional <br/>performance</strong></p>
+          <p>HAWQ’s parallel processing architecture delivers high performance throughput and low latency - potentially near real time - query responses that can scale to petabyte-sized datasets. Operate natively in Hadoop.</p>
+        </td>
+        <td valign='top'>
+          <p><strong>Robust ANSI SQL compliance</strong></p>
+          <p>Leverage familiar skills. Achieve higher levels of compatibility for SQL-based applications and BI/data visualization tools. Execute complex queries and joins, including roll-ups and nested queries.</p>
+        </td>
+        <td valign='top'>
+          <p><strong>Hadoop ecosystem manageability and integration</strong></p>
+          <p>Integrate and manage with YARN. Provision with Ambari. Interface with HCatalog. HAWQ supports Parquet, AVRO, HBase, and others. Easily scale nodes up or down to meet performance or capacity requirements.</p>
+        </td>
+      </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+    <p>Plus, HAWQ works <a href="http://madlib.incubator.apache.org">Apache MADlib (incubating)</a> machine learning libraries to execute advanced analytics for data-driven digital transformation, modern application development, data science purposes, and more.</p>
+
+  </div>
+
+  <a class="scroll-point" id="contribute"></a>
+
+  <hr>
+
+  <div class="feature">
+    <div class="wrap">
+      <h2 class="icon icon-contribute">Contribute to Advanced Enterprise Technology!</h2>
+
+      <p>HAWQ is breaking new ground for advanced analytics and machine learning in Hadoop. All contributors welcome! Get involved with the next wave in Hadoop analytic database technology. HAWQ is fully open source with Apache. Everything from this community, website, and the code itself has been developed by a community of people who want to support and propel HAWQ technology.</p>
+
+      <p>We especially welcome additions and corrections to the documentation, wiki, and website to improve user experiences.  Bug reports, and fixes and additions to the HAWQ code are welcome. Helping users learn best practices also earns good karma in our community.</p>
+
+    </div>
+    <br/>
+    <div class="grid contribute">
+      <div class="wrap cf">
+        <div class="skill-card">
+          <div class="stripe"></div>
+          <div class="skill-card-content">
+            <h3>
+              <span class="core card-icon"></span>
+              <span class="skill-card-heading-text">Apache HAWQ (incubating) Code</span>
+            </h3>
+            <p class="skill-card-slogan">
+              Got an idea for a feature or fix for HAWQ? We welcome contributors. Please discuss in the dev mail list, post an issue on Jira, or make pull requests on Github.
+            </p>
+            <ul>
+
+              <li>&mdash; <a href="http://mail-archives.apache.org/mod_mbox/incubator-hawq-dev/">HAWQ Dev mail list</a></li>
+              <li>&mdash; <a href="https://issues.apache.org/jira/browse/HAWQ">HAWQ Issues</a></li>
+              <li>&mdash; <a href="http://github.com/apache/incubator-hawq">HAWQ Github</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="stripe"></div>
+          <div class="skill-card-content">
+            <h3>
+              <span class="fauxton card-icon"></span>
+              <span class="skill-card-heading-text">Apache MADlib (incubating)</span>
+            </h3>
+            <p class="skill-card-slogan">
+              Apache MADlib (incubating) is a SQL-based advanced analytics and machine learning library that works with Apache HAWQ.
+            </p>
+            <ul>
+              <li>&mdash; <a href="http://madlib.incubator.apache.org/">Visit Apache MADlib community</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="stripe"></div>
+          <div class="skill-card-content">
+            <h3>
+              <span class="marketing card-icon"></span>
+              <span class="skill-card-heading-text">Evangelism</span>
+            </h3>
+            <p class="skill-card-slogan">
+              Are you a HAWQ expert? Want to share your knowledge with others? We are collaborative community that shares best practices.
+            </p>
+            <ul>
+              <li>&mdash; <a href="https://cwiki.apache.org/confluence/display/HAWQ">HAWQ Meetups</a></li>
+              <li>&mdash; <a href="http://mail-archives.apache.org/mod_mbox/incubator-hawq-user/">HAWQ User mail list</a></li>
+              <li>&mdash; <a href="https://twitter.com/ApacheHAWQ">HAWQ social media</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap cf">
+
+        <div class="skill-card">
+          <div class="stripe"></div>
+          <div class="skill-card-content">
+            <h3>
+              <span class="marketing card-icon"></span>
+              <span class="skill-card-heading-text">Website</span>
+            </h3>
+            <p class="skill-card-slogan">
+              Even this website is a work of our community. Got a suggestion, fix, or even a redesign idea? Please contribute.
+            </p>
+            <ul>
+              <li>&mdash; <a href="http://mail-archives.apache.org/mod_mbox/incubator-hawq-dev/">HAWQ Dev mail list</a></li>
+              <li>&mdash; <a href="https://issues.apache.org/jira/browse/HAWQ">HAWQ Issues</a></li>
+              <li>&mdash; <a href="https://github.com/apache/incubator-hawq-site">Website on GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="stripe"></div>
+          <div class="skill-card-content">
+            <h3>
+              <span class="marketing card-icon"></span>
+              <span class="skill-card-heading-text">Documentation</span>
+            </h3>
+            <p class="skill-card-slogan">
+              Documentation and how-to tips can always be made clearer, better organized, more complete, and translated to more languages.
+            </p>
+            <ul>
+              <li>&mdash; <a href="https://cwiki.apache.org/confluence/display/HAWQ">HAWQ Wiki</a></li>
+              <li>&mdash; <a href="http://hawq.docs.pivotal.io/index.html">HAWQ Docs</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="stripe"></div>
+          <div class="skill-card-content">
+            <h3>
+              <span class="marketing card-icon"></span>
+              <span class="skill-card-heading-text">User Questions</span>
+            </h3>
+            <p class="skill-card-slogan">
+              Looking for an answer to a specific question? Are you an expert who likes to answer questions? Engage here:
+            </p>
+            <ul>
+              <li>&mdash; <a href="http://mail-archives.apache.org/mod_mbox/incubator-hawq-user/">HAWQ User email list</a></li>
+              <li>&mdash; <a href="http://stackoverflow.com/questions/tagged/hawq">HAWQ on StackOverflow</a></li>
+              <li>&mdash; <a href="http://cdn.meme.am/instances/500x/47360362.jpg">HAWQ HipChat</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a class="scroll-point" id="mailing-lists"></a>
+
+  <div class="wrap">
+    <h2 class="icon icon-mailing-lists">Mailing Lists</h2>
+  </div>
+
+  <div class="grid">
+
+    <div class="wrap">
+
+      <div class="corner"></div>
+
+
+      <div class="list-header">
+        <a href="http://mail-archives.apache.org/mod_mbox/incubator-hawq-dev/"><strong>Mail Search</strong></a>
+        <p>Search all of our mailing lists at once.</p>
+      </div>
+
+      <div class="list mailing-list">
+        <form action="http://markmail.org/search/list:org.apache.incubator.hawq-*">
+          <input id="search-box" type="text" placeholder="Search query&hellip;" name="q" size="50"><button id="search-button"></button>
+        </form>
+      </div>
+
+      <br>
+      <div class="list-header">
+        <a href="http://mail-archives.apache.org/mod_mbox/incubator-hawq-dev/"><strong>Dev List</strong></a>
+        <a id="dev-mailing-list" class="hash-target">&nbsp;</a>
+        <a href="mailto:dev-subscribe@hawq.incubator.apache.org">Subscribe</a> &middot;
+        <a href="mailto:dev@hawq.incubator.apache.org">Post</a> &middot;
+        <a href="mailto:dev-unsubscribe@hawq.incubator.apache.org">Unsubscribe</a>
+        <p>Mailing list for HAWQ developers community.<p>
+      </div>
+
+      <div class="list-header">
+        <a href="http://mail-archives.apache.org/mod_mbox/incubator-hawq-user/"><strong>User List</strong></a>
+        <a id="user-mailing-list" class="hash-target">&nbsp;</a>
+        <a href="mailto:user-subscribe@hawq.incubator.apache.org">Subscribe</a> &middot;
+        <a href="mailto:user@hawq.incubator.apache.org">Post</a> &middot;
+        <a href="mailto:user-unsubscribe@hawq.incubator.apache.org">Unsubscribe</a>
+        <p>Mailing list for HAWQ user community.<p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--<a class="scroll-point" id="download"></a>
+
+
+   <div class="wrap download-pane">
+    <h2 class="icon icon-download">Download Apache HAWQ</h2>
+  </div>
+
+  <div class="grid">
+
+    <div class="wrap">
+
+      <div class="corner"></div>
+
+      <div class="download-list-container">
+
+        <ul class="list download-list">
+          <li>
+            <a href="https://www.apache.org/dyn/closer.lua?path=/hawq/source/1.6.1/apache-hawq-1.6.1.tar.gz" class="type">Source</a>
+            <span class="info">
+              Version 2.0.1 |
+              <a href="http://docs.hawq.org/en/latest/whatsnew/2.0.html" class="release">Release Notes</a> |
+              <a href="https://www.apache.org/dist/hawq/source/2.0.1/apache-hawq-2.0.1.tar.gz.asc">OpenPGP</a> |
+              <a href="https://www.apache.org/dist/hawq/source/2.0.1/apache-hawq-2.0.1.tar.gz.md5">MD5</a> |
+              <a href="https://www.apache.org/dist/hawq/source/2.0.1/apache-hawq-2.0.1.tar.gz.sha">SHA</a>
+            </span>
+          </li>
+              <li>
+                    <a href="https://launchpad.net/~hawq/+archive/stable" class="type">Ubuntu packages</a>
+                    <span class="info">
+                  Version 2.0.1 |
+                  <a href="http://docs.hawq.org/en/latest/whatsnew/2.0.html" class="release">Release Notes</a>
+                </span>
+          </li>
+          <li>
+            <a href="/developer-preview/2.0/" class="type">2.0 Developer Preview</a>
+            <span class="info">Help us test the Future of hawq…</span>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div> -->
+
+  <a class="scroll-point" id="more"></a>
+
+
+  <div class="wrap more-pane">
+
+    <h2 class="icon icon-more">More &hellip;</h2>
+
+    <br>
+
+    <ul class="more-header">
+      <!-- <li>General</li> -->
+      <!-- <li>Development</li> -->
+      <li class="last">Apache Software Foundation</li>
+    </ul>
+
+    <div class="clear"></div>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="wrap">
+
+      <div class="list-container">
+
+<!--         <ul class="list more">
+          <li class="corner"></li>
+          <li><a href="http://docs.hawq.org/en/latest/">Documentation<span></span></a>
+          <li><a href="https://cwiki.apache.org/confluence/display/hawq/Current+Releases">Current Releases<span></span></a></li>
+          <li><a href="http://blog.hawq.org/">Blog<span></span></a>
+          <li><a href="http://hawq.apache.org/bylaws.html">Bylaws<span></span></a>
+          <li><a href="http://hawq.apache.org/conduct.html">Code of Conduct<span></span></a>
+        </ul>
+
+        <ul class="list more">
+          <li class="corner"></li>
+          <li><a href="http://wiki.apache.org/hawq/">Wiki<span></span></a></li>
+          <li><a href="https://issues.apache.org/jira/browse/hawq">Issue Tracker<span></span></a></li>
+          <li><a href="https://github.com/apache/hawq/pulls">Pull Requests<span></span></a></li>
+          <li><a href="https://github.com/apache?query=hawq">Git Mirrors<span></span></a></li>
+        </ul> -->
+
+        <ul class="list more last">
+          <!-- <li class="corner"></li> -->
+          <li><a href="http://www.apache.org/">About the ASF<span></span></a></li>
+          <li><a href="http://www.apache.org/foundation/thanks.html">Thanks<span></span></a></li>
+          <li><a href="http://www.apache.org/foundation/sponsorship.html">Become a Sponsor<span></span></a></li>
+          <li><a href="http://www.apache.org/security/">Security<span></span></a></li>
+          <li><a href="http://www.apache.org/licenses/LICENSE-2.0">License<span></span></a></li>
+        </ul>
+
+        <div class="clear"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="footer">
+    <img src='images/egg-logo1.png'/>
+    <br/>
+    <br/>
+    <p>
+      Copyright &copy; 2015 <a href='http://www.apache.org/'>The Apache Software Foundation</a>
+      <br>
+      Apache, Apache HAWQ (incubating), the Apache feather and the HAWQ logo are trademarks of The Apache Software Foundation
+    </p>
+
+  </div>
+
+  <script type="text/javascript" src="https://issues.apache.orgg/jira/s/1c67ff5e37d44b99a6a3140ab88552c8-T/en_UK1zkmuk/6332/7/1.4.15/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&collectorId=c4088f46"></script>
+
 </body>
+
 </html>
