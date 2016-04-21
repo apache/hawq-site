@@ -1,0 +1,13 @@
+org.apache.hawq.pxf.api
+org.apache.hawq.pxf.api.io
+org.apache.hawq.pxf.api.utilities
+org.apache.hawq.pxf.plugins.hbase
+org.apache.hawq.pxf.plugins.hbase.utilities
+org.apache.hawq.pxf.plugins.hdfs
+org.apache.hawq.pxf.plugins.hdfs.utilities
+org.apache.hawq.pxf.plugins.hive
+org.apache.hawq.pxf.plugins.hive.utilities
+org.apache.hawq.pxf.service
+org.apache.hawq.pxf.service.io
+org.apache.hawq.pxf.service.rest
+org.apache.hawq.pxf.service.utilities
