@@ -1,0 +1,51 @@
+/*
+ * FILE: print.scss
+======================================================================== */
+/* line 10, /Users/dyozie/repos/github/incubator-hawq-docs/book/output/master_middleman/source/stylesheets/print.css.scss */
+pre code, p code, .terminal {
+  font-family: "DejaVu Sans Mono";
+  page-break-inside: avoid; }
+
+/* line 15, /Users/dyozie/repos/github/incubator-hawq-docs/book/output/master_middleman/source/stylesheets/print.css.scss */
+ol li {
+  margin-left: 15px; }
+
+/* line 19, /Users/dyozie/repos/github/incubator-hawq-docs/book/output/master_middleman/source/stylesheets/print.css.scss */
+.wrap {
+  width: 2400px; }
+  /* line 22, /Users/dyozie/repos/github/incubator-hawq-docs/book/output/master_middleman/source/stylesheets/print.css.scss */
+  .wrap .container {
+    margin-left: 0; }
+
+/* line 27, /Users/dyozie/repos/github/incubator-hawq-docs/book/output/master_middleman/source/stylesheets/print.css.scss */
+li p code {
+  width: auto;
+  display: inline; }
+
+/* line 32, /Users/dyozie/repos/github/incubator-hawq-docs/book/output/master_middleman/source/stylesheets/print.css.scss */
+note {
+  overflow: visible;
+  page-break-inside: avoid !important;
+  page-break-before: avoid !important; }
+
+/* line 38, /Users/dyozie/repos/github/incubator-hawq-docs/book/output/master_middleman/source/stylesheets/print.css.scss */
+pre, pre code {
+  overflow: visible; }
+
+/* line 42, /Users/dyozie/repos/github/incubator-hawq-docs/book/output/master_middleman/source/stylesheets/print.css.scss */
+.pivotalcf .logo {
+  background: none;
+  padding-left: 0; }
+
+/* line 47, /Users/dyozie/repos/github/incubator-hawq-docs/book/output/master_middleman/source/stylesheets/print.css.scss */
+.quick-links,
+.nav-container,
+.header,
+.site-footer-links,
+#feedback {
+  display: none; }
+
+/* line 55, /Users/dyozie/repos/github/incubator-hawq-docs/book/output/master_middleman/source/stylesheets/print.css.scss */
+h1 {
+  margin-top: 0;
+  font-size: 1.563em; }

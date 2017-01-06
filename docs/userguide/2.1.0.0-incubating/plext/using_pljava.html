@@ -1,0 +1,1734 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Always force latest IE rendering engine or request Chrome Frame -->
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400italic,400,600' rel='stylesheet' type='text/css'>
+  <!-- Use title if it's in the page YAML frontmatter -->
+  <title>
+      Using PL/Java |
+    Apache HAWQ (Incubating) Docs
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/stylesheets/all.css" rel="stylesheet" media="screen, print" />
+  <link href="/stylesheets/print.css" rel="stylesheet" media="print" />
+  <link href='/images/favicon.ico' rel='shortcut icon'>
+
+  <script src="/javascripts/all.js"></script>
+  
+</head>
+
+<body class="docs docs_userguide docs_userguide_2_1_0_0-incubating docs_userguide_2_1_0_0-incubating_plext docs_userguide_2_1_0_0-incubating_plext_using_pljava has-subnav">
+
+<div class="viewport">
+  <div class='wrap'>
+    <script type="text/javascript">
+      document.domain = "";
+    </script>
+
+     
+  <header class="header header-layout">
+    <h1 class="logo">
+      <a href="/">Apache HAWQ (incubating) Documentation</a>
+    </h1>
+    
+    <div class="header-links js-bar-links">
+      <div class="btn-menu" data-behavior="MenuMobile"></div>
+      <div class="header-item"><a href="http://hawq.incubator.apache.org/">Back to Apache HAWQ Page</a></div>
+      <div class="header-item">
+        <a href="https://issues.apache.org/jira/browse/HAWQ" target="_blank">Issues</a>
+      </div>
+      
+    </div>
+  </header>
+
+
+    <div class="container">
+
+      <!--googleoff: index-->
+      <div id="sub-nav" class="js-sidenav nav-container" role="navigation">
+  <a class="sidenav-title" data-behavior="SubMenuMobile">  Doc Index</a>
+  <div class="nav-content">
+    <ul>
+      <li>
+        Apache HAWQ (incubating)
+      </li>
+      <li><a href="/docs/userguide/2.1.0.0-incubating/requirements/system-requirements.html">System Requirements</a>
+      </li>
+<!--      <li class="has_submenu">
+        <span>
+          Installing Apache HAWQ
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/install/select-hosts.html">Selecting HAWQ Host Machines</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/install/install-ambari.html">Installing HAWQ Using Ambari</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/install/install-cli.html">Installing HAWQ from the Command Line (Optional)</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/install/aws-config.html">Amazon EC2 Configuration</a>
+          </li>
+          <li>
+            <a href="/hdb/install/install_package_extensions.html">Installing Procedural Languages and Package Extensions for HAWQ</a>
+          </li>
+          <li>
+            <a href="/hdb/install/install_pgcrypto.html">Installing Cryptographic Functions for PostgreSQL (pgcrypto)</a></li>
+          <li>
+            <a href="/hdb/install/install_pljava.html">Installing PL/Java</a>
+          </li>
+          <li>
+            <a href="/hdb/install/install_plr.html">Installing PL/R</a>
+          </li> 
+        </ul>
+      </li>-->
+      <li class="has_submenu">
+        <span>
+          HAWQ System Overview
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/overview/HAWQOverview.html">What is HAWQ?</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/overview/HAWQArchitecture.html">HAWQ Architecture</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/overview/TableDistributionStorage.html">Table Distribution and Storage</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/overview/ElasticSegments.html">Elastic Query Execution Runtime</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/overview/ResourceManagement.html">Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/overview/HDFSCatalogCache.html">HDFS Catalog Cache</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/overview/ManagementTools.html">Management Tools</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/overview/RedundancyFailover.html">High Availability, Redundancy and Fault Tolerance</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Running a HAWQ Cluster
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/RunningHAWQ.html">Overview</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/setuphawqopenv.html">Introducing the HAWQ Operating Environment</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-admin.html">Managing HAWQ Using Ambari</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/startstop.html">Starting and Stopping HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/ClusterExpansion.html">Expanding a Cluster</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/ClusterShrink.html">Removing a Node</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/BackingUpandRestoringHAWQDatabases.html">Backing Up and Restoring HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/HighAvailability.html">High Availability in HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/MasterMirroring.html">Master Mirroring</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/HAWQFilespacesandHighAvailabilityEnabledHDFS.html">HAWQ Filespaces and High Availability Enabled HDFS</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/FaultTolerance.html">Understanding the Fault Tolerance Service</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/RecommendedMonitoringTasks.html">Recommended Monitoring and Maintenance Tasks</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/maintain.html">Routine System Maintenance Tasks</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Managing Resources
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/resourcemgmt/HAWQResourceManagement.html">How HAWQ Manages Resources</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/resourcemgmt/best-practices.html">Best Practices for Configuring Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/resourcemgmt/ConfigureResourceManagement.html">Configuring Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/resourcemgmt/YARNIntegration.html">Integrating YARN with HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/resourcemgmt/ResourceQueues.html">Working with Hierarchical Resource Queues</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/resourcemgmt/ResourceManagerStatus.html">Analyzing Resource Manager Status</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Managing Client Access
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/client_auth.html">Configuring Client Authentication</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/ldap.html">Using LDAP Authentication with TLS/SSL</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/kerberos.html">Using Kerberos Authentication</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/disable-kerberos.html">Diabling Kerberos Security</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/roles_privs.html">Managing Roles and Privileges</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/g-establishing-a-database-session.html">Establishing a Database Session</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/g-supported-client-applications.html">Supported Client Applications</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/g-hawq-database-client-applications.html">HAWQ Client Applications</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/g-connecting-with-psql.html">Connecting with psql</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/g-database-application-interfaces.html">HAWQ Database Drivers and APIs</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/clientaccess/g-troubleshooting-connection-problems.html">Troubleshooting Connection Problems</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Defining Database Objects
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/ddl/ddl.html">Overview</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/ddl/ddl-database.html">Creating and Managing Databases</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/ddl/ddl-tablespace.html">Creating and Managing Tablespaces</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/ddl/ddl-schema.html">Creating and Managing Schemas</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/ddl/ddl-table.html">Creating and Managing Tables</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/ddl/ddl-storage.html">Choosing the Table Storage Model</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/ddl/ddl-partition.html">Partitioning Large Tables</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/ddl/ddl-view.html">Creating and Managing Views</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Using Procedural Languages
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/plext/UsingProceduralLanguages.html">Using Languages in HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/plext/builtin_langs.html">Using HAWQ Built-In Languages</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/plext/using_pljava.html">Using PL/Java</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/plext/using_plpgsql.html">Using PL/pgSQL</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/plext/using_plpython.html">Using PL/Python</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/plext/using_plr.html">Using PL/R</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/dml.html">Managing Data with HAWQ</a>
+        <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/BasicDataOperations.html">Basic Data Operations</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/about_statistics.html">About Database Statistics</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/ConcurrencyControl.html">Concurrency Control</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/Transactions.html">Working with Transactions</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-loading-and-unloading-data.html">Loading and Unloading Data</a>
+            <ul>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-working-with-file-based-ext-tables.html">Working with File-Based External Tables</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-external-tables.html">Accessing File-Based External Tables</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-gpfdist-protocol.html">gpfdist Protocol</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-gpfdists-protocol.html">gpfdists Protocol</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-handling-errors-ext-table-data.html">Handling Errors in External Table Data</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-using-the-hawq-file-server--gpfdist-.html">Using the HAWQ File Server (gpfdist)</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-about-gpfdist-setup-and-performance.html">About gpfdist Setup and Performance</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-controlling-segment-parallelism.html">Controlling Segment Parallelism</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-installing-gpfdist.html">Installing gpfdist</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-starting-and-stopping-gpfdist.html">Starting and Stopping gpfdist</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-troubleshooting-gpfdist.html">Troubleshooting gpfdist</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-creating-and-using-web-external-tables.html">Creating and Using Web External Tables</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-command-based-web-external-tables.html">Command-based Web External Tables</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-url-based-web-external-tables.html">URL-based Web External Tables</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-loading-data-using-an-external-table.html">Loading Data Using an External Table</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-loading-and-writing-non-hdfs-custom-data.html">Loading and Writing Non-HDFS Custom Data</a>
+                <ul>
+                  <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-using-a-custom-format.html">Using a Custom Format</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-importing-and-exporting-fixed-width-data.html">Importing and Exporting Fixed Width Data</a></li>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-examples-read-fixed-width-data.html">Examples - Read Fixed-Width Data</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/creating-external-tables-examples.html">Creating External Tables - Examples</a>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-handling-load-errors.html">Handling Load Errors</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-define-an-external-table-with-single-row-error-isolation.html">Define an External Table with Single Row Error Isolation</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-create-an-error-table-and-declare-a-reject-limit.html">Capture Row Formatting Errors and Declare a Reject Limit </a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-identifying-invalid-csv-files-in-error-table-data.html">Identifying Invalid CSV Files in Error Table Data</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-moving-data-between-tables.html">Moving Data between Tables</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-register_files.html">Registering Files into HAWQ Internal Tables</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-loading-data-with-hawqload.html">Loading Data with hawq load</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-loading-data-with-copy.html">Loading Data with COPY</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-running-copy-in-single-row-error-isolation-mode.html">Running COPY in Single Row Error Isolation Mode</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-optimizing-data-load-and-query-performance.html">Optimizing Data Load and Query Performance</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-unloading-data-from-hawq-database.html">Unloading Data from HAWQ</a>
+                <ul>
+                  <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-defining-a-file-based-writable-external-table.html">Defining a File-Based Writable External Table</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-example-hawq-file-server-gpfdist.html">Example - HAWQ file server (gpfdist)</a></li>
+                    </ul>
+                  </li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-defining-a-command-based-writable-external-web-table.html">Defining a Command-Based Writable External Web Table</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-disabling-execute-for-web-or-writable-external-tables.html">Disabling EXECUTE for Web or Writable External Tables</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-unloading-data-using-a-writable-external-table.html">Unloading Data Using a Writable External Table</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-unloading-data-using-copy.html">Unloading Data Using COPY</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-transforming-xml-data.html">Transforming XML Data</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-determine-the-transformation-schema.html">Determine the Transformation Schema</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-write-a-transform.html">Write a Transform</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-write-the-gpfdist-configuration.html">Write the gpfdist Configuration</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-load-the-data.html">Load the Data</a></li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-transfer-and-store-the-data.html">Transfer and Store the Data</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-transforming-with-gpload.html">Transforming with GPLOAD</a></li>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-transforming-with-insert-into-select-from.html">Transforming with INSERT INTO SELECT FROM</a></li>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-configuration-file-format.html">Configuration File Format</a></li>
+                    </ul>
+                  </li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-xml-transformation-examples.html">XML Transformation Examples</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-example-1-dblp-database-publications-in-demo-directory.html">Command-based Web External Tables</a></li>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-example-irs-mef-xml-files-in-demo-directory.html">Example using IRS MeF XML Files (In demo Directory)</a></li>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-example-witsml-files-in-demo-directory.html">Example using WITSML™ Files (In demo Directory)</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-formatting-data-files.html">Formatting Data Files</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-formatting-rows.html">Formatting Rows</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-formatting-columns.html">Formatting Columns</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-representing-null-values.html">Representing NULL Values</a></li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-escaping.html">Escaping</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-escaping-in-text-formatted-files.html">Escaping in Text Formatted Files</a></li>
+                      <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-escaping-in-csv-formatted-files.html">Escaping in CSV Formatted Files</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/load/g-character-encoding.html">Character Encoding</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/datamgmt/HAWQInputFormatforMapReduce.html">HAWQ InputFormat for MapReduce</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/pxf/HawqExtensionFrameworkPXF.html">Using PXF with Unmanaged Data</a>
+            <ul>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/InstallPXFPlugins.html">Installing PXF Plugins</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/ConfigurePXF.html">Configuring PXF</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HDFSFileDataPXF.html">Accessing HDFS File Data</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HivePXF.html">Accessing Hive Data</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HBasePXF.html">Accessing HBase Data</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/JsonPXF.html">Accessing JSON Data</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/ReadWritePXF.html">Using Profiles to Read and Write Data</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/PXFExternalTableandAPIReference.html">PXF External Tables and API</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/TroubleshootingPXF.html">Troubleshooting PXF</a></li>
+            </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/query/query.html">Querying Data</a>
+        <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/query/HAWQQueryProcessing.html">About HAWQ Query Processing</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/query/gporca/query-gporca-optimizer.html">About GPORCA</a>
+            <ul>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/query/gporca/query-gporca-overview.html">Overview of GPORCA</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/query/gporca/query-gporca-features.html">GPORCA Features and Enhancements</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/query/gporca/query-gporca-enable.html">Enabling GPORCA</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/query/gporca/query-gporca-notes.html">Considerations when Using GPORCA</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/query/gporca/query-gporca-fallback.html">Determining The Query Optimizer In Use</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/query/gporca/query-gporca-changed.html">Changed Behavior with GPORCA</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/query/gporca/query-gporca-limitations.html">GPORCA Limitations</a></li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/query/defining-queries.html">Defining Queries</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/query/functions-operators.html">Using Functions and Operators</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/query/query-performance.html">Query Performance</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/query/query-profiling.html">Query Profiling</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
+        <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/managing_data_bestpractices.html">Managing Data</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/querying_data_bestpractices.html">Querying Data</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/troubleshooting/Troubleshooting.html">Troubleshooting</a>
+        <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/troubleshooting/Troubleshooting.html#topic_dwd_rnx_15">Query Performance Issues</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/troubleshooting/Troubleshooting.html#topic_vm5_znx_15">Rejection of Query Resource Requests</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/troubleshooting/Troubleshooting.html#topic_qq4_rkl_wv">Queries Cancelled Due to High VMEM Usage</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/troubleshooting/Troubleshooting.html#topic_hlj_zxx_15">Segments Do Not Appear in gp_segment_configuration</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/troubleshooting/Troubleshooting.html#topic_mdz_q2y_15">Handling Segment Resource Fragmentation</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/reference/hawq-reference.html">HAWQ Reference</a>
+        <ul>
+          <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/reference/HAWQSiteConfig.html">Server Configuration Parameter Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_config.html">About Server Configuration Parameters</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html">Configuration Parameter Categories</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic_hfd_1tl_zp">Append-Only Table Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic39">Client Connection Default Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic12">Connection and Authentication Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic47">Database and Tablespace/Filespace Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic29">Error Reporting and Logging Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic45">External Table Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic57">GPORCA Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic49">HAWQ Array Configuration Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic_pxfparam">HAWQ Extension Framework (PXF) Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic56">HAWQ PL/Java Extension Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#hawq_resource_management">HAWQ Resource Management Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic43">Lock Management Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic48">Past PostgreSQL Version Compatibility Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic21">Query Tuning Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#statistics_collection">Statistics Collection Parameters</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/guc_category-list.html#topic15">System Resource Consumption Parameters</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html">Configuration Parameters</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#add_missing_from">add_missing_from</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#application_name">application_name</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#array_nulls">array_nulls</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#authentication_timeout">authentication_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#backslash_quote">backslash_quote</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#block_size">block_size</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#bonjour_name">bonjour_name</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#check_function_bodies">check_function_bodies</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#client_encoding">client_encoding</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#client_min_messages">client_min_messages</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#cpu_index_tuple_cost">cpu_index_tuple_cost</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#cpu_operator_cost">cpu_operator_cost</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#cpu_tuple_cost">cpu_tuple_cost</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#cursor_tuple_fraction">cursor_tuple_fraction</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#custom_variable_classes">custom_variable_classes</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#DateStyle">DateStyle</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#db_user_namespace">db_user_namespace</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#deadlock_timeout">deadlock_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#debug_assertions">debug_assertions</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#debug_pretty_print">debug_pretty_print</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_parse">debug_print_parse</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_plan">debug_print_plan</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_prelim_plan">debug_print_prelim_plan</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_rewritten">debug_print_rewritten</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_slice_table">debug_print_slice_table</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#topic_fqj_4fd_kv">default_hash_table_bucket_number</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#default_statistics_target">default_statistics_target</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#default_tablespace">default_tablespace</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#default_transaction_isolation">default_transaction_isolation</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#default_transaction_read_only">default_transaction_read_only</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#dfs_url">dfs_url</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#dynamic_library_path">dynamic_library_path</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#effective_cache_size">effective_cache_size</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#enable_bitmapscan">enable_bitmapscan</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#enable_groupagg">enable_groupagg</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#enable_hashagg">enable_hashagg</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#enable_hashjoin">enable_hashjoin</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#enable_indexscan">enable_indexscan</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#enable_mergejoin">enable_mergejoin</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#enable_nestloop">enable_nestloop</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#enable_seqscan">enable_seqscan</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#enable_sort">enable_sort</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#enable_tidscan">enable_tidscan</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#escape_string_warning">escape_string_warning</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#explain_pretty_print">explain_pretty_print</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#extra_float_digits">extra_float_digits</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#from_collapse_limit">from_collapse_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_adjust_selectivity_for_outerjoins">gp_adjust_selectivity_for_outerjoins</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_analyze_relative_error">gp_analyze_relative_error</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_autostats_mode">gp_autostats_mode</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#topic_imj_zhf_gw">gp_autostats_on_change_threshhold</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_backup_directIO">gp_backup_directIO</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_backup_directIO_read_chunk_mb">gp_backup_directIO_read_chunk_mb</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_cached_segworkers_threshold">gp_cached_segworkers_threshold</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_command_count">gp_command_count</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_connections_per_thread">gp_connections_per_thread</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_debug_linger">gp_debug_linger</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_dynamic_partition_pruning">gp_dynamic_partition_pruning</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_agg_distinct">gp_enable_agg_distinct</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_agg_distinct_pruning">gp_enable_agg_distinct_pruning</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_direct_dispatch">gp_enable_direct_dispatch</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_fallback_plan">gp_enable_fallback_plan</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_fast_sri">gp_enable_fast_sri</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_groupext_distinct_gather">gp_enable_groupext_distinct_gather</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_groupext_distinct_pruning">gp_enable_groupext_distinct_pruning</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_multiphase_agg">gp_enable_multiphase_agg</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_predicate_propagation">gp_enable_predicate_propagation</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_preunique">gp_enable_preunique</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sequential_window_plans">gp_enable_sequential_window_plans</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sort_distinct">gp_enable_sort_distinct</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sort_limit">gp_enable_sort_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_enable_exec">gp_external_enable_exec</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_grant_privileges">gp_external_grant_privileges</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_max_segs">gp_external_max_segs</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_count">gp_filerep_tcp_keepalives_count</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_idle">gp_filerep_tcp_keepalives_idle</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_databases">gp_max_databases</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_filespaces">gp_max_filespaces</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_packet_size">gp_max_packet_size</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_plan_size">gp_max_plan_size</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_tablespaces">gp_max_tablespaces</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_motion_cost_per_row">gp_motion_cost_per_row</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_reject_percent_threshold">gp_reject_percent_threshold</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_reraise_signal">gp_reraise_signal</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_role">gp_role</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_safefswritesize">gp_safefswritesize</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_segment_connect_timeout">gp_segment_connect_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_segments_for_planner">gp_segments_for_planner</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_session_id">gp_session_id</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_set_proc_affinity">gp_set_proc_affinity</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_set_read_only">gp_set_read_only</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_statistics_pullup_from_child_partition">gp_statistics_pullup_from_child_partition</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_statistics_use_fkeys">gp_statistics_use_fkeys</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_vmem_idle_resource_timeout">gp_vmem_idle_resource_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_vmem_protect_segworker_cache_limit">gp_vmem_protect_segworker_cache_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_checksumming">gp_workfile_checksumming</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_compress_algorithm">gp_workfile_compress_algorithm</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_files_per_query">gp_workfile_limit_files_per_query</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_per_query">gp_workfile_limit_per_query</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_per_segment">gp_workfile_limit_per_segment</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_dfs_url">hawq_dfs_url</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_global_rm_type">hawq_global_rm_type</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_address_host">hawq_master_address_host</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_address_port">hawq_master_address_port</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_directory">hawq_master_directory</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_temp_directory">hawq_master_temp_directory</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_re_memory_overcommit_max">hawq_re_memory_overcommit_max</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_cluster_report">hawq_rm_cluster_report_period</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_force_alterqueue_cancel_queued_request">hawq_rm_force_alterqueue_cancel_queued_request</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_master_port">hawq_rm_master_port</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_memory_limit_perseg">hawq_rm_memory_limit_perseg</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_min_resource_perseg">hawq_rm_min_resource_perseg</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nresqueue_limit">hawq_rm_nresqueue_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nslice_perseg_limit">hawq_rm_nslice_perseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvcore_limit_perseg">hawq_rm_nvcore_limit_perseg</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_perquery_limit">hawq_rm_nvseg_perquery_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_perquery_perseg_limit">hawq_rm_nvseg_perquery_perseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_variance_amon_seg_limit">hawq_rm_nvseg_variance_amon_seg_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_rejectrequest_nseg_limit">hawq_rm_rejectrequest_nseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_resource_idle_timeout">hawq_rm_resource_idle_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_return_percent_on_overcommit">hawq_rm_return_percent_on_overcommit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_segment_heartbeat_interval">hawq_rm_segment_heartbeat_interval</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_segment_port">hawq_rm_segment_port</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_stmt_nvseg">hawq_rm_stmt_nvseg</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_stmt_vseg_memory">hawq_rm_stmt_vseg_memory</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_tolerate_nseg_limit">hawq_rm_tolerate_nseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_address">hawq_rm_yarn_address</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_app_name">hawq_rm_yarn_app_name</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_queue_name">hawq_rm_yarn_queue_name</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_scheduler_address">hawq_rm_yarn_scheduler_address</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_address_port">hawq_segment_address_port</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_directory">hawq_segment_directory</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_temp_directory">hawq_segment_temp_directory</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#integer_datetimes">integer_datetimes</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#IntervalStyle">IntervalStyle</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#join_collapse_limit">join_collapse_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#krb_caseins_users">krb_caseins_users</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#krb_server_keyfile">krb_server_keyfile</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#krb_srvname">krb_srvname</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#lc_collate">lc_collate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#lc_ctype">lc_ctype</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#lc_messages">lc_messages</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#lc_monetary">lc_monetary</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#lc_numeric">lc_numeric</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#lc_time">lc_time</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#listen_addresses">listen_addresses</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#local_preload_libraries">local_preload_libraries</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_autostats">log_autostats</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_connections">log_connections</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_disconnections">log_disconnections</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_dispatch_stats">log_dispatch_stats</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_duration">log_duration</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_error_verbosity">log_error_verbosity</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_executor_stats">log_executor_stats</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_hostname">log_hostname</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_min_duration_statement">log_min_duration_statement</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_min_error_statement">log_min_error_statement</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_min_messages">log_min_messages</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_parser_stats">log_parser_stats</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_planner_stats">log_planner_stats</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_rotation_age">log_rotation_age</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_rotation_size">log_rotation_size</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_statement">log_statement</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_statement_stats">log_statement_stats</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_timezone">log_timezone</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#log_truncate_on_rotation">log_truncate_on_rotation</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_appendonly_tables">max_appendonly_tables</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_connections">max_connections</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_files_per_process">max_files_per_process</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_fsm_pages">max_fsm_pages</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_fsm_relations">max_fsm_relations</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_function_args">max_function_args</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_identifier_length">max_identifier_length</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_index_keys">max_index_keys</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_locks_per_transaction">max_locks_per_transaction</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_prepared_transactions">max_prepared_transactions</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#max_stack_depth">max_stack_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#optimizer">optimizer</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_analyze_root_partition">optimizer_analyze_root_partition</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_minidump">optimizer_minidump</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_parts_to_force_sort_on_insert">optimizer_parts_to_force_sort_on_insert</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_prefer_scalar_dqa_multistage_agg">optimizer_prefer_scalar_dqa_multistage_agg</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#password_encryption">password_encryption</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pgstat_track_activity_query_size">pgstat_track_activity_query_size</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pljava_classpath">pljava_classpath</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pljava_statement_cache_size">pljava_statement_cache_size</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pljava_release_lingering_savepoints">pljava_release_lingering_savepoints</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pljava_vmoptions">pljava_vmoptions</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#port">port</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pxf_enable_filter_pushdown">pxf_enable_filter_pushdown</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pxf_enable_stat_collection">pxf_enable_stat_collection</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pxf_remote_service_login">pxf_remote_service_login</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pxf_remote_service_secret">pxf_remote_service_secret</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pxf_service_address">pxf_service_address</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pxf_service_port">pxf_service_port</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pxf_stat_max_fragments">pxf_stat_max_fragments</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#random_page_cost">random_page_cost</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#regex_flavor">regex_flavor</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#runaway_detector_activation_percent">runaway_detector_activation_percent</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#search_path">search_path</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#seg_max_connections">seg_max_connections</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#seq_page_cost">seq_page_cost</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#server_encoding">server_encoding</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#server_version">server_version</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#server_version_num">server_version_num</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#shared_buffers">shared_buffers</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#shared_preload_libraries">shared_preload_libraries</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#ssl">ssl</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#ssl_ciphers">ssl_ciphers</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#standard_conforming_strings">standard_conforming_strings</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#statement_timeout">statement_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#superuser_reserved_connections">superuser_reserved_connections</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_count">tcp_keepalives_count</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_idle">tcp_keepalives_idle</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_interval">tcp_keepalives_interval</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#temp_buffers">temp_buffers</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#TimeZone">TimeZone</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#timezone_abbreviations">timezone_abbreviations</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#track_activities">track_activities</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#track_counts">track_counts</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#transaction_isolation">transaction_isolation</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#transaction_read_only">transaction_read_only</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#transform_null_equals">transform_null_equals</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_directory">unix_socket_directory</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_group">unix_socket_group</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_permissions">unix_socket_permissions</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#update_process_title">update_process_title</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_delay">vacuum_cost_delay</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_limit">vacuum_cost_limit</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_page_dirty">vacuum_cost_page_dirty</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_page_miss">vacuum_cost_page_miss</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_freeze_min_age">vacuum_freeze_min_age</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#xid_stop_limit">xid_stop_limit</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/HAWQSampleSiteConfig.html">Sample hawq-site.xml Configuration File</a></li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/reference/HDFSConfigurationParameterReference.html">HDFS Configuration Reference</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/reference/HAWQEnvironmentVariables.html">Environment Variables</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/reference/CharacterSetSupportReference.html">Character Set Support Reference</a></li>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/reference/HAWQDataTypes.html">Data Types</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/reference/SQLCommandReference.html">SQL Commands</a>
+            <ul>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ABORT.html">ABORT</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-AGGREGATE.html">ALTER AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-DATABASE.html">ALTER DATABASE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-FUNCTION.html">ALTER FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-OPERATOR.html">ALTER OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-OPERATOR-CLASS.html">ALTER OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-RESOURCE-QUEUE.html">ALTER RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-ROLE.html">ALTER ROLE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-TABLE.html">ALTER TABLE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-TABLESPACE.html">ALTER TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-TYPE.html">ALTER TYPE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-USER.html">ALTER USER</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ANALYZE.html">ANALYZE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/BEGIN.html">BEGIN</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CHECKPOINT.html">CHECKPOINT</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CLOSE.html">CLOSE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COMMIT.html">COMMIT</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COPY.html">COPY</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-AGGREGATE.html">CREATE AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-DATABASE.html">CREATE DATABASE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html">CREATE EXTERNAL TABLE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-FUNCTION.html">CREATE FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-GROUP.html">CREATE GROUP</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-LANGUAGE.html">CREATE LANGUAGE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-OPERATOR.html">CREATE OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-OPERATOR-CLASS.html">CREATE OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-RESOURCE-QUEUE.html">CREATE RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-ROLE.html">CREATE ROLE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-SCHEMA.html">CREATE SCHEMA</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-SEQUENCE.html">CREATE SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-TABLE.html">CREATE TABLE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-TABLE-AS.html">CREATE TABLE AS</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-TABLESPACE.html">CREATE TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-TYPE.html">CREATE TYPE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-USER.html">CREATE USER</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-VIEW.html">CREATE VIEW</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DEALLOCATE.html">DEALLOCATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DECLARE.html">DECLARE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-AGGREGATE.html">DROP AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-DATABASE.html">DROP DATABASE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-EXTERNAL-TABLE.html">DROP EXTERNAL TABLE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-FILESPACE.html">DROP FILESPACE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-FUNCTION.html">DROP FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-GROUP.html">DROP GROUP</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-LANGUAGE.html">DROP LANGUAGE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-OPERATOR.html">DROP OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-OPERATOR-CLASS.html">DROP OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-OWNED.html">DROP OWNED</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-RESOURCE-QUEUE.html">DROP RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-ROLE.html">DROP ROLE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-SCHEMA.html">DROP SCHEMA</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-SEQUENCE.html">DROP SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-TABLE.html">DROP TABLE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-TABLESPACE.html">DROP TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-TYPE.html">DROP TYPE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-USER.html">DROP USER</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-VIEW.html">DROP VIEW</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/END.html">END</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/EXECUTE.html">EXECUTE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/EXPLAIN.html">EXPLAIN</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/FETCH.html">FETCH</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/GRANT.html">GRANT</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/INSERT.html">INSERT</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/PREPARE.html">PREPARE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/REASSIGN-OWNED.html">REASSIGN OWNED</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/RELEASE-SAVEPOINT.html">RELEASE SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/RESET.html">RESET</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/REVOKE.html">REVOKE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ROLLBACK.html">ROLLBACK</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ROLLBACK-TO-SAVEPOINT.html">ROLLBACK TO SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/SAVEPOINT.html">SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/SELECT.html">SELECT</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/SELECT-INTO.html">SELECT INTO</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/SET.html">SET</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/SET-ROLE.html">SET ROLE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/SET-SESSION-AUTHORIZATION.html">SET SESSION AUTHORIZATION</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/SHOW.html">SHOW</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/TRUNCATE.html">TRUNCATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/VACUUM.html">VACUUM</a></li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/catalog_ref.html">System Catalog Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/catalog_ref-tables.html">System Tables</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/catalog_ref-views.html">System Views</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/catalog_ref-html.html">System Catalogs Definitions</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_configuration_history.html">gp_configuration_history</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_distribution_policy.html">gp_distribution_policy</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_global_sequence.html">gp_global_sequence</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_master_mirroring.html">gp_master_mirroring</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_persistent_database_node.html">gp_persistent_database_node</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_persistent_filespace_node.html">gp_persistent_filespace_node</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_persistent_relation_node.html">gp_persistent_relation_node</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_persistent_relfile_node.html">gp_persistent_relfile_node</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_persistent_tablespace_node.html">gp_persistent_tablespace_node</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_relfile_node.html">gp_relfile_node</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_segment_configuration.html">gp_segment_configuration</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/gp_version_at_initdb.html">gp_version_at_initdb</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_aggregate.html">pg_aggregate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_am.html">pg_am</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_amop.html">pg_amop</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_amproc.html">pg_amproc</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_appendonly.html">pg_appendonly</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_attrdef.html">pg_attrdef</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_attribute.html">pg_attribute</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_attribute_encoding.html">pg_attribute_encoding</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_auth_members.html">pg_auth_members</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_authid.html">pg_authid</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_cast.html">pg_cast</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_class.html">pg_class</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_compression.html">pg_compression</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_constraint.html">pg_constraint</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_conversion.html">pg_conversion</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_database.html">pg_database</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_depend.html">pg_depend</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_description.html">pg_description</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_exttable.html">pg_exttable</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_filespace.html">pg_filespace</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_filespace_entry.html">pg_filespace_entry</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_index.html">pg_index</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_inherits.html">pg_inherits</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_language.html">pg_language</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_largeobject.html">pg_largeobject</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_listener.html">pg_listener</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_locks.html">pg_locks</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_namespace.html">pg_namespace</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_opclass.html">pg_opclass</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_operator.html">pg_operator</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_partition.html">pg_partition</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_partition_columns.html">pg_partition_columns</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_partition_encoding.html">pg_partition_encoding</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_partition_rule.html">pg_partition_rule</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_partition_templates.html">pg_partition_templates</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_partitions.html">pg_partitions</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_pltemplate.html">pg_pltemplate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_proc.html">pg_proc</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_resqueue.html">pg_resqueue</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_resqueue_status.html">pg_resqueue_status</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_rewrite.html">pg_rewrite</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_roles.html">pg_roles</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_shdepend.html">pg_shdepend</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_shdescription.html">pg_shdescription</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_stat_activity.html">pg_stat_activity</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_stat_last_operation.html">pg_stat_last_operation</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_stat_last_shoperation.html">pg_stat_last_shoperation</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_stat_operations.html">pg_stat_operations</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_stat_partition_operations.html">pg_stat_partition_operations</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_statistic.html">pg_statistic</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_stats.html">pg_stats</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_tablespace.html">pg_tablespace</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_trigger.html">pg_trigger</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_type.html">pg_type</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_type_encoding.html">pg_type_encoding</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/catalog/pg_window.html">pg_window</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/reference/toolkit/hawq_toolkit.html">The hawq_toolkit Administrative Schema</a>
+            <ul>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic2">Checking for Tables that Need Routine Maintenance</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic16">Viewing HAWQ Server Log Files</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic38">Checking Database Object Sizes and Disk Space</a></li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/management_tools.html">HAWQ Management Tools Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/analyzedb.html">analyzedb</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/client_utilities/createdb.html">createdb</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/client_utilities/createuser.html">createuser</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/client_utilities/dropdb.html">dropdb</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/client_utilities/dropuser.html">dropuser</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/gpfdist.html">gpfdist</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/gplogfilter.html">gplogfilter</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqactivate.html">hawq activate</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqcheck.html">hawq check</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqcheckperf.html">hawq checkperf</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqconfig.html">hawq config</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqextract.html">hawq extract</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqfilespace.html">hawq filespace</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqinit.html">hawq init</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqload.html">hawq load</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqregister.html">hawq register</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqrestart.html">hawq restart</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqscp.html">hawq scp</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqssh.html">hawq ssh</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqssh-exkeys.html">hawq ssh-exkeys</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqstart.html">hawq start</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqstate.html">hawq state</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/admin_utilities/hawqstop.html">hawq stop</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/client_utilities/pg_dump.html">pg_dump</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/client_utilities/pg_dumpall.html">pg_dumpall</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/client_utilities/pg_restore.html">pg_restore</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/client_utilities/psql.html">psql</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/cli/client_utilities/vacuumdb.html">vacuumdb</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--end of sub-nav-->
+
+      <!--googleon: index-->
+
+      <main class="content content-layout" id="js-content" role="main">
+        <a id="top"></a>
+        
+          <h1 class="title-container" >
+    Using PL/Java
+  </h1>
+
+
+          <div id="js-quick-links" >
+            <div class="quick-links"><ul>
+<li><a href="#aboutpljava">About PL/Java</a></li>
+<li>
+<a href="#abouthawqpljava">About HAWQ PL/Java</a><ul>
+<li><a href="#pljavafunctions">Functions</a></li>
+<li><a href="#serverconfigparams">Server Configuration Parameters</a></li>
+<li><a href="#setting_serverconfigparams">Setting PL/Java Configuration Parameters</a></li>
+</ul>
+</li>
+<li>
+<a href="#enablepljava">Enabling and Removing PL/Java Support</a><ul>
+<li><a href="#pljavaprereq">Prerequisites</a></li>
+<li><a href="#enablepljava">Enable PL/Java and Install JAR Files</a></li>
+<li><a href="#uninstallpljava">Disable PL/Java</a></li>
+</ul>
+</li>
+<li>
+<a href="#writingpljavafunc">Writing PL/Java Functions</a><ul>
+<li><a href="#sqldeclaration">SQL Declaration</a></li>
+<li><a href="#typemapping">Type Mapping</a></li>
+<li><a href="#nullhandling">NULL Handling</a></li>
+<li><a href="#complextypes">Complex Types</a></li>
+<li><a href="#returningcomplextypes">Returning Complex Types</a></li>
+<li><a href="#functionreturnsets">Functions that Return Sets</a></li>
+<li><a href="#returnsetofscalar">Returning a SETOF</a></li>
+<li><a href="#returnsetofcomplex">Returning a SETOF</a></li>
+</ul>
+</li>
+<li><a href="#usingjdbc">Using JDBC</a></li>
+<li><a href="#exceptionhandling">Exception Handling</a></li>
+<li><a href="#savepoints">Savepoints</a></li>
+<li><a href="#logging">Logging</a></li>
+<li>
+<a href="#security">Security</a><ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#trustedlang">Trusted Language</a></li>
+</ul>
+</li>
+<li><a href="#pljavaexample">Example</a></li>
+</ul></div>
+          </div>
+        <div class="to-top" id="js-to-top">
+          <a href="#top" title="back to top"></a>
+        </div>
+        <p>This section contains an overview of the HAWQ PL/Java language. </p>
+
+<h2><a id="aboutpljava"></a>About PL/Java</h2>
+
+<p>With the HAWQ PL/Java extension, you can write Java methods using your favorite Java IDE and install the JAR files that implement the methods in your HAWQ cluster.</p>
+
+<p><strong>Note</strong>: If building HAWQ from source, you must specify PL/Java as a build option when compiling HAWQ. To use PL/Java in a HAWQ deployment, you must explicitly enable the PL/Java extension in all desired databases.  </p>
+
+<p>The HAWQ PL/Java package is based on the open source PL/Java 1.4.0. HAWQ PL/Java provides the following features.</p>
+
+<ul>
+<li>Ability to execute PL/Java functions with Java 1.6 or 1.7.</li>
+<li>Standardized utilities (modeled after the SQL 2003 proposal) to install and maintain Java code in the database.</li>
+<li>Standardized mappings of parameters and result. Complex types as well as sets are supported.</li>
+<li>An embedded, high performance, JDBC driver utilizing the internal HAWQ Database SPI routines.</li>
+<li>Metadata support for the JDBC driver. Both <code>DatabaseMetaData</code> and <code>ResultSetMetaData</code> are included.</li>
+<li>The ability to return a <code>ResultSet</code> from a query as an alternative to building a ResultSet row by row.</li>
+<li>Full support for savepoints and exception handling.</li>
+<li>The ability to use IN, INOUT, and OUT parameters.</li>
+<li>Two separate HAWQ languages:
+
+<ul>
+<li>pljava, TRUSTED PL/Java language</li>
+<li>pljavau, UNTRUSTED PL/Java language</li>
+</ul></li>
+<li>Transaction and Savepoint listeners enabling code execution when a transaction or savepoint is committed or rolled back.</li>
+<li>Integration with GNU GCJ on selected platforms.</li>
+</ul>
+
+<p>A function in SQL will appoint a static method in a Java class. In order for the function to execute, the appointed class must available on the class path specified by the HAWQ server configuration parameter <code>pljava_classpath</code>. The PL/Java extension adds a set of functions that helps to install and maintain the Java classes. Classes are stored in normal Java archives, JAR files. A JAR file can optionally contain a deployment descriptor that in turn contains SQL commands to be executed when the JAR is deployed or undeployed. The functions are modeled after the standards proposed for SQL 2003.</p>
+
+<p>PL/Java implements a standard way of passing parameters and return values. Complex types and sets are passed using the standard JDBC ResultSet class.</p>
+
+<p>A JDBC driver is included in PL/Java. This driver calls HAWQ internal SPI routines. The driver is essential since it is common for functions to make calls back to the database to fetch data. When PL/Java functions fetch data, they must use the same transactional boundaries that are used by the main function that entered PL/Java execution context.</p>
+
+<p>PL/Java is optimized for performance. The Java virtual machine executes within the same process as the backend to minimize call overhead. PL/Java is designed with the objective to enable the power of Java to the database itself so that database intensive business logic can execute as close to the actual data as possible.</p>
+
+<p>The standard Java Native Interface (JNI) is used when bridging calls between the backend and the Java VM.</p>
+
+<h2><a id="abouthawqpljava"></a>About HAWQ PL/Java</h2>
+
+<p>There are a few key differences between the implementation of PL/Java in standard PostgreSQL and HAWQ.</p>
+
+<h3><a id="pljavafunctions"></a>Functions</h3>
+
+<p>The following functions are not supported in HAWQ. The classpath is handled differently in a distributed HAWQ environment than in the PostgreSQL environment.</p>
+
+<ul>
+<li>sqlj.install_jar</li>
+<li>sqlj.install_jar</li>
+<li>sqlj.replace_jar</li>
+<li>sqlj.remove_jar</li>
+<li>sqlj.get_classpath</li>
+<li>sqlj.set_classpath</li>
+</ul>
+
+<p>HAWQ uses the <code>pljava_classpath</code> server configuration parameter in place of the <code>sqlj.set_classpath</code> function.</p>
+
+<h3><a id="serverconfigparams"></a>Server Configuration Parameters</h3>
+
+<p>PL/Java uses server configuration parameters to configure classpath, Java VM, and other options. Refer to the <a href="/docs/userguide/2.1.0.0-incubating/reference/HAWQSiteConfig.html">Server Configuration Parameter Reference</a> for general information about HAWQ server configuration parameters.</p>
+
+<p>The following server configuration parameters are used by PL/Java in HAWQ. These parameters replace the <code>pljava.*</code> parameters that are used in the standard PostgreSQL PL/Java implementation.</p>
+
+<h4>pljava_classpath</h4>
+
+<p>A colon (:) separated list of the jar files containing the Java classes used in any PL/Java functions. The jar files must be installed in the same locations on all HAWQ hosts. With the trusted PL/Java language handler, jar file paths must be relative to the <code>$GPHOME/lib/postgresql/java/</code> directory. With the untrusted language handler (javaU language tag), paths may be relative to <code>$GPHOME/lib/postgresql/java/</code> or absolute.</p>
+
+<h4>pljava_statement_cache_size</h4>
+
+<p>Sets the size in KB of the Most Recently Used (MRU) cache for prepared statements.</p>
+
+<h4>pljava_release_lingering_savepoints</h4>
+
+<p>If TRUE, lingering savepoints will be released on function exit. If FALSE, they will be rolled back.</p>
+
+<h4>pljava_vmoptions</h4>
+
+<p>Defines the start up options for the Java VM.</p>
+
+<h3><a id="setting_serverconfigparams"></a>Setting PL/Java Configuration Parameters</h3>
+
+<p>You can set PL/Java server configuration parameters at the session level, or globally across your whole cluster. Your HAWQ cluster configuration must be reloaded after setting a server configuration value globally.</p>
+
+<h4><a id="setsrvrcfg_global"></a>Cluster Level</h4>
+
+<p>You will perform different procedures to set a PL/Java server configuration parameter for your whole HAWQ cluster depending upon whether you manage your cluster from the command line or use Ambari. If you use Ambari to manage your HAWQ cluster, you must ensure that you update server configuration parameters only via the Ambari Web UI. If you manage your HAWQ cluster from the command line, you will use the <code>hawq config</code> command line utility to set PL/Java server configuration parameters.</p>
+
+<p>The following examples add a JAR file named <code>myclasses.jar</code> to the <code>pljava_classpath</code> server configuration parameter for the entire HAWQ cluster.</p>
+
+<p>If you use Ambari to manage your HAWQ cluster:</p>
+
+<ol>
+<li>Set the <code>pljava_classpath</code> configuration property to include <code>myclasses.jar</code> via the HAWQ service <strong>Configs &gt; Advanced &gt; Custom hawq-site</strong> drop down. </li>
+<li>Select <strong>Service Actions &gt; Restart All</strong> to load the updated configuration.</li>
+</ol>
+
+<p>If you manage your HAWQ cluster from the command line:</p>
+
+<ol>
+<li><p>Log in to the HAWQ master host as a HAWQ administrator and source the file <code>/usr/local/hawq/greenplum_path.sh</code>.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">source</span> /usr/local/hawq/greenplum_path.sh
+</code></pre></li>
+<li><p>Use the <code>hawq config</code> utility to set <code>pljava_classpath</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>hawq config -c pljava_classpath -v <span class="se">\'</span>myclasses.jar<span class="se">\'</span>
+</code></pre></li>
+<li><p>Reload the HAWQ configuration:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>hawq stop cluster -u
+</code></pre></li>
+</ol>
+
+<h4><a id="setsrvrcfg_session"></a>Session Level</h4>
+
+<p>To set a PL/Java server configuration parameter for only the <em>current</em> database session, set the parameter within the <code>psql</code> subsystem. For example, to set <code>pljava_classpath</code>:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SET</span> <span class="n">pljava_classpath</span><span class="o">=</span><span class="s1">'myclasses.jar'</span><span class="p">;</span>
+</code></pre>
+
+<h2><a id="enablepljava"></a>Enabling and Removing PL/Java Support</h2>
+
+<p>The PL/Java extension must be explicitly enabled on each database in which it will be used.</p>
+
+<h3><a id="pljavaprereq"></a>Prerequisites</h3>
+
+<p>Before you enable PL/Java:</p>
+
+<ol>
+<li><p>Ensure that you have installed a supported Java runtime environment and that the <code>$JAVA_HOME</code> variable is set to the same path on the master and all segment nodes.</p></li>
+<li><p>Perform the following step on all machines to set up <code>ldconfig</code> for the installed JDK:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$JAVA_HOME</span><span class="s2">/jre/lib/amd64/server"</span> &gt; /etc/ld.so.conf.d/libjdk.conf
+<span class="gp">$ </span>ldconfig
+</code></pre></li>
+<li><p>Make sure that your HAWQ cluster is running, you have sourced <code>greenplum_path.sh</code> and that your <code>$GPHOME</code> environment variable is set.</p></li>
+</ol>
+
+<h3><a id="enablepljava"></a>Enable PL/Java and Install JAR Files</h3>
+
+<p>To use PL/Java:</p>
+
+<ol>
+<li>Enable the language for each database.</li>
+<li>Install user-created JAR files on all HAWQ hosts.</li>
+<li>Add the names of the JAR files to the HAWQ <code>pljava_classpath</code> server configuration parameter. This parameter value should identify a list of the installed JAR files.</li>
+</ol>
+
+<h4><a id="enablepljava"></a>Enable PL/Java and Install JAR Files</h4>
+
+<p>Perform the following steps as the <code>gpadmin</code> user:</p>
+
+<ol>
+<li><p>Enable PL/Java by running the <code>$GPHOME/share/postgresql/pljava/install.sql</code> SQL script in the databases that will use PL/Java. The <code>install.sql</code> script registers both the trusted and untrusted PL/Java languages. For example, the following command enables PL/Java on a database named <code>testdb</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/install.sql
+</code></pre>
+
+<p>To enable the PL/Java extension in all new HAWQ databases, run the script on the <code>template1</code> database: </p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d template1 -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/install.sql
+</code></pre>
+
+<p>Use this option <em>only</em> if you are certain you want to enable PL/Java in all new databases.</p></li>
+<li><p>Copy your Java archives (JAR files) to <code>$GPHOME/lib/postgresql/java/</code> on all HAWQ hosts. This example uses the <code>hawq scp</code> utility to copy the <code>myclasses.jar</code> file located in the current directory:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>hawq scp -f hawq_hosts myclasses.jar <span class="o">=</span>:<span class="nv">$GPHOME</span>/lib/postgresql/java/
+</code></pre>
+
+<p>The <code>hawq_hosts</code> file contains a list of the HAWQ hosts.</p></li>
+<li><p>Add the JAR files to the <code>pljava_classpath</code> configuration parameter. Refer to <a href="#setting_serverconfigparams">Setting PL/Java Configuration Parameters</a> for the specific procedure.</p></li>
+<li><p>(Optional) Your HAWQ installation includes an <code>examples.sql</code> file.  This script contains sample PL/Java functions that you can use for testing. Run the commands in this file to create and run test functions that use the Java classes in <code>examples.jar</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/examples.sql
+</code></pre></li>
+</ol>
+
+<h4>Configuring PL/Java VM Options</h4>
+
+<p>PL/Java JVM options can be configured via the <code>pljava_vmoptions</code> server configuration parameter. For example, <code>pljava_vmoptions=-Xmx512M</code> sets the maximum heap size of the JVM. The default <code>-Xmx</code> value is <code>64M</code>.</p>
+
+<p>Refer to <a href="#setting_serverconfigparams">Setting PL/Java Configuration Parameters</a> for the specific procedure to set PL/Java server configuration parameters.</p>
+
+<h3><a id="uninstallpljava"></a>Disable PL/Java</h3>
+
+<p>To disable PL/Java, you should:</p>
+
+<ol>
+<li>Remove PL/Java support from each database in which it was added.</li>
+<li>Uninstall the Java JAR files.</li>
+</ol>
+
+<h4><a id="uninstallpljavasupport"></a>Remove PL/Java Support from Databases</h4>
+
+<p>For a database that no longer requires the PL/Java language, remove support for PL/Java by running the <code>uninstall.sql</code> script as the <code>gpadmin</code> user. For example, the following command disables the PL/Java language in the specified database:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d &lt;dbname&gt; -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/uninstall.sql
+</code></pre>
+
+<p>Replace &lt;dbname&gt; with the name of the target database.</p>
+
+<h4><a id="uninstallpljavapackage"></a>Uninstall the Java JAR files</h4>
+
+<p>When no databases have PL/Java as a registered language, remove the Java JAR files.</p>
+
+<p>If you use Ambari to manage your cluster:</p>
+
+<ol>
+<li><p>Remove the <code>pljava_classpath</code> configuration property via the HAWQ service <strong>Configs &gt; Advanced &gt; Custom hawq-site</strong> drop down.</p></li>
+<li><p>Remove the JAR files from the <code>$GPHOME/lib/postgresql/java/</code> directory of each HAWQ host.</p></li>
+<li><p>Select <strong>Service Actions &gt; Restart All</strong> to restart your HAWQ cluster.</p></li>
+</ol>
+
+<p>If you manage your cluster from the command line:</p>
+
+<ol>
+<li><p>Log in to the HAWQ master host as a HAWQ administrator and source the file <code>/usr/local/hawq/greenplum_path.sh</code>.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">source</span> /usr/local/hawq/greenplum_path.sh
+</code></pre></li>
+<li><p>Use the <code>hawq config</code> utility to remove <code>pljava_classpath</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>hawq config -r pljava_classpath
+</code></pre></li>
+<li><p>Remove the JAR files from the <code>$GPHOME/lib/postgresql/java/</code> directory of each HAWQ host.</p></li>
+<li><p>If you manage your cluster from the command line, run:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>hawq restart cluster
+</code></pre></li>
+</ol>
+
+<h2><a id="writingpljavafunc"></a>Writing PL/Java Functions</h2>
+
+<p>This section provides information about writing functions with PL/Java.</p>
+
+<ul>
+<li><a href="#sqldeclaration">SQL Declaration</a></li>
+<li><a href="#typemapping">Type Mapping</a></li>
+<li><a href="#nullhandling">NULL Handling</a></li>
+<li><a href="#complextypes">Complex Types</a></li>
+<li><a href="#returningcomplextypes">Returning Complex Types</a></li>
+<li><a href="#functionreturnsets">Functions That Return Sets</a></li>
+<li><a href="#returnsetofscalar">Returning a SETOF &lt;scalar type&gt;</a></li>
+<li><a href="#returnsetofcomplex">Returning a SETOF &lt;complex type&gt;</a></li>
+</ul>
+
+<h3><a id="sqldeclaration"></a>SQL Declaration</h3>
+
+<p>A Java function is declared with the name of a class and a static method on that class. The class will be resolved using the classpath that has been defined for the schema where the function is declared. If no classpath has been defined for that schema, the public schema is used. If no classpath is found there either, the class is resolved using the system classloader.</p>
+
+<p>The following function can be declared to access the static method getProperty on <code>java.lang.System</code> class:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">getsysprop</span><span class="p">(</span><span class="n">VARCHAR</span><span class="p">)</span>
+     <span class="k">RETURNS</span> <span class="n">VARCHAR</span>
+     <span class="k">AS</span> <span class="s1">'java.lang.System.getProperty'</span>
+   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre>
+
+<p>Run the following command to return the Java <code>user.home</code> property:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">getsysprop</span><span class="p">(</span><span class="s1">'user.home'</span><span class="p">);</span>
+</code></pre>
+
+<h3><a id="typemapping"></a>Type Mapping</h3>
+
+<p>Scalar types are mapped in a straightforward way. This table lists the current mappings.</p>
+
+<p><strong><em>Table 1: PL/Java data type mappings</em></strong></p>
+
+<table><thead>
+<tr>
+<th>PostgreSQL</th>
+<th>Java</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bool</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>char</td>
+<td>byte</td>
+</tr>
+<tr>
+<td>int2</td>
+<td>short</td>
+</tr>
+<tr>
+<td>int4</td>
+<td>int</td>
+</tr>
+<tr>
+<td>int8</td>
+<td>long</td>
+</tr>
+<tr>
+<td>varchar</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>text</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>bytea</td>
+<td>byte[ ]</td>
+</tr>
+<tr>
+<td>date</td>
+<td>java.sql.Date</td>
+</tr>
+<tr>
+<td>time</td>
+<td>java.sql.Time (stored value treated as local time)</td>
+</tr>
+<tr>
+<td>timetz</td>
+<td>java.sql.Time</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>java.sql.Timestamp (stored value treated as local time)</td>
+</tr>
+<tr>
+<td>timestampz</td>
+<td>java.sql.Timestamp</td>
+</tr>
+<tr>
+<td>complex</td>
+<td>java.sql.ResultSet</td>
+</tr>
+<tr>
+<td>setof complex</td>
+<td>java.sql.ResultSet</td>
+</tr>
+</tbody></table>
+
+<p>All other types are mapped to <code>java.lang.String</code> and will utilize the standard textin/textout routines registered for respective type.</p>
+
+<h3><a id="nullhandling"></a>NULL Handling</h3>
+
+<p>The scalar types that map to Java primitives can not be passed as NULL values. To pass NULL values, those types can have an alternative mapping. You enable this mapping by explicitly denoting it in the method reference.</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">trueIfEvenOrNull</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span>
+     <span class="k">RETURNS</span> <span class="n">bool</span>
+     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.trueIfEvenOrNull(java.lang.Integer)'</span>
+   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre>
+
+<p>The Java code would be similar to this:</p>
+<pre class="highlight java"><code><span class="kn">package</span> <span class="n">foo</span><span class="o">.</span><span class="na">fee</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Fum</span>
+<span class="o">{</span>
+  <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">trueIfEvenOrNull</span><span class="o">(</span><span class="n">Integer</span> <span class="n">value</span><span class="o">)</span>
+  <span class="o">{</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+      <span class="o">?</span> <span class="kc">true</span>
+      <span class="o">:</span> <span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="na">intValue</span><span class="o">()</span> <span class="o">%</span> <span class="mi">1</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The following two statements both yield true:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">trueIfEvenOrNull</span><span class="p">(</span><span class="k">NULL</span><span class="p">);</span>
+<span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">trueIfEvenOrNull</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+</code></pre>
+
+<p>In order to return NULL values from a Java method, you use the object type that corresponds to the primitive (for example, you return <code>java.lang.Integer</code> instead of <code>int</code>). The PL/Java resolve mechanism finds the method regardless. Since Java cannot have different return types for methods with the same name, this does not introduce any ambiguity.</p>
+
+<h3><a id="complextypes"></a>Complex Types</h3>
+
+<p>A complex type will always be passed as a read-only <code>java.sql.ResultSet</code> with exactly one row. The <code>ResultSet</code> is positioned on its row so a call to <code>next()</code> should not be made. The values of the complex type are retrieved using the standard getter methods of the <code>ResultSet</code>.</p>
+
+<p>Example:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">TYPE</span> <span class="n">complexTest</span>
+     <span class="k">AS</span><span class="p">(</span><span class="n">base</span> <span class="n">integer</span><span class="p">,</span> <span class="n">incbase</span> <span class="n">integer</span><span class="p">,</span> <span class="n">ctime</span> <span class="n">timestamptz</span><span class="p">);</span>
+<span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">useComplexTest</span><span class="p">(</span><span class="n">complexTest</span><span class="p">)</span>
+     <span class="k">RETURNS</span> <span class="n">VARCHAR</span>
+     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.useComplexTest'</span>
+   <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre>
+
+<p>In the Java class <code>Fum</code>, we add the following static method:</p>
+<pre class="highlight java"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">useComplexTest</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">complexTest</span><span class="o">)</span>
+<span class="kd">throws</span> <span class="n">SQLException</span>
+<span class="o">{</span>
+  <span class="kt">int</span> <span class="n">base</span> <span class="o">=</span> <span class="n">complexTest</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+  <span class="kt">int</span> <span class="n">incbase</span> <span class="o">=</span> <span class="n">complexTest</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+  <span class="n">Timestamp</span> <span class="n">ctime</span> <span class="o">=</span> <span class="n">complexTest</span><span class="o">.</span><span class="na">getTimestamp</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+  <span class="k">return</span> <span class="s">"Base = \""</span> <span class="o">+</span> <span class="n">base</span> <span class="o">+</span>
+    <span class="s">"\", incbase = \""</span> <span class="o">+</span> <span class="n">incbase</span> <span class="o">+</span>
+    <span class="s">"\", ctime = \""</span> <span class="o">+</span> <span class="n">ctime</span> <span class="o">+</span> <span class="s">"\""</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+
+<h3><a id="returningcomplextypes"></a>Returning Complex Types</h3>
+
+<p>Java does not stipulate any way to create a <code>ResultSet</code>. Hence, returning a ResultSet is not an option. The SQL-2003 draft suggests that a complex return value should be handled as an IN/OUT parameter. PL/Java implements a <code>ResultSet</code> that way. If you declare a function that returns a complex type, you will need to use a Java method with boolean return type with a last parameter of type <code>java.sql.ResultSet</code>. The parameter will be initialized to an empty updateable ResultSet that contains exactly one row.</p>
+
+<p>Assume that the complexTest type in previous section has been created.</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">createComplexTest</span><span class="p">(</span><span class="n">int</span><span class="p">,</span> <span class="n">int</span><span class="p">)</span>
+     <span class="k">RETURNS</span> <span class="n">complexTest</span>
+     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.createComplexTest'</span>
+   <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre>
+
+<p>The PL/Java method resolve will now find the following method in the <code>Fum</code> class:</p>
+<pre class="highlight java"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">complexReturn</span><span class="o">(</span><span class="kt">int</span> <span class="n">base</span><span class="o">,</span> <span class="kt">int</span> <span class="n">increment</span><span class="o">,</span> 
+  <span class="n">ResultSet</span> <span class="n">receiver</span><span class="o">)</span>
+<span class="kd">throws</span> <span class="n">SQLException</span>
+<span class="o">{</span>
+  <span class="n">receiver</span><span class="o">.</span><span class="na">updateInt</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">base</span><span class="o">);</span>
+  <span class="n">receiver</span><span class="o">.</span><span class="na">updateInt</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">base</span> <span class="o">+</span> <span class="n">increment</span><span class="o">);</span>
+  <span class="n">receiver</span><span class="o">.</span><span class="na">updateTimestamp</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="k">new</span> 
+    <span class="n">Timestamp</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()));</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The return value denotes if the receiver should be considered as a valid tuple (true) or NULL (false).</p>
+
+<h3><a id="functionreturnsets"></a>Functions that Return Sets</h3>
+
+<p>When returning result set, you should not build a result set before returning it, because building a large result set would consume a large amount of resources. It is better to produce one row at a time. Incidentally, that is what the HAWQ backend expects a function with SETOF return to do. You can return a SETOF a scalar type such as an int, float or varchar, or you can return a SETOF a complex type.</p>
+
+<h3><a id="returnsetofscalar"></a>Returning a SETOF &lt;scalar type&gt;</h3>
+
+<p>In order to return a set of a scalar type, you need create a Java method that returns something that implements the <code>java.util.Iterator</code> interface. Here is an example of a method that returns a SETOF varchar:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">javatest</span><span class="p">.</span><span class="n">getSystemProperties</span><span class="p">()</span>
+     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">varchar</span>
+     <span class="k">AS</span> <span class="s1">'foo.fee.Bar.getNames'</span>
+   <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre>
+
+<p>This simple Java method returns an iterator:</p>
+<pre class="highlight java"><code><span class="kn">package</span> <span class="n">foo</span><span class="o">.</span><span class="na">fee</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Bar</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Iterator</span> <span class="nf">getNames</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">ArrayList</span> <span class="n">names</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="n">names</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Lisa"</span><span class="o">);</span>
+        <span class="n">names</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Bob"</span><span class="o">);</span>
+        <span class="n">names</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Bill"</span><span class="o">);</span>
+        <span class="n">names</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Sally"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">names</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+
+<h3><a id="returnsetofcomplex"></a>Returning a SETOF &lt;complex type&gt;</h3>
+
+<p>A method returning a SETOF <complex type> must use either the interface <code>org.postgresql.pljava.ResultSetProvider</code> or <code>org.postgresql.pljava.ResultSetHandle</code>. The reason for having two interfaces is that they cater for optimal handling of two distinct use cases. The former is for cases when you want to dynamically create each row that is to be returned from the SETOF function. The latter makes is in cases where you want to return the result of an executed query.</p>
+
+<h4>Using the ResultSetProvider Interface</h4>
+
+<p>This interface has two methods. The boolean <code>assignRowValues(java.sql.ResultSet tupleBuilder, int rowNumber)</code> and the <code>void close()</code> method. The HAWQ query evaluator will call the <code>assignRowValues</code> repeatedly until it returns false or until the evaluator decides that it does not need any more rows. Then it calls close.</p>
+
+<p>You can use this interface the following way:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">javatest</span><span class="p">.</span><span class="n">listComplexTests</span><span class="p">(</span><span class="n">int</span><span class="p">,</span> <span class="n">int</span><span class="p">)</span>
+     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">complexTest</span>
+     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.listComplexTest'</span>
+   <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre>
+
+<p>The function maps to a static java method that returns an instance that implements the <code>ResultSetProvider</code> interface.</p>
+<pre class="highlight java"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Fum</span> <span class="kd">implements</span> <span class="n">ResultSetProvider</span>
+<span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">m_base</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">m_increment</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="nf">Fum</span><span class="o">(</span><span class="kt">int</span> <span class="n">base</span><span class="o">,</span> <span class="kt">int</span> <span class="n">increment</span><span class="o">)</span>
+  <span class="o">{</span>
+    <span class="n">m_base</span> <span class="o">=</span> <span class="n">base</span><span class="o">;</span>
+    <span class="n">m_increment</span> <span class="o">=</span> <span class="n">increment</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">assignRowValues</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">receiver</span><span class="o">,</span> <span class="kt">int</span> 
+<span class="n">currentRow</span><span class="o">)</span>
+  <span class="kd">throws</span> <span class="n">SQLException</span>
+  <span class="o">{</span>
+    <span class="c1">// Stop when we reach 12 rows.</span>
+    <span class="c1">//</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">currentRow</span> <span class="o">&gt;=</span> <span class="mi">12</span><span class="o">)</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="n">receiver</span><span class="o">.</span><span class="na">updateInt</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">m_base</span><span class="o">);</span>
+    <span class="n">receiver</span><span class="o">.</span><span class="na">updateInt</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">m_base</span> <span class="o">+</span> <span class="n">m_increment</span> <span class="o">*</span> <span class="n">currentRow</span><span class="o">);</span>
+    <span class="n">receiver</span><span class="o">.</span><span class="na">updateTimestamp</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="k">new</span> 
+<span class="n">Timestamp</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()));</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span>
+  <span class="o">{</span>
+   <span class="c1">// Nothing needed in this example</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">ResultSetProvider</span> <span class="nf">listComplexTests</span><span class="o">(</span><span class="kt">int</span> <span class="n">base</span><span class="o">,</span> 
+<span class="kt">int</span> <span class="n">increment</span><span class="o">)</span>
+  <span class="kd">throws</span> <span class="n">SQLException</span>
+  <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Fum</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="n">increment</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The <code>listComplextTests</code> method is called once. It may return NULL if no results are available or an instance of the <code>ResultSetProvider</code>. Here the Java class <code>Fum</code> implements this interface so it returns an instance of itself. The method <code>assignRowValues</code> will then be called repeatedly until it returns false. At that time, close will be called.</p>
+
+<h4>Using the ResultSetHandle Interface</h4>
+
+<p>This interface is similar to the <code>ResultSetProvider</code> interface in that it has a <code>close()</code> method that will be called at the end. But instead of having the evaluator call a method that builds one row at a time, this method has a method that returns a <code>ResultSet</code>. The query evaluator will iterate over this set and deliver the <code>ResultSet</code> contents, one tuple at a time, to the caller until a call to <code>next()</code> returns false or the evaluator decides that no more rows are needed.</p>
+
+<p>Here is an example that executes a query using a statement that it obtained using the default connection. The SQL suitable for the deployment descriptor looks like this:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">javatest</span><span class="p">.</span><span class="n">listSupers</span><span class="p">()</span>
+     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">pg_user</span>
+     <span class="k">AS</span> <span class="s1">'org.postgresql.pljava.example.Users.listSupers'</span>
+   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+<span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">javatest</span><span class="p">.</span><span class="n">listNonSupers</span><span class="p">()</span>
+     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">pg_user</span>
+     <span class="k">AS</span> <span class="s1">'org.postgresql.pljava.example.Users.listNonSupers'</span>
+   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre>
+
+<p>And in the Java package <code>org.postgresql.pljava.example</code> a class <code>Users</code> is added:</p>
+<pre class="highlight java"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Users</span> <span class="kd">implements</span> <span class="n">ResultSetHandle</span>
+<span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">m_filter</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="n">Statement</span> <span class="n">m_statement</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="nf">Users</span><span class="o">(</span><span class="n">String</span> <span class="n">filter</span><span class="o">)</span>
+  <span class="o">{</span>
+    <span class="n">m_filter</span> <span class="o">=</span> <span class="n">filter</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="n">ResultSet</span> <span class="nf">getResultSet</span><span class="o">()</span>
+  <span class="kd">throws</span> <span class="n">SQLException</span>
+  <span class="o">{</span>
+    <span class="n">m_statement</span> <span class="o">=</span> 
+      <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="s">"jdbc:default:connection"</span><span class="o">).</span><span class="na">cr</span>
+<span class="n">eateStatement</span><span class="o">();</span>
+    <span class="k">return</span> <span class="n">m_statement</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="s">"SELECT * FROM pg_user 
+       WHERE "</span> <span class="o">+</span> <span class="n">m_filter</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span>
+  <span class="kd">throws</span> <span class="n">SQLException</span>
+  <span class="o">{</span>
+    <span class="n">m_statement</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">ResultSetHandle</span> <span class="nf">listSupers</span><span class="o">()</span>
+  <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Users</span><span class="o">(</span><span class="s">"usesuper = true"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">ResultSetHandle</span> <span class="nf">listNonSupers</span><span class="o">()</span>
+  <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Users</span><span class="o">(</span><span class="s">"usesuper = false"</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+
+<h2><a id="usingjdbc"></a>Using JDBC</h2>
+
+<p>PL/Java contains a JDBC driver that maps to the PostgreSQL SPI functions. A connection that maps to the current transaction can be obtained using the following statement:</p>
+<pre class="highlight java"><code><span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> 
+  <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="s">"jdbc:default:connection"</span><span class="o">);</span> 
+</code></pre>
+
+<p>After obtaining a connection, you can prepare and execute statements similar to other JDBC connections. These are limitations for the PL/Java JDBC driver:</p>
+
+<ul>
+<li>The transaction cannot be managed in any way. Thus, you cannot use methods on the connection such as:
+
+<ul>
+<li><code>commit()</code></li>
+<li><code>rollback()</code></li>
+<li><code>setAutoCommit()</code></li>
+<li><code>setTransactionIsolation()</code></li>
+</ul></li>
+<li>Savepoints are available with some restrictions. A savepoint cannot outlive the function in which it was set and it must be rolled back or released by that same function.</li>
+<li>A ResultSet returned from <code>executeQuery()</code> are always <code>FETCH_FORWARD</code> and <code>CONCUR_READ_ONLY</code>.</li>
+<li>Meta-data is only available in PL/Java 1.1 or higher.</li>
+<li><code>CallableStatement</code> (for stored procedures) is not implemented.</li>
+<li>The types <code>Clob</code> or <code>Blob</code> are not completely implemented, they need more work. The types <code>byte[]</code> and <code>String</code> can be used for <code>bytea</code> and <code>text</code> respectively.</li>
+</ul>
+
+<h2><a id="exceptionhandling"></a>Exception Handling</h2>
+
+<p>You can catch and handle an exception in the HAWQ backend just like any other exception. The backend <code>ErrorData</code> structure is exposed as a property in a class called <code>org.postgresql.pljava.ServerException</code> (derived from <code>java.sql.SQLException</code>) and the Java try/catch mechanism is synchronized with the backend mechanism.</p>
+
+<p><strong>Important:</strong> You will not be able to continue executing backend functions until your function has returned and the error has been propagated when the backend has generated an exception unless you have used a savepoint. When a savepoint is rolled back, the exceptional condition is reset and you can continue your execution.</p>
+
+<h2><a id="savepoints"></a>Savepoints</h2>
+
+<p>HAWQ savepoints are exposed using the <code>java.sql.Connection</code> interface. Two restrictions apply.</p>
+
+<ul>
+<li>A savepoint must be rolled back or released in the function where it was set.</li>
+<li>A savepoint must not outlive the function where it was set.</li>
+</ul>
+
+<h2><a id="logging"></a>Logging</h2>
+
+<p>PL/Java uses the standard Java Logger. Hence, you can write things like:</p>
+<pre class="highlight java"><code><span class="n">Logger</span><span class="o">.</span><span class="na">getAnonymousLogger</span><span class="o">().</span><span class="na">info</span><span class="o">(</span> <span class="s">"Time is "</span> <span class="o">+</span> <span class="k">new</span> 
+<span class="n">Date</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()));</span>
+</code></pre>
+
+<p>At present, the logger uses a handler that maps the current state of the HAWQ configuration setting <code>log_min_messages</code> to a valid Logger level and that outputs all messages using the HAWQ backend function <code>elog()</code>.</p>
+
+<p><strong>Note:</strong> The <code>log_min_messages</code> setting is read from the database the first time a PL/Java function in a session is executed. On the Java side, the setting does not change after the first PL/Java function execution in a specific session until the HAWQ session that is working with PL/Java is restarted.</p>
+
+<p>The following mapping apply between the Logger levels and the HAWQ backend levels.</p>
+
+<p><strong><em>Table 2: PL/Java Logging Levels Mappings</em></strong></p>
+
+<table><thead>
+<tr>
+<th>java.util.logging.Level</th>
+<th>HAWQ Level</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>SEVERE ERROR</td>
+<td>ERROR</td>
+</tr>
+<tr>
+<td>WARNING</td>
+<td>WARNING</td>
+</tr>
+<tr>
+<td>CONFIG</td>
+<td>LOG</td>
+</tr>
+<tr>
+<td>INFO</td>
+<td>INFO</td>
+</tr>
+<tr>
+<td>FINE</td>
+<td>DEBUG1</td>
+</tr>
+<tr>
+<td>FINER</td>
+<td>DEBUG2</td>
+</tr>
+<tr>
+<td>FINEST</td>
+<td>DEBUG3</td>
+</tr>
+</tbody></table>
+
+<h2><a id="security"></a>Security</h2>
+
+<p>This section describes security aspects of using PL/Java.</p>
+
+<h3><a id="installation"></a>Installation</h3>
+
+<p>Only a database super user can install PL/Java. The PL/Java utility functions are installed using SECURITY DEFINER so that they execute with the access permissions that where granted to the creator of the functions.</p>
+
+<h3><a id="trustedlang"></a>Trusted Language</h3>
+
+<p>PL/Java is a trusted language. The trusted PL/Java language has no access to the file system as stipulated by PostgreSQL definition of a trusted language. Any database user can create and access functions in a trusted language.</p>
+
+<p>PL/Java also installs a language handler for the language <code>javau</code>. This version is not trusted and only a superuser can create new functions that use it. Any user can call the functions.</p>
+
+<h2><a id="pljavaexample"></a>Example</h2>
+
+<p>The following simple Java example creates a JAR file that contains a single method and runs the method.</p>
+
+<p class="note"><b>Note:</b> The example requires Java SDK to compile the Java file.</p>
+
+<p>The following method returns a substring.</p>
+<pre class="highlight java"><code><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">substring</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">beginIndex</span><span class="o">,</span>
+  <span class="kt">int</span> <span class="n">endIndex</span><span class="o">)</span>
+    <span class="o">{</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">beginIndex</span><span class="o">,</span> <span class="n">endIndex</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>Enter the Java code in a text file <code>example.class</code>.</p>
+
+<p>Contents of the file <code>manifest.txt</code>:</p>
+<pre class="highlight plaintext"><code>Manifest-Version: 1.0
+Main-Class: Example
+Specification-Title: "Example"
+Specification-Version: "1.0"
+Created-By: 1.6.0_35-b10-428-11M3811
+Build-Date: 01../2013 10:09 AM
+</code></pre>
+
+<p>Compile the Java code:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>javac <span class="k">*</span>.java
+</code></pre>
+
+<p>Create a JAR archive named <code>analytics.jar</code> that contains the class file and the manifest file in the JAR:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>jar cfm analytics.jar manifest.txt <span class="k">*</span>.class
+</code></pre>
+
+<p>Upload the JAR file to the HAWQ master host.</p>
+
+<p>Run the <code>hawq scp</code> utility to copy the jar file to the HAWQ Java directory. Use the <code>-f</code> option to specify the file that contains a list of the master and segment hosts:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>hawq scp -f hawq_hosts analytics.jar <span class="o">=</span>:/usr/local/hawq/lib/postgresql/java/
+</code></pre>
+
+<p>Add the <code>analytics.jar</code> JAR file to the <code>pljava_classpath</code> configuration parameter. Refer to <a href="#setting_serverconfigparams">Setting PL/Java Configuration Parameters</a> for the specific procedure.</p>
+
+<p>From the <code>psql</code> subsystem, run the following command to show the installed JAR files:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SHOW</span> <span class="n">pljava_classpath</span>
+</code></pre>
+
+<p>The following SQL commands create a table and define a Java function to test the method in the JAR file:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">temp</span> <span class="p">(</span><span class="n">a</span> <span class="n">varchar</span><span class="p">)</span> <span class="n">DISTRIBUTED</span> <span class="n">randomly</span><span class="p">;</span> 
+<span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">temp</span> <span class="k">values</span> <span class="p">(</span><span class="s1">'my string'</span><span class="p">);</span> 
+<span class="c1">--Example function </span>
+<span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">java_substring</span><span class="p">(</span><span class="n">varchar</span><span class="p">,</span> <span class="n">int</span><span class="p">,</span> <span class="n">int</span><span class="p">)</span> 
+     <span class="k">RETURNS</span> <span class="n">varchar</span> <span class="k">AS</span> <span class="s1">'Example.substring'</span> 
+   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span> 
+<span class="c1">--Example execution </span>
+<span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">java_substring</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="k">FROM</span> <span class="k">temp</span><span class="p">;</span>
+</code></pre>
+
+<p>If you add these SQL commands to a file named <code>mysample.sql</code>, you can run the commands from the <code>psql</code> subsystem using the <code>\i</code> meta-command:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="err">\</span><span class="n">i</span> <span class="n">mysample</span><span class="p">.</span><span class="k">sql</span> 
+</code></pre>
+
+<p>The output is similar to this:</p>
+<pre class="highlight shell"><code>java_substring
+----------------
+ y st
+<span class="o">(</span>1 row<span class="o">)</span>
+</code></pre>
+
+        
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<div id="scrim"></div>
+
+<div class="container">
+  <footer class="site-footer-links">
+    
+  </footer>
+</div><!--end of container-->
+
+</body>
+</html>
