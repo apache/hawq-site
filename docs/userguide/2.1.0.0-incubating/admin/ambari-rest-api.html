@@ -129,11 +129,13 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/setuphawqopenv.html">Introducing the HAWQ Operating Environment</a>
           </li>
-          <li>
+          <li class="has_submenu">
             <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-admin.html">Managing HAWQ Using Ambari</a>
-          </li>
-          <li>
-            <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+           <ul>
+            <li>
+              <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+            </li>
+           </ul>
           </li>
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/startstop.html">Starting and Stopping HAWQ</a>
@@ -413,6 +415,7 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HivePXF.html">Accessing Hive Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HBasePXF.html">Accessing HBase Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/JsonPXF.html">Accessing JSON Data</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HDFSWritablePXF.html">Writing Data to HDFS</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/ReadWritePXF.html">Using Profiles to Read and Write Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/PXFExternalTableandAPIReference.html">PXF External Tables and API</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/TroubleshootingPXF.html">Troubleshooting PXF</a></li>
@@ -740,6 +743,7 @@
             <ul>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ABORT.html">ABORT</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-AGGREGATE.html">ALTER AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-CONVERSION.html">ALTER CONVERSION</a></li>  
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-DATABASE.html">ALTER DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-FUNCTION.html">ALTER FUNCTION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-OPERATOR.html">ALTER OPERATOR</a></li>
@@ -757,6 +761,8 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COMMIT.html">COMMIT</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COPY.html">COPY</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-AGGREGATE.html">CREATE AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-CAST.html">CREATE CAST</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-CONVERSION.html">CREATE CONVERSION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-DATABASE.html">CREATE DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html">CREATE EXTERNAL TABLE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-FUNCTION.html">CREATE FUNCTION</a></li>
@@ -777,6 +783,8 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DEALLOCATE.html">DEALLOCATE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DECLARE.html">DECLARE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-AGGREGATE.html">DROP AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-CAST.html">DROP CAST</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-CONVERSION.html">DROP CONVERSION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-DATABASE.html">DROP DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-EXTERNAL-TABLE.html">DROP EXTERNAL TABLE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-FILESPACE.html">DROP FILESPACE</a></li>
@@ -1018,8 +1026,10 @@
 <li><code>GET</code> - read resource properties, metrics</li>
 <li><code>POST</code> - create new resource</li>
 <li><code>PUT</code> - update resource</li>
-<li><code>DELETE</code> - delete resource</li>
+<li><code>DELETE</code> - delete resource (use with care)</li>
 </ul>
+
+<p><strong>Note</strong>: Be careful when using <code>DELETE</code> or <code>PUT</code> requests; typos or other incorrect usage may leave your cluster in an inoperable state.</p>
 
 <p>URIs for Ambari REST API resources have the following structure:</p>
 <pre class="highlight shell"><code>http://&lt;ambari-server-host&gt;:&lt;port&gt;/api/v1/&lt;resource-path&gt;
@@ -1119,13 +1129,13 @@
 
 <ol>
 <li><p>Set up some environment variables; replace the values with those appropriate for your operating environment.  For example:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBUSER</span><span class="o">=</span>admin
-<span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBPASSWD</span><span class="o">=</span>admin
-<span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBHOST</span><span class="o">=</span>&lt;ambari-server&gt;
-<span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBPORT</span><span class="o">=</span>8080
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBARI_USER</span><span class="o">=</span>admin
+<span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBARI_PASSWD</span><span class="o">=</span>admin
+<span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBARI_HOST</span><span class="o">=</span>&lt;ambari-server&gt;
+<span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBARI_PORT</span><span class="o">=</span>8080
 </code></pre></li>
 <li><p>Submit a <code>curl</code> request to the Ambari server:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl -u <span class="nv">$AMBUSER</span>:<span class="nv">$AMBPASSWD</span> http://<span class="nv">$AMBHOST</span>:<span class="nv">$AMBPORT</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -u <span class="nv">$AMBARI_USER</span>:<span class="nv">$AMBARI_PASSWD</span> http://<span class="nv">$AMBARI_HOST</span>:<span class="nv">$AMBARI_PORT</span>
 </code></pre>
 
 <p>If authentication succeeds, Apache license information is displayed.</p></li>
@@ -1137,16 +1147,16 @@
 
 <ol>
 <li><p>Set up an additional environment variables:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBCREDS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$AMBUSER</span><span class="s2">:</span><span class="nv">$AMBPASSWD</span><span class="s2">"</span>
-<span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBURLBASE</span><span class="o">=</span><span class="s2">"http://</span><span class="k">${</span><span class="nv">AMBHOST</span><span class="k">}</span><span class="s2">:</span><span class="k">${</span><span class="nv">AMBPORT</span><span class="k">}</span><span class="s2">/api/v1/clusters"</span>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBARI_CREDS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$AMBARI_USER</span><span class="s2">:</span><span class="nv">$AMBARI_PASSWD</span><span class="s2">"</span>
+<span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBARI_URLBASE</span><span class="o">=</span><span class="s2">"http://</span><span class="k">${</span><span class="nv">AMBARI_HOST</span><span class="k">}</span><span class="s2">:</span><span class="k">${</span><span class="nv">AMBARI_PORT</span><span class="k">}</span><span class="s2">/api/v1/clusters"</span>
 </code></pre>
 
 <p>You will use these variables in upcoming examples to simplify <code>curl</code> calls.</p></li>
-<li><p>Use the Ambari REST API to determine the name of your HAWQ cluster; also set <code>$AMBURLBASE</code> to include the cluster name:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">export </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>curl -u <span class="k">${</span><span class="nv">AMBCREDS</span><span class="k">}</span> -i -H <span class="s1">'X-Requested-By:ambari'</span> <span class="nv">$AMBURLBASE</span> | sed -n <span class="s1">'s/.*"cluster_name" : "\([^\"]*\)".*/\1/p'</span><span class="k">)</span><span class="s2">"</span>
+<li><p>Use the Ambari REST API to determine the name of your HAWQ cluster; also set <code>$AMBARI_URLBASE</code> to include the cluster name:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">export </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>curl -u <span class="k">${</span><span class="nv">AMBARI_CREDS</span><span class="k">}</span> -i -H <span class="s1">'X-Requested-By:ambari'</span> <span class="nv">$AMBARI_URLBASE</span> | sed -n <span class="s1">'s/.*"cluster_name" : "\([^\"]*\)".*/\1/p'</span><span class="k">)</span><span class="s2">"</span>
 <span class="gp">$ </span><span class="nb">echo</span> <span class="nv">$CLUSTER_NAME</span>
 TestCluster
-<span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBURLBASE</span><span class="o">=</span><span class="nv">$AMBURLBASE</span>/<span class="nv">$CLUSTER_NAME</span>
+<span class="gp">$ </span><span class="nb">export </span><span class="nv">AMBARI_URLBASE</span><span class="o">=</span><span class="nv">$AMBARI_URLBASE</span>/<span class="nv">$CLUSTER_NAME</span>
 </code></pre></li>
 </ol>
 
@@ -1166,31 +1176,31 @@ TestCluster
 </thead><tbody>
 <tr>
 <td>View HAWQ service information.</td>
-<td><code>curl -u $AMBCREDS -X GET -H &#39;X-Requested-By:ambari&#39; $AMBURLBASE/services/HAWQ</code></td>
+<td><code>curl -u $AMBARI_CREDS -X GET -H &#39;X-Requested-By:ambari&#39; $AMBARI_URLBASE/services/HAWQ</code></td>
 </tr>
 <tr>
 <td>List all HAWQ components.</td>
-<td><code>curl -u $AMBCREDS -X GET -H &#39;X-Requested-By:ambari&#39; $AMBURLBASE/services/HAWQ/components</code></td>
+<td><code>curl -u $AMBARI_CREDS -X GET -H &#39;X-Requested-By:ambari&#39; $AMBARI_URLBASE/services/HAWQ/components</code></td>
 </tr>
 <tr>
 <td>View information about the HAWQ master.</td>
-<td><code>curl -u $AMBCREDS -X GET -H &#39;X-Requested-By:ambari&#39; $AMBURLBASE/services/HAWQ/components/HAWQMASTER</code></td>
+<td><code>curl -u $AMBARI_CREDS -X GET -H &#39;X-Requested-By:ambari&#39; $AMBARI_URLBASE/services/HAWQ/components/HAWQMASTER</code></td>
 </tr>
 <tr>
 <td>View the <code>hawq-site</code> configuration settings.</td>
-<td><code>curl -u $AMBCREDS -X GET -H &#39;X-Requested-By:ambari&#39; &quot;$AMBURLBASE/configurations?type=hawq-site&amp;tag=TOPOLOGY_RESOLVED&quot;</code></td>
+<td><code>curl -u $AMBARI_CREDS -X GET -H &#39;X-Requested-By:ambari&#39; &quot;$AMBARI_URLBASE/configurations?type=hawq-site&amp;tag=TOPOLOGY_RESOLVED&quot;</code></td>
 </tr>
 <tr>
 <td>View the initial <code>core-site</code> configuration settings.</td>
-<td><code>curl -u $AMBCREDS -X GET -H &#39;X-Requested-By:ambari&#39; &quot;$AMBURLBASE/configurations?type=core-site&amp;tag=INITIAL&quot;</code></td>
+<td><code>curl -u $AMBARI_CREDS -X GET -H &#39;X-Requested-By:ambari&#39; &quot;$AMBARI_URLBASE/configurations?type=core-site&amp;tag=INITIAL&quot;</code></td>
 </tr>
 <tr>
 <td>View the <code>pxf-profiles</code> configuration file.</td>
-<td><code>curl -u $AMBCREDS -X GET -H &#39;X-Requested-By:ambari&#39; &quot;$AMBURLBASE/configurations?type=pxf-profiles&amp;tag=INITIAL&quot;</code></td>
+<td><code>curl -u $AMBARI_CREDS -X GET -H &#39;X-Requested-By:ambari&#39; &quot;$AMBARI_URLBASE/configurations?type=pxf-profiles&amp;tag=INITIAL&quot;</code></td>
 </tr>
 <tr>
 <td>View all components on node.</td>
-<td><code>curl -u $AMBCREDS -i  -X GET -H &#39;X-Requested-B:ambari&#39; $AMBURLBASE/hosts/&lt;hawq-node&gt;</code></td>
+<td><code>curl -u $AMBARI_CREDS -i  -X GET -H &#39;X-Requested-B:ambari&#39; $AMBARI_URLBASE/hosts/&lt;hawq-node&gt;</code></td>
 </tr>
 </tbody></table>
 
@@ -1204,19 +1214,19 @@ TestCluster
 </thead><tbody>
 <tr>
 <td>Start the HAWQ service.</td>
-<td><code>curl -u $AMBCREDS -X PUT -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;: {&quot;context&quot; :&quot;Start HAWQ via REST&quot;}, &quot;Body&quot;: {&quot;ServiceInfo&quot;: {&quot;state&quot;: &quot;STARTED&quot;}}}&#39; $AMBURLBASE/services/HAWQ</code></td>
+<td><code>curl -u $AMBARI_CREDS -X PUT -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;: {&quot;context&quot; :&quot;Start HAWQ via REST&quot;}, &quot;Body&quot;: {&quot;ServiceInfo&quot;: {&quot;state&quot;: &quot;STARTED&quot;}}}&#39; $AMBARI_URLBASE/services/HAWQ</code></td>
 </tr>
 <tr>
 <td>Stop the HAWQ service.</td>
-<td><code>curl -u $AMBCREDS -X PUT -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;: {&quot;context&quot; :&quot;Stop HAWQ via REST&quot;}, &quot;Body&quot;: {&quot;ServiceInfo&quot;: {&quot;state&quot;: &quot;INSTALLED&quot;}}}&#39; $AMBURLBASE/services/HAWQ</code></td>
+<td><code>curl -u $AMBARI_CREDS -X PUT -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;: {&quot;context&quot; :&quot;Stop HAWQ via REST&quot;}, &quot;Body&quot;: {&quot;ServiceInfo&quot;: {&quot;state&quot;: &quot;INSTALLED&quot;}}}&#39; $AMBARI_URLBASE/services/HAWQ</code></td>
 </tr>
 <tr>
 <td>Start the PXF service.</td>
-<td><code>curl -u $AMBCREDS -X PUT -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;: {&quot;context&quot; :&quot;Start PXF via REST&quot;}, &quot;Body&quot;: {&quot;ServiceInfo&quot;: {&quot;state&quot;: &quot;STARTED&quot;}}}&#39; $AMBURLBASE//services/PXF</code></td>
+<td><code>curl -u $AMBARI_CREDS -X PUT -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;: {&quot;context&quot; :&quot;Start PXF via REST&quot;}, &quot;Body&quot;: {&quot;ServiceInfo&quot;: {&quot;state&quot;: &quot;STARTED&quot;}}}&#39; $AMBARI_URLBASE//services/PXF</code></td>
 </tr>
 <tr>
 <td>Stop the PXF service.</td>
-<td><code>curl -u $AMBCREDS -X PUT -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;: {&quot;context&quot; :&quot;Stop PXF via REST&quot;}, &quot;Body&quot;: {&quot;ServiceInfo&quot;: {&quot;state&quot;: &quot;INSTALLED&quot;}}}&#39; $AMBURLBASE/services/PXF</code></td>
+<td><code>curl -u $AMBARI_CREDS -X PUT -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;: {&quot;context&quot; :&quot;Stop PXF via REST&quot;}, &quot;Body&quot;: {&quot;ServiceInfo&quot;: {&quot;state&quot;: &quot;INSTALLED&quot;}}}&#39; $AMBARI_URLBASE/services/PXF</code></td>
 </tr>
 </tbody></table>
 
@@ -1230,11 +1240,11 @@ TestCluster
 </thead><tbody>
 <tr>
 <td>Run a HAWQ service check.</td>
-<td><code>curl -u $AMBCREDS -X POST -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;:{&quot;context&quot;:&quot;HAWQ Service Check&quot;,&quot;command&quot;:&quot;HAWQ_SERVICE_CHECK&quot;}, &quot;Requests/resource_filters&quot;:[{ &quot;service_name&quot;:&quot;HAWQ&quot;}]}&#39;  $AMBURLBASE/requests</code></td>
+<td><code>curl -u $AMBARI_CREDS -X POST -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;:{&quot;context&quot;:&quot;HAWQ Service Check&quot;,&quot;command&quot;:&quot;HAWQ_SERVICE_CHECK&quot;}, &quot;Requests/resource_filters&quot;:[{ &quot;service_name&quot;:&quot;HAWQ&quot;}]}&#39;  $AMBARI_URLBASE/requests</code></td>
 </tr>
 <tr>
 <td>Run a PXF service check.</td>
-<td><code>curl -u $AMBCREDS -X POST -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;:{&quot;context&quot;:&quot;PXF Service Check&quot;,&quot;command&quot;:&quot;PXF_SERVICE_CHECK&quot;}, &quot;Requests/resource_filters&quot;:[{ &quot;service_name&quot;:&quot;PXF&quot;}]}&#39;  $AMBURLBASE/requests</code></td>
+<td><code>curl -u $AMBARI_CREDS -X POST -H &#39;X-Requested-By:ambari&#39; -d &#39;{&quot;RequestInfo&quot;:{&quot;context&quot;:&quot;PXF Service Check&quot;,&quot;command&quot;:&quot;PXF_SERVICE_CHECK&quot;}, &quot;Requests/resource_filters&quot;:[{ &quot;service_name&quot;:&quot;PXF&quot;}]}&#39;  $AMBARI_URLBASE/requests</code></td>
 </tr>
 </tbody></table>
 

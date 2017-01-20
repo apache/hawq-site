@@ -129,11 +129,13 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/setuphawqopenv.html">Introducing the HAWQ Operating Environment</a>
           </li>
-          <li>
+          <li class="has_submenu">
             <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-admin.html">Managing HAWQ Using Ambari</a>
-          </li>
-          <li>
-            <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+           <ul>
+            <li>
+              <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+            </li>
+           </ul>
           </li>
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/startstop.html">Starting and Stopping HAWQ</a>
@@ -413,6 +415,7 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HivePXF.html">Accessing Hive Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HBasePXF.html">Accessing HBase Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/JsonPXF.html">Accessing JSON Data</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HDFSWritablePXF.html">Writing Data to HDFS</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/ReadWritePXF.html">Using Profiles to Read and Write Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/PXFExternalTableandAPIReference.html">PXF External Tables and API</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/TroubleshootingPXF.html">Troubleshooting PXF</a></li>
@@ -740,6 +743,7 @@
             <ul>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ABORT.html">ABORT</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-AGGREGATE.html">ALTER AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-CONVERSION.html">ALTER CONVERSION</a></li>  
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-DATABASE.html">ALTER DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-FUNCTION.html">ALTER FUNCTION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-OPERATOR.html">ALTER OPERATOR</a></li>
@@ -757,6 +761,8 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COMMIT.html">COMMIT</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COPY.html">COPY</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-AGGREGATE.html">CREATE AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-CAST.html">CREATE CAST</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-CONVERSION.html">CREATE CONVERSION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-DATABASE.html">CREATE DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html">CREATE EXTERNAL TABLE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-FUNCTION.html">CREATE FUNCTION</a></li>
@@ -777,6 +783,8 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DEALLOCATE.html">DEALLOCATE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DECLARE.html">DECLARE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-AGGREGATE.html">DROP AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-CAST.html">DROP CAST</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-CONVERSION.html">DROP CONVERSION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-DATABASE.html">DROP DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-EXTERNAL-TABLE.html">DROP EXTERNAL TABLE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-FILESPACE.html">DROP FILESPACE</a></li>
@@ -958,9 +966,15 @@
 <li><a href="#aboutpljava">About PL/Java</a></li>
 <li>
 <a href="#abouthawqpljava">About HAWQ PL/Java</a><ul>
-<li><a href="#pljavafunctions">Functions</a></li>
+<li><a href="#pljavafunctions">Unsupported Functions</a></li>
 <li><a href="#serverconfigparams">Server Configuration Parameters</a></li>
 <li><a href="#setting_serverconfigparams">Setting PL/Java Configuration Parameters</a></li>
+</ul>
+</li>
+<li>
+<a href="#security">Security</a><ul>
+<li><a href="#installation">Enable/Disable</a></li>
+<li><a href="#trustedlang">Trusted/Untrusted Language</a></li>
 </ul>
 </li>
 <li>
@@ -978,146 +992,156 @@
 <li><a href="#complextypes">Complex Types</a></li>
 <li><a href="#returningcomplextypes">Returning Complex Types</a></li>
 <li><a href="#functionreturnsets">Functions that Return Sets</a></li>
-<li><a href="#returnsetofscalar">Returning a SETOF</a></li>
-<li><a href="#returnsetofcomplex">Returning a SETOF</a></li>
+<li><a href="#returnsetofscalar">Returning a SETOF &lt;Scalar Type&gt;</a></li>
+<li><a href="#returnsetofcomplex">Returning a SETOF &lt;Complex Type&gt;</a></li>
 </ul>
 </li>
 <li><a href="#usingjdbc">Using JDBC</a></li>
 <li><a href="#exceptionhandling">Exception Handling</a></li>
 <li><a href="#savepoints">Savepoints</a></li>
 <li><a href="#logging">Logging</a></li>
-<li>
-<a href="#security">Security</a><ul>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#trustedlang">Trusted Language</a></li>
-</ul>
-</li>
 <li><a href="#pljavaexample">Example</a></li>
 </ul></div>
           </div>
         <div class="to-top" id="js-to-top">
           <a href="#top" title="back to top"></a>
         </div>
-        <p>This section contains an overview of the HAWQ PL/Java language. </p>
+        <p>This section provides an overview of the HAWQ PL/Java procedural language extension. </p>
 
 <h2><a id="aboutpljava"></a>About PL/Java</h2>
 
-<p>With the HAWQ PL/Java extension, you can write Java methods using your favorite Java IDE and install the JAR files that implement the methods in your HAWQ cluster.</p>
+<p>With the PL/Java extension, you can write Java methods using your favorite Java IDE and invoke the methods from PostgreSQL user-defined functions (UDFs). </p>
 
-<p><strong>Note</strong>: If building HAWQ from source, you must specify PL/Java as a build option when compiling HAWQ. To use PL/Java in a HAWQ deployment, you must explicitly enable the PL/Java extension in all desired databases.  </p>
-
-<p>The HAWQ PL/Java package is based on the open source PL/Java 1.4.0. HAWQ PL/Java provides the following features.</p>
+<p>The HAWQ PL/Java package is based on the open source PL/Java 1.4.0 and provides the following features:</p>
 
 <ul>
-<li>Ability to execute PL/Java functions with Java 1.6 or 1.7.</li>
-<li>Standardized utilities (modeled after the SQL 2003 proposal) to install and maintain Java code in the database.</li>
-<li>Standardized mappings of parameters and result. Complex types as well as sets are supported.</li>
-<li>An embedded, high performance, JDBC driver utilizing the internal HAWQ Database SPI routines.</li>
-<li>Metadata support for the JDBC driver. Both <code>DatabaseMetaData</code> and <code>ResultSetMetaData</code> are included.</li>
-<li>The ability to return a <code>ResultSet</code> from a query as an alternative to building a ResultSet row by row.</li>
-<li>Full support for savepoints and exception handling.</li>
-<li>The ability to use IN, INOUT, and OUT parameters.</li>
-<li>Two separate HAWQ languages:
+<li>PL/Java function execution with Java 1.6 or 1.7.</li>
+<li>Standardized mappings of Java and PostgreSQL parameters and results. Complex types as well as sets are supported.</li>
+<li>Two HAWQ Java languages:
 
 <ul>
-<li>pljava, TRUSTED PL/Java language</li>
-<li>pljavau, UNTRUSTED PL/Java language</li>
+<li><code>java</code> - Tusted PL/Java language</li>
+<li><code>javau</code> - Untrusted PL/Java language (superusers only)</li>
 </ul></li>
+<li>An embedded, high performance, JDBC driver utilizing the internal HAWQ Database Server Programming Interface (SPI).</li>
+<li>Metadata support for the JDBC driver. Both <code>DatabaseMetaData</code> and <code>ResultSetMetaData</code> are included.</li>
+<li>A standard way of passing parameters and return values. Complex types and sets are passed using the standard JDBC <code>ResultSet</code> class.</li>
+<li>The ability to return a <code>ResultSet</code> from a query as an alternative to building a <code>ResultSet</code> row by row.</li>
+<li>Full support for savepoints and exception handling.</li>
 <li>Transaction and Savepoint listeners enabling code execution when a transaction or savepoint is committed or rolled back.</li>
 <li>Integration with GNU GCJ on selected platforms.</li>
 </ul>
 
-<p>A function in SQL will appoint a static method in a Java class. In order for the function to execute, the appointed class must available on the class path specified by the HAWQ server configuration parameter <code>pljava_classpath</code>. The PL/Java extension adds a set of functions that helps to install and maintain the Java classes. Classes are stored in normal Java archives, JAR files. A JAR file can optionally contain a deployment descriptor that in turn contains SQL commands to be executed when the JAR is deployed or undeployed. The functions are modeled after the standards proposed for SQL 2003.</p>
+<p>PL/Java is optimized for performance. The Java virtual machine executes within the same process as the backend, minimizing call overhead. PL/Java brings the power of Java to the database itself, enabling the database-intensive business logic to execute as close to the actual data as possible.</p>
 
-<p>PL/Java implements a standard way of passing parameters and return values. Complex types and sets are passed using the standard JDBC ResultSet class.</p>
-
-<p>A JDBC driver is included in PL/Java. This driver calls HAWQ internal SPI routines. The driver is essential since it is common for functions to make calls back to the database to fetch data. When PL/Java functions fetch data, they must use the same transactional boundaries that are used by the main function that entered PL/Java execution context.</p>
-
-<p>PL/Java is optimized for performance. The Java virtual machine executes within the same process as the backend to minimize call overhead. PL/Java is designed with the objective to enable the power of Java to the database itself so that database intensive business logic can execute as close to the actual data as possible.</p>
-
-<p>The standard Java Native Interface (JNI) is used when bridging calls between the backend and the Java VM.</p>
+<p>Calls between the HAWQ backend and the Java VM are bridged using the standard Java Native Interface (JNI).</p>
 
 <h2><a id="abouthawqpljava"></a>About HAWQ PL/Java</h2>
 
+<p>PL/Java is embedded in your HAWQ product distribution or within your HAWQ build if you chose to enable it as a build option. To use PL/Java in a HAWQ deployment, you must explicitly enable the PL/Java extension in all desired databases.</p>
+
 <p>There are a few key differences between the implementation of PL/Java in standard PostgreSQL and HAWQ.</p>
 
-<h3><a id="pljavafunctions"></a>Functions</h3>
+<h3><a id="pljavafunctions"></a>Unsupported Functions</h3>
 
-<p>The following functions are not supported in HAWQ. The classpath is handled differently in a distributed HAWQ environment than in the PostgreSQL environment.</p>
+<p>The following functions are not supported in HAWQ:</p>
 
 <ul>
-<li>sqlj.install_jar</li>
-<li>sqlj.install_jar</li>
-<li>sqlj.replace_jar</li>
-<li>sqlj.remove_jar</li>
-<li>sqlj.get_classpath</li>
-<li>sqlj.set_classpath</li>
+<li>sqlj.install_jar()</li>
+<li>sqlj.install_jar()</li>
+<li>sqlj.replace_jar()</li>
+<li>sqlj.remove_jar()</li>
+<li>sqlj.get_classpath()</li>
+<li>sqlj.set_classpath()</li>
 </ul>
 
-<p>HAWQ uses the <code>pljava_classpath</code> server configuration parameter in place of the <code>sqlj.set_classpath</code> function.</p>
+<p>The PL/Java classpath is handled differently in a distributed HAWQ environment than that of the PostgreSQL environment. HAWQ uses the <code>pljava_classpath</code> server configuration parameter in place of the <code>sqlj.set_classpath()</code> function.</p>
 
 <h3><a id="serverconfigparams"></a>Server Configuration Parameters</h3>
 
-<p>PL/Java uses server configuration parameters to configure classpath, Java VM, and other options. Refer to the <a href="/docs/userguide/2.1.0.0-incubating/reference/HAWQSiteConfig.html">Server Configuration Parameter Reference</a> for general information about HAWQ server configuration parameters.</p>
+<p>PL/Java uses server configuration parameters to configure the classpath, Java Virtual Machine (VM), and other options. Refer to the <a href="/docs/userguide/2.1.0.0-incubating/reference/HAWQSiteConfig.html">Server Configuration Parameter Reference</a> for general information about HAWQ server configuration parameters.</p>
 
-<p>The following server configuration parameters are used by PL/Java in HAWQ. These parameters replace the <code>pljava.*</code> parameters that are used in the standard PostgreSQL PL/Java implementation.</p>
+<p>The following server configuration parameters are used by HAWQ PL/Java. These parameters replace the <code>pljava.*</code> configuration parameters that are used in the standard PostgreSQL PL/Java implementation.</p>
 
 <h4>pljava_classpath</h4>
 
-<p>A colon (:) separated list of the jar files containing the Java classes used in any PL/Java functions. The jar files must be installed in the same locations on all HAWQ hosts. With the trusted PL/Java language handler, jar file paths must be relative to the <code>$GPHOME/lib/postgresql/java/</code> directory. With the untrusted language handler (javaU language tag), paths may be relative to <code>$GPHOME/lib/postgresql/java/</code> or absolute.</p>
+<p>A PL/Java user-defined function will appoint a static method in a Java class. In order for the function to execute, the appointed class must be available on the class path specified by the <a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pljava_classpath"><code>pljava_classpath</code></a> HAWQ server configuration parameter.</p>
 
-<h4>pljava_statement_cache_size</h4>
-
-<p>Sets the size in KB of the Most Recently Used (MRU) cache for prepared statements.</p>
+<p><code>pljava_classpath</code> is a colon (:) separated list of the JAR files implementing the Java classes referenced in any PL/Java user-defined functions. The JAR files must be installed in the same locations on all HAWQ hosts. When using the trusted PL/Java language handler (<code>java</code> language tag), JAR file paths must be relative to the <code>$GPHOME/lib/postgresql/java/</code> directory. Relative or absolute JAR file paths may be used with the untrusted PL/Java language handler (<code>javau</code> language tag).</p>
 
 <h4>pljava_release_lingering_savepoints</h4>
 
-<p>If TRUE, lingering savepoints will be released on function exit. If FALSE, they will be rolled back.</p>
+<p><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pljava_release_lingering_savepoints"><code>pljava_release_lingering_savepoints</code></a> identifies the action to perform when lingering savepoints exist after a PL/Java user-defined function exits. If TRUE, lingering savepoints are released on function exit. If FALSE, lingering savepoints are rolled back.</p>
+
+<h4>pljava_statement_cache_size</h4>
+
+<p><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pljava_statement_cache_size"><code>pljava_statement_cache_size</code></a> sets the size (in KB) of the Most Recently Used (MRU) cache for prepared statements.</p>
 
 <h4>pljava_vmoptions</h4>
 
-<p>Defines the start up options for the Java VM.</p>
+<p><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#pljava_vmoptions"><code>pljava_vmoptions</code></a> defines the set of space-delimited start-up options for the Java VM.</p>
 
 <h3><a id="setting_serverconfigparams"></a>Setting PL/Java Configuration Parameters</h3>
 
-<p>You can set PL/Java server configuration parameters at the session level, or globally across your whole cluster. Your HAWQ cluster configuration must be reloaded after setting a server configuration value globally.</p>
+<p>You can set PL/Java server configuration parameters at the session level, or globally across your whole cluster.</p>
 
 <h4><a id="setsrvrcfg_global"></a>Cluster Level</h4>
 
 <p>You will perform different procedures to set a PL/Java server configuration parameter for your whole HAWQ cluster depending upon whether you manage your cluster from the command line or use Ambari. If you use Ambari to manage your HAWQ cluster, you must ensure that you update server configuration parameters only via the Ambari Web UI. If you manage your HAWQ cluster from the command line, you will use the <code>hawq config</code> command line utility to set PL/Java server configuration parameters.</p>
+
+<p>You must reload your HAWQ cluster configuration after you set a server configuration value globally.</p>
 
 <p>The following examples add a JAR file named <code>myclasses.jar</code> to the <code>pljava_classpath</code> server configuration parameter for the entire HAWQ cluster.</p>
 
 <p>If you use Ambari to manage your HAWQ cluster:</p>
 
 <ol>
-<li>Set the <code>pljava_classpath</code> configuration property to include <code>myclasses.jar</code> via the HAWQ service <strong>Configs &gt; Advanced &gt; Custom hawq-site</strong> drop down. </li>
+<li>Set the <code>pljava_classpath</code> configuration property <strong>Key</strong> <strong>Value</strong> to include <code>myclasses.jar</code> via the HAWQ service <strong>Configs &gt; Advanced &gt; Custom hawq-site</strong> drop down. </li>
 <li>Select <strong>Service Actions &gt; Restart All</strong> to load the updated configuration.</li>
 </ol>
 
 <p>If you manage your HAWQ cluster from the command line:</p>
 
 <ol>
-<li><p>Log in to the HAWQ master host as a HAWQ administrator and source the file <code>/usr/local/hawq/greenplum_path.sh</code>.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">source</span> /usr/local/hawq/greenplum_path.sh
+<li><p>Log in to the HAWQ master node as a HAWQ administrator and set up your HAWQ environment.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>ssh gpadmin@master
+<span class="gp">gpadmin@master$ </span><span class="nb">source</span> /usr/local/hawq/greenplum_path.sh
 </code></pre></li>
 <li><p>Use the <code>hawq config</code> utility to set <code>pljava_classpath</code>:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>hawq config -c pljava_classpath -v <span class="se">\'</span>myclasses.jar<span class="se">\'</span>
-</code></pre></li>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq config -c pljava_classpath -v <span class="s1">'myclasses.jar'</span>
+</code></pre>
+
+<p>The <code>-c</code> option identifies the name of the server configuration parameter, <code>-v</code> identifies the new value.</p></li>
 <li><p>Reload the HAWQ configuration:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>hawq stop cluster -u
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq stop cluster -u
 </code></pre></li>
 </ol>
 
 <h4><a id="setsrvrcfg_session"></a>Session Level</h4>
 
-<p>To set a PL/Java server configuration parameter for only the <em>current</em> database session, set the parameter within the <code>psql</code> subsystem. For example, to set <code>pljava_classpath</code>:</p>
+<p>To set a PL/Java server configuration parameter only for the <em>current</em> database session, set the parameter within the <code>psql</code> subsystem. For example:</p>
 <pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SET</span> <span class="n">pljava_classpath</span><span class="o">=</span><span class="s1">'myclasses.jar'</span><span class="p">;</span>
 </code></pre>
 
+<h2><a id="security"></a>Security</h2>
+
+<p>This section describes specific security considerations when using PL/Java.</p>
+
+<h3><a id="installation"></a>Enable/Disable</h3>
+
+<p>Only a database superuser can enable and disable PL/Java. You install the PL/Java utility functions with <code>SECURITY DEFINER</code> privileges; they execute with the access permissions granted to the creator of the functions.</p>
+
+<h3><a id="trustedlang"></a>Trusted/Untrusted Language</h3>
+
+<p>PL/Java includes trusted and untrusted language variants.</p>
+
+<p>The PL/Java trusted language is named <code>java</code>. The trusted PL/Java language cannot access the file system as stipulated by the PostgreSQL definition of a trusted language. Any database user can create and execute functions in the trusted <code>java</code> language.</p>
+
+<p>The PL/Java untrusted language is named <code>javau</code>. You cannot restrict operation of functions you create with the <code>javau</code> untrusted language. Only database superusers have privileges to create untrusted PL/Java UDFs. Only database superusers and other database users explicitly <code>GRANT</code>ed the permissions can execute untrusted PL/Java UDFs.</p>
+
 <h2><a id="enablepljava"></a>Enabling and Removing PL/Java Support</h2>
 
-<p>The PL/Java extension must be explicitly enabled on each database in which it will be used.</p>
+<p>The PL/Java extension must be explicitly enabled on each database in which it will be used. To remove PL/Java support, the extension must be explicitly removed from each database in which it was used.</p>
 
 <h3><a id="pljavaprereq"></a>Prerequisites</h3>
 
@@ -1125,21 +1149,25 @@
 
 <ol>
 <li><p>Ensure that you have installed a supported Java runtime environment and that the <code>$JAVA_HOME</code> variable is set to the same path on the master and all segment nodes.</p></li>
-<li><p>Perform the following step on all machines to set up <code>ldconfig</code> for the installed JDK:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$JAVA_HOME</span><span class="s2">/jre/lib/amd64/server"</span> &gt; /etc/ld.so.conf.d/libjdk.conf
-<span class="gp">$ </span>ldconfig
+<li><p>Perform the following step on all nodes in your HAWQ cluster to set up the shared library cache for the installed JDK:</p>
+<pre class="highlight shell"><code><span class="gp">root@hawq-node$ </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$JAVA_HOME</span><span class="s2">/jre/lib/amd64/server"</span> &gt; /etc/ld.so.conf.d/libjdk.conf
+<span class="gp">root@hawq-node$ </span>ldconfig
 </code></pre></li>
-<li><p>Make sure that your HAWQ cluster is running, you have sourced <code>greenplum_path.sh</code> and that your <code>$GPHOME</code> environment variable is set.</p></li>
+<li><p>Make sure that your HAWQ cluster is running, you have sourced <code>greenplum_path.sh</code> and that your <code>$GPHOME</code> environment variable is set.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>ssh gpadmin@master
+<span class="gp">gpadmin@master$ </span><span class="nb">source</span> /usr/local/hawq/greenplum_path.sh
+<span class="gp">gpadmin@master$ </span>hawq state
+</code></pre></li>
 </ol>
 
 <h3><a id="enablepljava"></a>Enable PL/Java and Install JAR Files</h3>
 
-<p>To use PL/Java:</p>
+<p>To use PL/Java, you must:</p>
 
 <ol>
 <li>Enable the language for each database.</li>
-<li>Install user-created JAR files on all HAWQ hosts.</li>
-<li>Add the names of the JAR files to the HAWQ <code>pljava_classpath</code> server configuration parameter. This parameter value should identify a list of the installed JAR files.</li>
+<li>Install custom JAR files on all HAWQ hosts.</li>
+<li>Add the names of the JAR files to the HAWQ <code>pljava_classpath</code> server configuration parameter. This parameter value should identify a list of all installed JAR files.</li>
 </ol>
 
 <h4><a id="enablepljava"></a>Enable PL/Java and Install JAR Files</h4>
@@ -1147,29 +1175,27 @@
 <p>Perform the following steps as the <code>gpadmin</code> user:</p>
 
 <ol>
-<li><p>Enable PL/Java by running the <code>$GPHOME/share/postgresql/pljava/install.sql</code> SQL script in the databases that will use PL/Java. The <code>install.sql</code> script registers both the trusted and untrusted PL/Java languages. For example, the following command enables PL/Java on a database named <code>testdb</code>:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/install.sql
+<li><p>Enable PL/Java by running the <code>$GPHOME/share/postgresql/pljava/install.sql</code> SQL script on the databases that will use PL/Java. The <code>install.sql</code> script registers both the trusted (<code>java</code>) and untrusted PL/Java (<code>javau</code>) languages. For example, the following command enables the PL/Java languages on a database named <code>testdb</code>:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>psql -d testdb -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/install.sql
 </code></pre>
 
 <p>To enable the PL/Java extension in all new HAWQ databases, run the script on the <code>template1</code> database: </p>
-<pre class="highlight shell"><code><span class="gp">$ </span>psql -d template1 -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/install.sql
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>psql -d template1 -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/install.sql
 </code></pre>
 
-<p>Use this option <em>only</em> if you are certain you want to enable PL/Java in all new databases.</p></li>
-<li><p>Copy your Java archives (JAR files) to <code>$GPHOME/lib/postgresql/java/</code> on all HAWQ hosts. This example uses the <code>hawq scp</code> utility to copy the <code>myclasses.jar</code> file located in the current directory:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>hawq scp -f hawq_hosts myclasses.jar <span class="o">=</span>:<span class="nv">$GPHOME</span>/lib/postgresql/java/
-</code></pre>
-
-<p>The <code>hawq_hosts</code> file contains a list of the HAWQ hosts.</p></li>
-<li><p>Add the JAR files to the <code>pljava_classpath</code> configuration parameter. Refer to <a href="#setting_serverconfigparams">Setting PL/Java Configuration Parameters</a> for the specific procedure.</p></li>
-<li><p>(Optional) Your HAWQ installation includes an <code>examples.sql</code> file.  This script contains sample PL/Java functions that you can use for testing. Run the commands in this file to create and run test functions that use the Java classes in <code>examples.jar</code>:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>psql -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/examples.sql
+<p>Use this option <em>only</em> if you are certain you want to enable both the trusted and untrusted versions of PL/Java in all newly-created databases. After you invoke this command, PL/Java will be enabled in each new database that a user creates.</p></li>
+<li><p>Copy all custom Java JAR files to <code>$GPHOME/lib/postgresql/java/</code> on all HAWQ nodes. This example uses the <code>hawq scp</code> utility to copy the <code>myclasses.jar</code> file  to the list of hosts identified in the <code>hawq_hosts</code> file:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq scp -f ./hawq_hosts ./myclasses.jar <span class="o">=</span>:/usr/local/hawq/lib/postgresql/java/
+</code></pre></li>
+<li><p>Add all JAR files to the <code>pljava_classpath</code> configuration parameter. Refer to <a href="#setting_serverconfigparams">Setting PL/Java Configuration Parameters</a> for the specific procedure.</p></li>
+<li><p>(Optional) Your HAWQ installation includes an <code>examples.sql</code> file. This script registers sample PL/Java functions that you can use to test the PL/Java installation. Run the commands in this file to create and execute PL/Java user-defined functions that use the Java classes implemented in <code>examples.jar</code>. The database on which you run the script must have PL/Java enabled:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>psql -d &lt;dbname&gt; -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/examples.sql
 </code></pre></li>
 </ol>
 
 <h4>Configuring PL/Java VM Options</h4>
 
-<p>PL/Java JVM options can be configured via the <code>pljava_vmoptions</code> server configuration parameter. For example, <code>pljava_vmoptions=-Xmx512M</code> sets the maximum heap size of the JVM. The default <code>-Xmx</code> value is <code>64M</code>.</p>
+<p>Configure PL/Java JVM options via the <code>pljava_vmoptions</code> server configuration parameter. For example, <code>pljava_vmoptions=-Xmx512M</code> sets the maximum heap size of the JVM. (The default <code>-Xmx</code> value is <code>64M</code>.)</p>
 
 <p>Refer to <a href="#setting_serverconfigparams">Setting PL/Java Configuration Parameters</a> for the specific procedure to set PL/Java server configuration parameters.</p>
 
@@ -1179,13 +1205,13 @@
 
 <ol>
 <li>Remove PL/Java support from each database in which it was added.</li>
-<li>Uninstall the Java JAR files.</li>
+<li>Uninstall/remove the Java JAR files.</li>
 </ol>
 
 <h4><a id="uninstallpljavasupport"></a>Remove PL/Java Support from Databases</h4>
 
-<p>For a database that no longer requires the PL/Java language, remove support for PL/Java by running the <code>uninstall.sql</code> script as the <code>gpadmin</code> user. For example, the following command disables the PL/Java language in the specified database:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>psql -d &lt;dbname&gt; -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/uninstall.sql
+<p>Remove support for PL/Java by running the <code>uninstall.sql</code> script as the <code>gpadmin</code> user. For example, the following command disables the PL/Java languages in the specified database:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>psql -d &lt;dbname&gt; -f <span class="nv">$GPHOME</span>/share/postgresql/pljava/uninstall.sql
 </code></pre>
 
 <p>Replace &lt;dbname&gt; with the name of the target database.</p>
@@ -1198,7 +1224,7 @@
 
 <ol>
 <li><p>Remove the <code>pljava_classpath</code> configuration property via the HAWQ service <strong>Configs &gt; Advanced &gt; Custom hawq-site</strong> drop down.</p></li>
-<li><p>Remove the JAR files from the <code>$GPHOME/lib/postgresql/java/</code> directory of each HAWQ host.</p></li>
+<li><p>Remove the JAR files from the <code>$GPHOME/lib/postgresql/java/</code> directory on each HAWQ host.</p></li>
 <li><p>Select <strong>Service Actions &gt; Restart All</strong> to restart your HAWQ cluster.</p></li>
 </ol>
 
@@ -1206,14 +1232,14 @@
 
 <ol>
 <li><p>Log in to the HAWQ master host as a HAWQ administrator and source the file <code>/usr/local/hawq/greenplum_path.sh</code>.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">source</span> /usr/local/hawq/greenplum_path.sh
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span><span class="nb">source</span> /usr/local/hawq/greenplum_path.sh
 </code></pre></li>
-<li><p>Use the <code>hawq config</code> utility to remove <code>pljava_classpath</code>:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>hawq config -r pljava_classpath
+<li><p>Use the <code>hawq config</code> utility to remove the <code>pljava_classpath</code> setting:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq config -r pljava_classpath
 </code></pre></li>
-<li><p>Remove the JAR files from the <code>$GPHOME/lib/postgresql/java/</code> directory of each HAWQ host.</p></li>
-<li><p>If you manage your cluster from the command line, run:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>hawq restart cluster
+<li><p>Remove the JAR files from the <code>$GPHOME/lib/postgresql/java/</code> directory on each HAWQ host.</p></li>
+<li><p>Restart your HAWQ cluster:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq restart cluster
 </code></pre></li>
 </ol>
 
@@ -1232,30 +1258,45 @@
 <li><a href="#returnsetofcomplex">Returning a SETOF &lt;complex type&gt;</a></li>
 </ul>
 
+<p>You must have a Java SDK installed to write Java methods.</p>
+
 <h3><a id="sqldeclaration"></a>SQL Declaration</h3>
 
-<p>A Java function is declared with the name of a class and a static method on that class. The class will be resolved using the classpath that has been defined for the schema where the function is declared. If no classpath has been defined for that schema, the public schema is used. If no classpath is found there either, the class is resolved using the system classloader.</p>
+<p>PL/Java functions are defined using the standard SQL <a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-FUNCTION.html">CREATE FUNCTION</a> syntax. A PL/Java user-defined function specifies <code>LANGUAGE java</code> (trusted) or <code>LANGUAGE javau</code> (untrusted). The function must also include <code>RETURNS</code> and <code>AS</code> clauses.</p>
 
-<p>The following function can be declared to access the static method getProperty on <code>java.lang.System</code> class:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">getsysprop</span><span class="p">(</span><span class="n">VARCHAR</span><span class="p">)</span>
+<p>The <code>RETURNS</code> clause identifies the type of the function&rsquo;s return value. </p>
+
+<p>Use the <code>AS</code> clause to identify the name of a Java class and the static method on that class that HAWQ invokes when it executes the function. Any arguments to the UDF are also passed to the Java method.</p>
+
+<p>The Java class is resolved using the classpath that has been defined for the schema in which the function is declared. If no classpath has been defined for that schema, the <code>public</code> schema is used. If no classpath is found in the <code>public</code> schema, an attempt is made to resolve the class using the Java system class loader.</p>
+
+<p>Example: Create a UDF wrapper around the <code>java.lang.System</code> class <code>getProperty()</code> method.  <code>getProperty()</code> takes a property name string as input and returns the string value of that property:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">getsysprop_udf</span><span class="p">(</span><span class="n">VARCHAR</span><span class="p">)</span>
      <span class="k">RETURNS</span> <span class="n">VARCHAR</span>
      <span class="k">AS</span> <span class="s1">'java.lang.System.getProperty'</span>
    <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
 </code></pre>
 
-<p>Run the following command to return the Java <code>user.home</code> property:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">getsysprop</span><span class="p">(</span><span class="s1">'user.home'</span><span class="p">);</span>
+<p>Execute the <code>getsysprop_udf()</code> PL/Java UDF, passing as input the property name  <code>user.home</code>:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">getsysprop_udf</span><span class="p">(</span><span class="s1">'user.home'</span><span class="p">);</span>
 </code></pre>
+<pre class="highlight plaintext"><code> getsysprop_udf   
+----------------
+ /home/gpadmin
+(1 row)
+</code></pre>
+
+<p><code>getsyprop_udf()</code> returns the value <code>/home/gpadmin</code>, the current user&rsquo;s (<code>gpadmin</code>) home directory.</p>
 
 <h3><a id="typemapping"></a>Type Mapping</h3>
 
-<p>Scalar types are mapped in a straightforward way. This table lists the current mappings.</p>
+<p>Scalar types are mapped between HAWQ and Java in a straightforward way. The current HAWQ to Java type mappings are listed in the table below.</p>
 
-<p><strong><em>Table 1: PL/Java data type mappings</em></strong></p>
+<p><strong>Table 1: PL/Java Data Type Mappings</strong></p>
 
 <table><thead>
 <tr>
-<th>PostgreSQL</th>
+<th>HAWQ</th>
 <th>Java</th>
 </tr>
 </thead><tbody>
@@ -1321,18 +1362,25 @@
 </tr>
 </tbody></table>
 
-<p>All other types are mapped to <code>java.lang.String</code> and will utilize the standard textin/textout routines registered for respective type.</p>
+<p>All other types are mapped to <code>java.lang.String</code> and will utilize the standard textin/textout routines registered for the respective type.</p>
 
 <h3><a id="nullhandling"></a>NULL Handling</h3>
 
-<p>The scalar types that map to Java primitives can not be passed as NULL values. To pass NULL values, those types can have an alternative mapping. You enable this mapping by explicitly denoting it in the method reference.</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">trueIfEvenOrNull</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span>
-     <span class="k">RETURNS</span> <span class="n">bool</span>
-     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.trueIfEvenOrNull(java.lang.Integer)'</span>
-   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
-</code></pre>
+<p>The scalar types that map to Java primitives can not be passed as NULL values to Java methods. To pass NULL values, those types should be mapped to the Java object wrapper class that corresponds with the primitive, and must be explicitly denoted in the method reference. For example, the object wrapper class for the <code>integer</code> primitive type is <code>java.lang.Integer</code>.</p>
 
-<p>The Java code would be similar to this:</p>
+<p>Example: Handling Null Inputs</p>
+
+<ol>
+<li><p>Create a work area for the example:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>mkdir pljava_work
+<span class="gp">$ </span><span class="nb">cd </span>pljava_work
+<span class="gp">$ </span><span class="nb">export </span><span class="nv">PLJAVAWORK</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>
+<span class="gp">$ </span>mkdir -p pljex/foo/fee
+<span class="gp">$ </span><span class="nb">cd </span>pljex/foo/fee
+</code></pre></li>
+<li><p>Create a new file named <code>Fum.java</code>, adding the following text to create a class named <code>Fum</code> with a single method named <code>trueIfEvenOrNull()</code>. This method takes an integer as input and returns true if the integer is even or NULL, false otherwise:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>vi Fum.java
+</code></pre>
 <pre class="highlight java"><code><span class="kn">package</span> <span class="n">foo</span><span class="o">.</span><span class="na">fee</span><span class="o">;</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Fum</span>
 <span class="o">{</span>
@@ -1343,29 +1391,54 @@
       <span class="o">:</span> <span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="na">intValue</span><span class="o">()</span> <span class="o">%</span> <span class="mi">1</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
+</code></pre></li>
+<li><p>Compile the <code>Fum</code> class and create a JAR file for this class named <code>pljex.jar</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>javac Fum.java
+<span class="gp">$ </span><span class="nb">cd</span> ../..
+<span class="gp">$ </span>jar cf pljex.jar foo
+</code></pre></li>
+<li><p>Copy the JAR file to the default PL/Java classpath directory:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>cp pljex.jar /usr/local/hawq/lib/postgresql/java/
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb
+</code></pre></li>
+<li><p>Add the JAR file to the session-level classpath:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SET</span> <span class="n">pljava_classpath</span><span class="o">=</span><span class="s1">'pljex.jar'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Create a trusted PL/Java UDF that invokes the <code>Fum</code> class <code>trueIfEvenOrNull()</code> method:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">isEvenOrNull</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span>
+     <span class="k">RETURNS</span> <span class="n">bool</span>
+     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.trueIfEvenOrNull(java.lang.Integer)'</span>
+   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
 </code></pre>
 
-<p>The following two statements both yield true:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">trueIfEvenOrNull</span><span class="p">(</span><span class="k">NULL</span><span class="p">);</span>
-<span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">trueIfEvenOrNull</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<p>Notice that the UDF input type is <code>integer</code>, while the <code>trueIfEvenOrNull()</code> Java method input is a <code>java.lang.Integer</code> object.</p></li>
+<li><p>Execute the UDF twice, once with a NULL and once with an even input:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">isEvenOrNull</span><span class="p">(</span><span class="k">NULL</span><span class="p">);</span>
+<span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">isEvenOrNull</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 </code></pre>
 
-<p>In order to return NULL values from a Java method, you use the object type that corresponds to the primitive (for example, you return <code>java.lang.Integer</code> instead of <code>int</code>). The PL/Java resolve mechanism finds the method regardless. Since Java cannot have different return types for methods with the same name, this does not introduce any ambiguity.</p>
+<p>Both statements should return true.</p></li>
+</ol>
 
 <h3><a id="complextypes"></a>Complex Types</h3>
 
-<p>A complex type will always be passed as a read-only <code>java.sql.ResultSet</code> with exactly one row. The <code>ResultSet</code> is positioned on its row so a call to <code>next()</code> should not be made. The values of the complex type are retrieved using the standard getter methods of the <code>ResultSet</code>.</p>
+<p>PL/Java supports complex types. Use the <code>CREATE TYPE</code> SQL command to create the complex type. Use the <code>CREATE FUNCTION</code> SQL command to define a PL/Java UDF whose input argument is the new (complex) type.</p>
 
-<p>Example:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">TYPE</span> <span class="n">complexTest</span>
-     <span class="k">AS</span><span class="p">(</span><span class="n">base</span> <span class="n">integer</span><span class="p">,</span> <span class="n">incbase</span> <span class="n">integer</span><span class="p">,</span> <span class="n">ctime</span> <span class="n">timestamptz</span><span class="p">);</span>
-<span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">useComplexTest</span><span class="p">(</span><span class="n">complexTest</span><span class="p">)</span>
-     <span class="k">RETURNS</span> <span class="n">VARCHAR</span>
-     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.useComplexTest'</span>
-   <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+<p>A complex type is always passed to a Java method as a read-only <code>java.sql.ResultSet</code> with exactly one row. The values of the specific fields in the complex type are retrieved using the standard getter method associated with the data type of each field present in the <code>ResultSet</code>.</p>
+
+<p>Example: Complex Input Types</p>
+
+<ol>
+<li><p>Add the following definitions and static method to the Java <code>Fum</code> class you created in an earlier exercise. This method outputs the components of the complex type comprised of two integer fields and a timestamp field:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$PLJAVAWORK</span>/pljex/foo/fee
+<span class="gp">$ </span>vi Fum.java
 </code></pre>
-
-<p>In the Java class <code>Fum</code>, we add the following static method:</p>
+<pre class="highlight java"><code><span class="kn">import</span> <span class="nn">java.sql.ResultSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.Timestamp</span><span class="o">;</span>
+</code></pre>
 <pre class="highlight java"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">useComplexTest</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">complexTest</span><span class="o">)</span>
 <span class="kd">throws</span> <span class="n">SQLException</span>
 <span class="o">{</span>
@@ -1378,18 +1451,58 @@
 <span class="o">}</span>
 </code></pre>
 
-<h3><a id="returningcomplextypes"></a>Returning Complex Types</h3>
+<p>Add the <code>imports</code> under the <code>package</code> definition. And be sure to include the <code>useComplexTypes()</code> method within the <code>Fum</code> class <code>{}</code>s. </p>
 
-<p>Java does not stipulate any way to create a <code>ResultSet</code>. Hence, returning a ResultSet is not an option. The SQL-2003 draft suggests that a complex return value should be handled as an IN/OUT parameter. PL/Java implements a <code>ResultSet</code> that way. If you declare a function that returns a complex type, you will need to use a Java method with boolean return type with a last parameter of type <code>java.sql.ResultSet</code>. The parameter will be initialized to an empty updateable ResultSet that contains exactly one row.</p>
-
-<p>Assume that the complexTest type in previous section has been created.</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">createComplexTest</span><span class="p">(</span><span class="n">int</span><span class="p">,</span> <span class="n">int</span><span class="p">)</span>
-     <span class="k">RETURNS</span> <span class="n">complexTest</span>
-     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.createComplexTest'</span>
+<p>Notice that the <code>ResultSet</code> object is immediately referenced; a call to <code>next()</code> is not required.</p></li>
+<li><p>Compile the <code>Fum</code> class, create the JAR file, and copy the JAR file to the default PL/Java classpath directory:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>javac Fum.java
+<span class="gp">$ </span><span class="nb">cd</span> ../..
+<span class="gp">$ </span>jar cf pljex.jar foo
+<span class="gp">$ </span>cp pljex.jar /usr/local/hawq/lib/postgresql/java/
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb
+</code></pre></li>
+<li><p>Add the JAR file to the session-level classpath:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SET</span> <span class="n">pljava_classpath</span><span class="o">=</span><span class="s1">'pljex.jar'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Create a custom complex type with 2 integers and a single timestamp component:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">TYPE</span> <span class="n">complexTestType</span>
+     <span class="k">AS</span><span class="p">(</span><span class="n">base</span> <span class="n">integer</span><span class="p">,</span> <span class="n">incbase</span> <span class="n">integer</span><span class="p">,</span> <span class="n">ctime</span> <span class="n">timestamptz</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Create a PL/Java UDF that invokes the <code>Fum</code> class <code>useComplexTest()</code> method, specifying a <code>complexTestType</code> as input:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">useComplexTest</span><span class="p">(</span><span class="n">complexTestType</span><span class="p">)</span>
+     <span class="k">RETURNS</span> <span class="n">VARCHAR</span>
+     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.useComplexTest'</span>
    <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Execute the <code>useComplexTest()</code> UDF, providing 2 integers and a timestamp as input:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">useComplexTest</span><span class="p">(</span> <span class="s1">'(1,2,20170101010203)'</span> <span class="p">);</span>
+</code></pre>
+<pre class="highlight plaintext"><code>                       usecomplextest                       
+------------------------------------------------------------
+ Base = "1", incbase = "2", ctime = "2017-01-01 01:02:03.0"
+(1 row)
 </code></pre>
 
-<p>The PL/Java method resolve will now find the following method in the <code>Fum</code> class:</p>
+<p>Running the UDF displays the fields and values comprising the complex type.</p></li>
+</ol>
+
+<h3><a id="returningcomplextypes"></a>Returning Complex Types</h3>
+
+<p>As Java does not define any way to create a <code>ResultSet</code>, returning a <code>ResultSet</code> from a Java method is not an option. The SQL-2003 draft suggests that a complex return value should be handled as an input/output argument. Conveniently, PL/Java implements a <code>ResultSet</code> that way. To declare a function that returns a complex type, you must implement a Java method with a <code>boolean</code> return type and a last input argument of type <code>java.sql.ResultSet</code>. This input/output argument will be initialized to an empty updateable <code>ResultSet</code> that contains exactly one row.</p>
+
+<p>Example: Complex Return Types</p>
+
+<ol>
+<li><p>Create the <code>complexTestType</code> type definition if you did not yet create it:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">TYPE</span> <span class="n">complexTestType</span>
+     <span class="k">AS</span><span class="p">(</span><span class="n">base</span> <span class="n">integer</span><span class="p">,</span> <span class="n">incbase</span> <span class="n">integer</span><span class="p">,</span> <span class="n">ctime</span> <span class="n">timestamptz</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Add the following static method to the Java class <code>Fum</code> you created in an earlier exercise. This method takes two integers as input, returning a complex type consisting of the first input integer, first input integer added to the second input integer, and a current timestamp:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$PLJAVAWORK</span>/pljex/foo/fee
+<span class="gp">$ </span>vi Fum.java
+</code></pre>
 <pre class="highlight java"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">complexReturn</span><span class="o">(</span><span class="kt">int</span> <span class="n">base</span><span class="o">,</span> <span class="kt">int</span> <span class="n">increment</span><span class="o">,</span> 
   <span class="n">ResultSet</span> <span class="n">receiver</span><span class="o">)</span>
 <span class="kd">throws</span> <span class="n">SQLException</span>
@@ -1402,23 +1515,56 @@
 <span class="o">}</span>
 </code></pre>
 
-<p>The return value denotes if the receiver should be considered as a valid tuple (true) or NULL (false).</p>
+<p>The return value denotes if the <code>receiver</code> should be considered as a valid tuple (true) or NULL (false).</p></li>
+<li><p>Compile the <code>Fum</code> class, create the JAR file, and copy the JAR file to the default PL/Java classpath directory:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>javac Fum.java
+<span class="gp">$ </span><span class="nb">cd</span> ../..
+<span class="gp">$ </span>jar cf pljex.jar foo
+<span class="gp">$ </span>cp pljex.jar /usr/local/hawq/lib/postgresql/java/
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb
+</code></pre></li>
+<li><p>Add the JAR file to the session-level classpath:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SET</span> <span class="n">pljava_classpath</span><span class="o">=</span><span class="s1">'pljex.jar'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Create a PL/Java UDF that invokes the <code>Fum</code> class <code>createComplexType()</code> method, taking two integers as input:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">createComplexTest</span><span class="p">(</span><span class="n">int</span><span class="p">,</span> <span class="n">int</span><span class="p">)</span>
+     <span class="k">RETURNS</span> <span class="n">complexTestType</span>
+     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.complexReturn'</span>
+   <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Execute the <code>createComplexTest()</code> UDF, providing 2 integers  as input:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">createComplexTest</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">22</span><span class="p">);</span>
+</code></pre>
+<pre class="highlight plaintext"><code>          createcomplextest           
+--------------------------------------
+ (11,33,"2016-12-31 23:04:09.388-08")
+(1 row)
+</code></pre>
+
+<p>As described, the UDF, when executed, returns the first input integer, the sum of the first and second input integers, and the current timestamp.</p></li>
+</ol>
 
 <h3><a id="functionreturnsets"></a>Functions that Return Sets</h3>
 
-<p>When returning result set, you should not build a result set before returning it, because building a large result set would consume a large amount of resources. It is better to produce one row at a time. Incidentally, that is what the HAWQ backend expects a function with SETOF return to do. You can return a SETOF a scalar type such as an int, float or varchar, or you can return a SETOF a complex type.</p>
+<p>PL/Java supports user-defined functions that return sets of both scalar and complex types. </p>
 
-<h3><a id="returnsetofscalar"></a>Returning a SETOF &lt;scalar type&gt;</h3>
+<p>The HAWQ backend expects a function that <code>RETURNS</code> a <code>SETOF</code> to return one row at a time.</p>
 
-<p>In order to return a set of a scalar type, you need create a Java method that returns something that implements the <code>java.util.Iterator</code> interface. Here is an example of a method that returns a SETOF varchar:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">javatest</span><span class="p">.</span><span class="n">getSystemProperties</span><span class="p">()</span>
-     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">varchar</span>
-     <span class="k">AS</span> <span class="s1">'foo.fee.Bar.getNames'</span>
-   <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+<h3><a id="returnsetofscalar"></a>Returning a SETOF &lt;Scalar Type&gt;</h3>
+
+<p>To return a set of a scalar type, the Java method must return an object that implements the <code>java.util.Iterator</code> interface. </p>
+
+<p>Example: Function that returns a SETOF varchar:</p>
+
+<ol>
+<li><p>Create a new file named <code>Bar.java</code>, adding the following text to create a class named <code>Bar</code> with a single method named <code>getNames()</code>. This method uses an <code>Iterator</code> to collect and return a list of string names:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$PLJAVAWORK</span>/pljex/foo/fee
+<span class="gp">$ </span>vi Bar.java
 </code></pre>
-
-<p>This simple Java method returns an iterator:</p>
 <pre class="highlight java"><code><span class="kn">package</span> <span class="n">foo</span><span class="o">.</span><span class="na">fee</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Bar</span>
@@ -1433,29 +1579,73 @@
         <span class="k">return</span> <span class="n">names</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
+</code></pre></li>
+<li><p>Compile the <code>Bar</code> class (ignore warnings), create the JAR file, and copy the JAR file to the default PL/Java classpath directory:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>javac <span class="k">*</span>.java
+<span class="gp">$ </span><span class="nb">cd</span> ../..
+<span class="gp">$ </span>jar cf pljex.jar foo
+<span class="gp">$ </span>cp pljex.jar /usr/local/hawq/lib/postgresql/java/
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb
+</code></pre></li>
+<li><p>Add the JAR file to the session-level classpath:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SET</span> <span class="n">pljava_classpath</span><span class="o">=</span><span class="s1">'pljex.jar'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Create a PL/Java UDF that invokes the <code>Bar</code> class <code>getNames()</code> method:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">getListOfNames</span><span class="p">()</span>
+     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">varchar</span>
+     <span class="k">AS</span> <span class="s1">'foo.fee.Bar.getNames'</span>
+   <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Execute the UDF:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">getListOfNames</span><span class="p">();</span>
+</code></pre>
+<pre class="highlight plaintext"><code> getlistofnames 
+----------------
+ Lisa
+ Bob
+ Bill
+ Sally
+(4 rows)
 </code></pre>
 
-<h3><a id="returnsetofcomplex"></a>Returning a SETOF &lt;complex type&gt;</h3>
+<p>The UDF returns a list of four string names.</p></li>
+</ol>
 
-<p>A method returning a SETOF <complex type> must use either the interface <code>org.postgresql.pljava.ResultSetProvider</code> or <code>org.postgresql.pljava.ResultSetHandle</code>. The reason for having two interfaces is that they cater for optimal handling of two distinct use cases. The former is for cases when you want to dynamically create each row that is to be returned from the SETOF function. The latter makes is in cases where you want to return the result of an executed query.</p>
+<h3><a id="returnsetofcomplex"></a>Returning a SETOF &lt;Complex Type&gt;</h3>
+
+<p>A method returning a set of &lt;complex type&gt; must implement either the <code>org.postgresql.pljava.ResultSetProvider</code> interface or the <code>org.postgresql.pljava.ResultSetHandle</code> interface. The interfaces provide optimal handling for distinct use cases. Use <code>org.postgresql.pljava.ResultSetProvider</code> when you want to dynamically create each row the function returns. Use <code>org.postgresql.pljava.ResultSetHandle</code> in cases where you want to return the result of an executed query.</p>
 
 <h4>Using the ResultSetProvider Interface</h4>
 
-<p>This interface has two methods. The boolean <code>assignRowValues(java.sql.ResultSet tupleBuilder, int rowNumber)</code> and the <code>void close()</code> method. The HAWQ query evaluator will call the <code>assignRowValues</code> repeatedly until it returns false or until the evaluator decides that it does not need any more rows. Then it calls close.</p>
+<p>The <code>ResultSetProvider</code> interface has two methods:</p>
 
-<p>You can use this interface the following way:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">javatest</span><span class="p">.</span><span class="n">listComplexTests</span><span class="p">(</span><span class="n">int</span><span class="p">,</span> <span class="n">int</span><span class="p">)</span>
-     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">complexTest</span>
-     <span class="k">AS</span> <span class="s1">'foo.fee.Fum.listComplexTest'</span>
-   <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+<ul>
+<li><code>boolean assignRowValues(java.sql.ResultSet tupleBuilder, int rowNumber)</code></li>
+<li><code>void close()</code> </li>
+</ul>
+
+<p>The HAWQ query evaluator calls <code>assignRowValues()</code> repeatedly until it returns false or until the evaluator decides that it does not need any more rows. At that point, it will call <code>close()</code>.</p>
+
+<p>Example: Using the <code>ResultSetProvider</code> Interface</p>
+
+<ol>
+<li><p>Create a new file named <code>FumSetOfComplex.java</code>, adding the following text to create a class named <code>FumSetOfComplex</code> that implements the <code>ResultSetProvider</code> interface:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$PLJAVAWORK</span>/pljex/foo/fee
+<span class="gp">$ </span>vi FumSetOfComplex.java
 </code></pre>
+<pre class="highlight java"><code><span class="kn">package</span> <span class="n">foo</span><span class="o">.</span><span class="na">fee</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.ResultSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.Timestamp</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.postgresql.pljava.ResultSetProvider</span><span class="o">;</span>
 
-<p>The function maps to a static java method that returns an instance that implements the <code>ResultSetProvider</code> interface.</p>
-<pre class="highlight java"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Fum</span> <span class="kd">implements</span> <span class="n">ResultSetProvider</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FumSetOfComplex</span> <span class="kd">implements</span> <span class="n">ResultSetProvider</span>
 <span class="o">{</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">m_base</span><span class="o">;</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">m_increment</span><span class="o">;</span>
-  <span class="kd">public</span> <span class="nf">Fum</span><span class="o">(</span><span class="kt">int</span> <span class="n">base</span><span class="o">,</span> <span class="kt">int</span> <span class="n">increment</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nf">FumSetOfComplex</span><span class="o">(</span><span class="kt">int</span> <span class="n">base</span><span class="o">,</span> <span class="kt">int</span> <span class="n">increment</span><span class="o">)</span>
   <span class="o">{</span>
     <span class="n">m_base</span> <span class="o">=</span> <span class="n">base</span><span class="o">;</span>
     <span class="n">m_increment</span> <span class="o">=</span> <span class="n">increment</span><span class="o">;</span>
@@ -1464,8 +1654,6 @@
 <span class="n">currentRow</span><span class="o">)</span>
   <span class="kd">throws</span> <span class="n">SQLException</span>
   <span class="o">{</span>
-    <span class="c1">// Stop when we reach 12 rows.</span>
-    <span class="c1">//</span>
     <span class="k">if</span><span class="o">(</span><span class="n">currentRow</span> <span class="o">&gt;=</span> <span class="mi">12</span><span class="o">)</span>
       <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
     <span class="n">receiver</span><span class="o">.</span><span class="na">updateInt</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">m_base</span><span class="o">);</span>
@@ -1476,36 +1664,70 @@
   <span class="o">}</span>
   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span>
   <span class="o">{</span>
-   <span class="c1">// Nothing needed in this example</span>
+     <span class="cm">/* Nothing needed in this example */</span>
   <span class="o">}</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="n">ResultSetProvider</span> <span class="nf">listComplexTests</span><span class="o">(</span><span class="kt">int</span> <span class="n">base</span><span class="o">,</span> 
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">ResultSetProvider</span> <span class="nf">listComplex</span><span class="o">(</span><span class="kt">int</span> <span class="n">base</span><span class="o">,</span> 
 <span class="kt">int</span> <span class="n">increment</span><span class="o">)</span>
   <span class="kd">throws</span> <span class="n">SQLException</span>
   <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nf">Fum</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="n">increment</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">FumSetOfComplex</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="n">increment</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre>
 
-<p>The <code>listComplextTests</code> method is called once. It may return NULL if no results are available or an instance of the <code>ResultSetProvider</code>. Here the Java class <code>Fum</code> implements this interface so it returns an instance of itself. The method <code>assignRowValues</code> will then be called repeatedly until it returns false. At that time, close will be called.</p>
+<p>The <code>listComplex()</code> method is called once. It will return NULL if no results are available. If results are available, <code>listComplex()</code> will return an instance of a <code>ResultSetProvider</code> interface. The Java class <code>FumSetOfComplex</code> implements this interface to return an instance of itself. <code>assignRowValues()</code> is called repeatedly until it returns false. At that time, <code>close()</code> is called.</p></li>
+<li><p>Compile the <code>FumSetOfComplex</code> class, create the JAR file, and copy the JAR file to the default PL/Java classpath directory:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>javac -classpath /usr/local/hawq/lib/postgresql/pljava.jar FumSetOfComplex.java
+<span class="gp">$ </span><span class="nb">cd</span> ../..
+<span class="gp">$ </span>jar cf pljex.jar foo
+<span class="gp">$ </span>cp pljex.jar /usr/local/hawq/lib/postgresql/java/
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb
+</code></pre></li>
+<li><p>Add the JAR file to the session-level classpath:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SET</span> <span class="n">pljava_classpath</span><span class="o">=</span><span class="s1">'pljex.jar'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Create a PL/Java UDF that invokes the <code>FumSetOfComplex</code> class <code>listComplexTest()</code> method:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">listComplexTest</span><span class="p">(</span><span class="n">int</span><span class="p">,</span> <span class="n">int</span><span class="p">)</span>
+     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">complexTestType</span>
+     <span class="k">AS</span> <span class="s1">'foo.fee.FumSetOfComplex.listComplex'</span>
+   <span class="k">IMMUTABLE</span> <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Execute the UDF:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">listComplexTest</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</code></pre>
+<pre class="highlight plaintext"><code>testdb=# SELECT listComplexTest(1,2);
+       listcomplextest           
+-------------------------------------
+ (1,1,"2017-01-01 01:20:32.888-08")
+ (1,3,"2017-01-01 01:20:32.888-08")
+ (1,5,"2017-01-01 01:20:32.888-08")
+ (1,7,"2017-01-01 01:20:32.888-08")
+ (1,9,"2017-01-01 01:20:32.888-08")
+...
+(12 rows)
+</code></pre></li>
+</ol>
 
 <h4>Using the ResultSetHandle Interface</h4>
 
-<p>This interface is similar to the <code>ResultSetProvider</code> interface in that it has a <code>close()</code> method that will be called at the end. But instead of having the evaluator call a method that builds one row at a time, this method has a method that returns a <code>ResultSet</code>. The query evaluator will iterate over this set and deliver the <code>ResultSet</code> contents, one tuple at a time, to the caller until a call to <code>next()</code> returns false or the evaluator decides that no more rows are needed.</p>
+<p>Classes implementing the <code>ResultSetHandle</code> interface must include a method to return a <code>ResultSet</code> named <code>getResultSet()</code>. The query evaluator will iterate over this set and deliver the <code>ResultSet</code> contents, one tuple at a time, to the caller until a call to <code>next()</code> returns false or the evaluator decides that no more rows are needed.</p>
 
-<p>Here is an example that executes a query using a statement that it obtained using the default connection. The SQL suitable for the deployment descriptor looks like this:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">javatest</span><span class="p">.</span><span class="n">listSupers</span><span class="p">()</span>
-     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">pg_user</span>
-     <span class="k">AS</span> <span class="s1">'org.postgresql.pljava.example.Users.listSupers'</span>
-   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
-<span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">javatest</span><span class="p">.</span><span class="n">listNonSupers</span><span class="p">()</span>
-     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">pg_user</span>
-     <span class="k">AS</span> <span class="s1">'org.postgresql.pljava.example.Users.listNonSupers'</span>
-   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
-</code></pre>
+<p>Example: Using the <code>ResultSetHandle</code> Interface</p>
 
-<p>And in the Java package <code>org.postgresql.pljava.example</code> a class <code>Users</code> is added:</p>
-<pre class="highlight java"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Users</span> <span class="kd">implements</span> <span class="n">ResultSetHandle</span>
+<ol>
+<li><p>A <code>Users</code> class is defined in the Java example package <code>org.postgresql.example</code> (refer to <a href="https://github.com/apache/incubator-hawq/blob/master/src/pl/pljava/src/java/examples/org/postgresql/example"><code>example</code></a> for example source files):</p>
+<pre class="highlight java"><code><span class="kn">package</span> <span class="n">org</span><span class="o">.</span><span class="na">postgresql</span><span class="o">.</span><span class="na">example</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.sql.DriverManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.ResultSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.Statement</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.postgresql.pljava.ResultSetHandle</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Users</span> <span class="kd">implements</span> <span class="n">ResultSetHandle</span>
 <span class="o">{</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">m_filter</span><span class="o">;</span>
   <span class="kd">private</span> <span class="n">Statement</span> <span class="n">m_statement</span><span class="o">;</span>
@@ -1517,8 +1739,7 @@
   <span class="kd">throws</span> <span class="n">SQLException</span>
   <span class="o">{</span>
     <span class="n">m_statement</span> <span class="o">=</span> 
-      <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="s">"jdbc:default:connection"</span><span class="o">).</span><span class="na">cr</span>
-<span class="n">eateStatement</span><span class="o">();</span>
+      <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="s">"jdbc:default:connection"</span><span class="o">).</span><span class="na">createStatement</span><span class="o">();</span>
     <span class="k">return</span> <span class="n">m_statement</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="s">"SELECT * FROM pg_user 
        WHERE "</span> <span class="o">+</span> <span class="n">m_filter</span><span class="o">);</span>
   <span class="o">}</span>
@@ -1541,17 +1762,57 @@
 <span class="o">}</span>
 </code></pre>
 
+<p>The <code>listSupers()</code> and <code>listNonSupers()</code> methods each execute a query to return a <code>ResultSetHandle</code> containing a list of those users with and without superuser privileges, respectively. </p></li>
+<li><p>Copy the <code>examples.jar</code> file to the default PL/Java classpath directory:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>cp /usr/local/hawq/share/postgresql/pljava/examples.jar  /usr/local/hawq/lib/postgresql/java/
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb
+</code></pre></li>
+<li><p>Add the <code>examples.jar</code> JAR file to the session-level classpath:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SET</span> <span class="n">pljava_classpath</span><span class="o">=</span><span class="s1">'examples.jar'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Create PL/Java UDFs that execute the <code>listSupers()</code> and <code>listNonSupers()</code> methods in the <code>org.postgresql.example.Users</code> class:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">plistSupers</span><span class="p">()</span>
+     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">pg_user</span>
+     <span class="k">AS</span> <span class="s1">'org.postgresql.example.Users.listSupers'</span>
+   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+<span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">plistNonSupers</span><span class="p">()</span>
+     <span class="k">RETURNS</span> <span class="k">SETOF</span> <span class="n">pg_user</span>
+     <span class="k">AS</span> <span class="s1">'org.postgresql.example.Users.listNonSupers'</span>
+   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Execute the UDFs:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">plistSupers</span><span class="p">();</span>
+</code></pre>
+<pre class="highlight plaintext"><code>          plistsupers           
+-------------------------------
+ (gpadmin,10,t,t,t,********,,)
+(1 row)
+</code></pre>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">plistNonSupers</span><span class="p">();</span>
+</code></pre>
+<pre class="highlight plaintext"><code> plistnonsupers 
+---------------
+(0 rows)
+</code></pre></li>
+</ol>
+
 <h2><a id="usingjdbc"></a>Using JDBC</h2>
 
-<p>PL/Java contains a JDBC driver that maps to the PostgreSQL SPI functions. A connection that maps to the current transaction can be obtained using the following statement:</p>
+<p>PL/Java includes a JDBC driver. This driver invokes HAWQ internal SPI routines. The driver is essential; it is common for functions to make calls back to the database to fetch data. When PL/Java user-defined functions fetch data, they must use the same transactional boundaries that are used by the main function that entered the PL/Java execution context.</p>
+
+<p>You can obtain a PL/Java JDBC driver connection mapping to the current transaction with the following Java statement:</p>
 <pre class="highlight java"><code><span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> 
   <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="s">"jdbc:default:connection"</span><span class="o">);</span> 
 </code></pre>
 
-<p>After obtaining a connection, you can prepare and execute statements similar to other JDBC connections. These are limitations for the PL/Java JDBC driver:</p>
+<p>After obtaining a connection, you can prepare and execute statements similar to other JDBC connections. Refer to the <code>Users</code> class Java source code from the example above. </p>
+
+<p>Limitations of the PL/Java JDBC driver include the following:</p>
 
 <ul>
-<li>The transaction cannot be managed in any way. Thus, you cannot use methods on the connection such as:
+<li>A transaction cannot be managed in any way. As such, you cannot use the following methods on the JDBC connection:
 
 <ul>
 <li><code>commit()</code></li>
@@ -1559,42 +1820,41 @@
 <li><code>setAutoCommit()</code></li>
 <li><code>setTransactionIsolation()</code></li>
 </ul></li>
-<li>Savepoints are available with some restrictions. A savepoint cannot outlive the function in which it was set and it must be rolled back or released by that same function.</li>
-<li>A ResultSet returned from <code>executeQuery()</code> are always <code>FETCH_FORWARD</code> and <code>CONCUR_READ_ONLY</code>.</li>
-<li>Meta-data is only available in PL/Java 1.1 or higher.</li>
+<li>Savepoints are available, with some restrictions. A savepoint cannot outlive the function in which it was set, and it must be rolled back or released by that same function.</li>
+<li>A <code>ResultSet</code> returned from <code>executeQuery()</code> is always <code>FETCH_FORWARD</code> and <code>CONCUR_READ_ONLY</code>.</li>
 <li><code>CallableStatement</code> (for stored procedures) is not implemented.</li>
-<li>The types <code>Clob</code> or <code>Blob</code> are not completely implemented, they need more work. The types <code>byte[]</code> and <code>String</code> can be used for <code>bytea</code> and <code>text</code> respectively.</li>
+<li>The types <code>Clob</code> and <code>Blob</code> are not completely implemented. Use the types <code>byte[]</code> and <code>String</code> for <code>bytea</code> and <code>text</code>, respectively.</li>
 </ul>
 
 <h2><a id="exceptionhandling"></a>Exception Handling</h2>
 
-<p>You can catch and handle an exception in the HAWQ backend just like any other exception. The backend <code>ErrorData</code> structure is exposed as a property in a class called <code>org.postgresql.pljava.ServerException</code> (derived from <code>java.sql.SQLException</code>) and the Java try/catch mechanism is synchronized with the backend mechanism.</p>
+<p>You can catch and handle an exception in the HAWQ backend just like any other exception. The backend <code>ErrorData</code> structure is exposed as a property in the <code>org.postgresql.pljava.internal.ServerException</code> class (derived from <code>java.sql.SQLException</code>), and the Java <code>try/catch</code> construct is synchronized with the backend mechanism.</p>
 
-<p><strong>Important:</strong> You will not be able to continue executing backend functions until your function has returned and the error has been propagated when the backend has generated an exception unless you have used a savepoint. When a savepoint is rolled back, the exceptional condition is reset and you can continue your execution.</p>
+<p><strong>Important:</strong> If the backend generates an exception and you have set a savepoint, the exception condition is reset when the savepoint is rolled back, allowing you to continue your execution. If the backend has generated an exception and you have <em>not</em> used a savepoint, then you cannot execute backend functions until your function propagates the error and returns.</p>
 
 <h2><a id="savepoints"></a>Savepoints</h2>
 
-<p>HAWQ savepoints are exposed using the <code>java.sql.Connection</code> interface. Two restrictions apply.</p>
+<p>HAWQ exposes savepoints using the <code>java.sql.Connection</code> interface. Two restrictions apply:</p>
 
 <ul>
-<li>A savepoint must be rolled back or released in the function where it was set.</li>
-<li>A savepoint must not outlive the function where it was set.</li>
+<li>A savepoint must be rolled back or released in the function in which it was set.</li>
+<li>A savepoint must not outlive the function from which it was set.</li>
 </ul>
 
 <h2><a id="logging"></a>Logging</h2>
 
-<p>PL/Java uses the standard Java Logger. Hence, you can write things like:</p>
+<p>PL/Java uses the standard Java Logger. For example:</p>
 <pre class="highlight java"><code><span class="n">Logger</span><span class="o">.</span><span class="na">getAnonymousLogger</span><span class="o">().</span><span class="na">info</span><span class="o">(</span> <span class="s">"Time is "</span> <span class="o">+</span> <span class="k">new</span> 
-<span class="n">Date</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()));</span>
+    <span class="n">Date</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()));</span>
 </code></pre>
 
-<p>At present, the logger uses a handler that maps the current state of the HAWQ configuration setting <code>log_min_messages</code> to a valid Logger level and that outputs all messages using the HAWQ backend function <code>elog()</code>.</p>
+<p>The logger uses a handler that maps the current setting of the HAWQ <code>log_min_messages</code> server configuration parameter to a valid Java logging level, using the HAWQ backend function <code>elog()</code> to output all messages.</p>
 
-<p><strong>Note:</strong> The <code>log_min_messages</code> setting is read from the database the first time a PL/Java function in a session is executed. On the Java side, the setting does not change after the first PL/Java function execution in a specific session until the HAWQ session that is working with PL/Java is restarted.</p>
+<p><strong>Note:</strong> The <code>log_min_messages</code> setting is read from the database the first time a PL/Java function in a session is executed and can only be changed by restarting the HAWQ session.</p>
 
-<p>The following mapping apply between the Logger levels and the HAWQ backend levels.</p>
+<p>The table below identifies the Java to HAWQ log level mapping:</p>
 
-<p><strong><em>Table 2: PL/Java Logging Levels Mappings</em></strong></p>
+<p><strong>Table 2: PL/Java Logging Levels Mappings</strong></p>
 
 <table><thead>
 <tr>
@@ -1603,7 +1863,7 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>SEVERE ERROR</td>
+<td>SEVERE</td>
 <td>ERROR</td>
 </tr>
 <tr>
@@ -1632,88 +1892,108 @@
 </tr>
 </tbody></table>
 
-<h2><a id="security"></a>Security</h2>
-
-<p>This section describes security aspects of using PL/Java.</p>
-
-<h3><a id="installation"></a>Installation</h3>
-
-<p>Only a database super user can install PL/Java. The PL/Java utility functions are installed using SECURITY DEFINER so that they execute with the access permissions that where granted to the creator of the functions.</p>
-
-<h3><a id="trustedlang"></a>Trusted Language</h3>
-
-<p>PL/Java is a trusted language. The trusted PL/Java language has no access to the file system as stipulated by PostgreSQL definition of a trusted language. Any database user can create and access functions in a trusted language.</p>
-
-<p>PL/Java also installs a language handler for the language <code>javau</code>. This version is not trusted and only a superuser can create new functions that use it. Any user can call the functions.</p>
-
 <h2><a id="pljavaexample"></a>Example</h2>
 
-<p>The following simple Java example creates a JAR file that contains a single method and runs the method.</p>
+<p>The following example:</p>
 
-<p class="note"><b>Note:</b> The example requires Java SDK to compile the Java file.</p>
+<ol>
+<li>Creates a Java class with a single method.</li>
+<li>Creates a PL/Java UDF that invokes the method.</li>
+<li>Executes the PL/Java UDF on a simple table.</li>
+</ol>
 
-<p>The following method returns a substring.</p>
-<pre class="highlight java"><code><span class="o">{</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">substring</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">beginIndex</span><span class="o">,</span>
-  <span class="kt">int</span> <span class="n">endIndex</span><span class="o">)</span>
+<p><strong>Note</strong>: This example requires a Java SDK be installed on your development system.</p>
+
+<ol>
+<li><p>Create a work area for the example:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>mkdir -p <span class="nv">$PLJAVAWORK</span>/example/com/exco/app
+<span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$PLJAVAWORK</span>/example/com/exco/app
+</code></pre></li>
+<li><p>Create a new file named <code>SubStr.java</code>, adding the following text to create a class named <code>SubStr</code> with a single method named <code>substring()</code>. This method takes a text string and two index integers as input and returns the string bounded by the indexes:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>vi SubStr.java
+</code></pre>
+<pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">exco</span><span class="o">.</span><span class="na">app</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.logging.Logger</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubStr</span>
+<span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">substring</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">beginIndex</span><span class="o">,</span> <span class="kt">int</span> <span class="n">endIndex</span><span class="o">)</span>
     <span class="o">{</span>
-    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">beginIndex</span><span class="o">,</span> <span class="n">endIndex</span><span class="o">);</span>
+      <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">beginIndex</span><span class="o">,</span> <span class="n">endIndex</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-
-<p>Enter the Java code in a text file <code>example.class</code>.</p>
-
-<p>Contents of the file <code>manifest.txt</code>:</p>
-<pre class="highlight plaintext"><code>Manifest-Version: 1.0
-Main-Class: Example
-Specification-Title: "Example"
-Specification-Version: "1.0"
-Created-By: 1.6.0_35-b10-428-11M3811
-Build-Date: 01../2013 10:09 AM
-</code></pre>
-
-<p>Compile the Java code:</p>
+</code></pre></li>
+<li><p>Compile the <code>SubStr</code> class, create a JAR file named <code>exsubstr.jar</code>, and copy this JAR file to the default PL/Java classpath directory:</p>
 <pre class="highlight shell"><code><span class="gp">$ </span>javac <span class="k">*</span>.java
+<span class="gp">$ </span><span class="nb">cd</span> ../../..
+<span class="gp">$ </span>jar cf exsubstr.jar com
+<span class="gp">$ </span>cp exsubstr.jar /usr/local/hawq/lib/postgresql/java/
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb
+</code></pre></li>
+<li><p>Add the JAR file to the session-level classpath:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SET</span> <span class="n">pljava_classpath</span><span class="o">=</span><span class="s1">'exsubstr.jar'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Create a HAWQ internal table named <code>extblwstrings</code>:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">extblwstrings</span> <span class="p">(</span><span class="n">a</span> <span class="n">varchar</span><span class="p">)</span> <span class="n">DISTRIBUTED</span> <span class="n">randomly</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Insert some string data into the <code>extblwstrings</code> table:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">extblwstrings</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'my string'</span><span class="p">);</span>
+<span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">extblwstrings</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'secondstring'</span><span class="p">);</span>
+<span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">extblwstrings</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'abcdefghij'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Create a PL/Java UDF that invokes the <code>com.exco.app.SubStr</code> class <code>substring()</code> method defined earlier:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">ex_getsubstring</span><span class="p">(</span><span class="n">varchar</span><span class="p">,</span> <span class="n">int</span><span class="p">,</span> <span class="n">int</span><span class="p">)</span> 
+     <span class="k">RETURNS</span> <span class="n">varchar</span> <span class="k">AS</span> <span class="s1">'com.exco.app.SubStr.substring'</span> 
+   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Execute the UDF:</p>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">ex_getsubstring</span><span class="p">(</span> <span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">extblwstrings</span><span class="p">;</span>
 </code></pre>
-
-<p>Create a JAR archive named <code>analytics.jar</code> that contains the class file and the manifest file in the JAR:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>jar cfm analytics.jar manifest.txt <span class="k">*</span>.class
+<pre class="highlight plaintext"><code> ex_getsubstring 
+-----------------
+ stri
+ onds
+ defg
+(3 rows)
+</code></pre></li>
+<li><p>If you add each of the above SQL commands to a file, you can run the commands from the command line or the <code>psql</code> subsystem. Add the following text to a file named <code>/tmp/myexample.sql</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>vi /tmp/myexample.sql
 </code></pre>
-
-<p>Upload the JAR file to the HAWQ master host.</p>
-
-<p>Run the <code>hawq scp</code> utility to copy the jar file to the HAWQ Java directory. Use the <code>-f</code> option to specify the file that contains a list of the master and segment hosts:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>hawq scp -f hawq_hosts analytics.jar <span class="o">=</span>:/usr/local/hawq/lib/postgresql/java/
+<pre class="highlight plaintext"><code>DROP TABLE IF EXISTS extblwstrings;
+SET pljava_classpath='exsubstr.jar';
+CREATE TABLE extblwstrings (a varchar) DISTRIBUTED randomly;
+INSERT INTO extblwstrings VALUES ('my string');
+INSERT INTO extblwstrings VALUES ('secondstring');
+INSERT INTO extblwstrings VALUES ('abcdefghij');
+CREATE OR REPLACE FUNCTION ex_getsubstring(varchar, int, int) 
+  RETURNS varchar AS 'com.exco.app.SubStr.substring' 
+LANGUAGE java;
+SELECT ex_getsubstring( a, 3, 7) FROM extblwstrings;
+</code></pre></li>
+<li><p>Run the <code>myexample.sql</code> script file:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb -f /tmp/myexample.sql 
+DROP TABLE
+SET
+CREATE TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+CREATE FUNCTION
+ ex_getsubstring 
+-----------------
+ stri
+ onds
+ defg
+<span class="o">(</span>3 rows<span class="o">)</span>
 </code></pre>
-
-<p>Add the <code>analytics.jar</code> JAR file to the <code>pljava_classpath</code> configuration parameter. Refer to <a href="#setting_serverconfigparams">Setting PL/Java Configuration Parameters</a> for the specific procedure.</p>
-
-<p>From the <code>psql</code> subsystem, run the following command to show the installed JAR files:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SHOW</span> <span class="n">pljava_classpath</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d testdb
 </code></pre>
-
-<p>The following SQL commands create a table and define a Java function to test the method in the JAR file:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">temp</span> <span class="p">(</span><span class="n">a</span> <span class="n">varchar</span><span class="p">)</span> <span class="n">DISTRIBUTED</span> <span class="n">randomly</span><span class="p">;</span> 
-<span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">temp</span> <span class="k">values</span> <span class="p">(</span><span class="s1">'my string'</span><span class="p">);</span> 
-<span class="c1">--Example function </span>
-<span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">java_substring</span><span class="p">(</span><span class="n">varchar</span><span class="p">,</span> <span class="n">int</span><span class="p">,</span> <span class="n">int</span><span class="p">)</span> 
-     <span class="k">RETURNS</span> <span class="n">varchar</span> <span class="k">AS</span> <span class="s1">'Example.substring'</span> 
-   <span class="k">LANGUAGE</span> <span class="n">java</span><span class="p">;</span> 
-<span class="c1">--Example execution </span>
-<span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">java_substring</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="k">FROM</span> <span class="k">temp</span><span class="p">;</span>
-</code></pre>
-
-<p>If you add these SQL commands to a file named <code>mysample.sql</code>, you can run the commands from the <code>psql</code> subsystem using the <code>\i</code> meta-command:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="err">\</span><span class="n">i</span> <span class="n">mysample</span><span class="p">.</span><span class="k">sql</span> 
-</code></pre>
-
-<p>The output is similar to this:</p>
-<pre class="highlight shell"><code>java_substring
-----------------
- y st
-<span class="o">(</span>1 row<span class="o">)</span>
-</code></pre>
+<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="err">\</span><span class="n">i</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myexample</span><span class="p">.</span><span class="k">sql</span> 
+<span class="p">...</span>
+</code></pre></li>
+</ol>
 
         
 

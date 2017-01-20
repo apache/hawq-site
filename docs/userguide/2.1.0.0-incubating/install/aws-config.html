@@ -129,11 +129,13 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/setuphawqopenv.html">Introducing the HAWQ Operating Environment</a>
           </li>
-          <li>
+          <li class="has_submenu">
             <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-admin.html">Managing HAWQ Using Ambari</a>
-          </li>
-          <li>
-            <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+           <ul>
+            <li>
+              <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+            </li>
+           </ul>
           </li>
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/startstop.html">Starting and Stopping HAWQ</a>
@@ -413,6 +415,7 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HivePXF.html">Accessing Hive Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HBasePXF.html">Accessing HBase Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/JsonPXF.html">Accessing JSON Data</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HDFSWritablePXF.html">Writing Data to HDFS</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/ReadWritePXF.html">Using Profiles to Read and Write Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/PXFExternalTableandAPIReference.html">PXF External Tables and API</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/TroubleshootingPXF.html">Troubleshooting PXF</a></li>
@@ -740,6 +743,7 @@
             <ul>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ABORT.html">ABORT</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-AGGREGATE.html">ALTER AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-CONVERSION.html">ALTER CONVERSION</a></li>  
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-DATABASE.html">ALTER DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-FUNCTION.html">ALTER FUNCTION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-OPERATOR.html">ALTER OPERATOR</a></li>
@@ -757,6 +761,8 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COMMIT.html">COMMIT</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COPY.html">COPY</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-AGGREGATE.html">CREATE AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-CAST.html">CREATE CAST</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-CONVERSION.html">CREATE CONVERSION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-DATABASE.html">CREATE DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html">CREATE EXTERNAL TABLE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-FUNCTION.html">CREATE FUNCTION</a></li>
@@ -777,6 +783,8 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DEALLOCATE.html">DEALLOCATE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DECLARE.html">DECLARE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-AGGREGATE.html">DROP AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-CAST.html">DROP CAST</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-CONVERSION.html">DROP CONVERSION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-DATABASE.html">DROP DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-EXTERNAL-TABLE.html">DROP EXTERNAL TABLE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-FILESPACE.html">DROP FILESPACE</a></li>
@@ -962,7 +970,7 @@
 <li><a href="#topic_selcfgstorage">Consider Storage</a></li>
 <li><a href="#topic_cfgplacegrp">Configure Placement Group</a></li>
 <li><a href="#topic_selinsttype">Select EC2 Instance Type</a></li>
-<li><a href="#topic_cfgnetw">Configure Networking</a></li>
+<li><a href="#topic_cfgnetw">Configure Networking and VPC</a></li>
 <li><a href="#topic_cfgsecgrp">Configure Security Groups</a></li>
 <li><a href="#topic_cfgkeypair">Generate Key Pair</a></li>
 </ul>
@@ -988,31 +996,41 @@
 
 <h2><a id="topic_nhk_df4_2v"></a>Create and Launch HAWQ Instances</h2>
 
-<p>Use the <em>Amazon EC2 Console</em> to launch instances and configure, start, stop, and terminate (delete) virtual servers. When you launch a HAWQ instance, you select and configure key attributes via the EC2 Console.</p>
+<p>Use the <strong>Amazon EC2 Console</strong> to launch instances and configure, start, stop, and terminate (delete) virtual servers. When you launch a HAWQ instance, you select and configure key attributes via the EC2 Console.</p>
 
 <h3><a id="topic_amitype"></a>Choose AMI Type</h3>
 
-<p>An Amazon Machine Image (AMI) is a template that contains a software configuration including the operating system, application server, and applications that best suit your purpose. When configuring a HAWQ virtual instance, we recommend you use a <em>hardware virtualized</em> AMI running 64-bit Red Hat Enterprise Linux version 6.4 or 6.5 or 64-bit CentOS 6.4 or 6.5.  Obtain the licenses and instances directly from the OS provider.</p>
+<p>An Amazon Machine Image (AMI) is a template that contains a specific software configuration including the operating system, application server, and applications that best suit your purpose. When configuring a HAWQ virtual instance, use a <em>hardware virtualized</em> (HVM) AMI supporting enhanced 10Gbps networking. Ensure the AMI is running 64-bit Red Hat Enterprise Linux version 6.4 or 6.5 or 64-bit CentOS 6.4 or 6.5.  Obtain the licenses and instances directly from the OS provider.</p>
 
 <h3><a id="topic_selcfgstorage"></a>Consider Storage</h3>
 
-<p>EC2 instances can be launched as either Elastic Block Store (EBS)-backed or instance store-backed.  </p>
+<p>You can launch EC2 instances as either Elastic Block Store (EBS)-backed or instance store-backed. Choose the storage type based on the expected lifetime of your cluster and data.</p>
 
-<p>Instance store-backed storage is generally better performing than EBS and recommended for HAWQ&rsquo;s large data workloads. SSD (solid state) instance store is preferred over magnetic drives.</p>
+<h4><a id="topic_selcfgstorage_instance"></a>Instance Store-Backed</h4>
 
-<p><strong>Note</strong> EC2 <em>instance store</em> provides temporary block-level storage. This storage is located on disks that are physically attached to the host computer. While instance store provides high performance, powering off the instance causes data loss. Soft reboots preserve instance store data. </p>
+<p>Use instance store-backed storage for short lived or transient clusters that do not require long-term persistence of data. While instance store-backed storage is generally better performing than EBS, it is not recommended for use in a production environment.</p>
 
-<p>Virtual devices for instance store volumes for HAWQ EC2 instance store instances are named <code>ephemeralN</code> (where <em>N</em> varies based on instance type). CentOS instance store block device are named <code>/dev/xvdletter</code> (where <em>letter</em> is a lower case letter of the alphabet).</p>
+<p><strong>Warning</strong>: EC2 instance store-backed storage provides <em>temporary</em> block-level storage. This storage is located on disks that are physically attached to the host computer. You will lose all instance store data when the AMI instance is powered off.</p>
+
+<h4><a id="topic_selcfgstorage_ebs"></a>EBS-Backed</h4>
+
+<p>EBS volumes are reliable and highly-available. Use EBS-backed storage for longer running clusters where data must be quickly accessible and must remain available for a long period of time.</p>
+
+<h4><a id="topic_selcfgstorage_volume"></a>Volume Types</h4>
+
+<p>When selecting between HDD and SSD volume types, the trade-offs are between speed, capacity, and cost. HDD volumes are less expensive and have greater disk capacity, but may be less performant. SSD (solid state drive) volumes are more performant, but costlier and typically have less disk capacity.</p>
 
 <h3><a id="topic_cfgplacegrp"></a>Configure Placement Group</h3>
 
-<p>A placement group is a logical grouping of instances within a single availability zone that together participate in a low-latency, 10 Gbps network.  Your HAWQ master and segment cluster instances should support enhanced networking and reside in a single placement group (and subnet) for optimal network performance.  </p>
+<p>A placement group is a logical grouping of instances within a single availability zone that participate in a low-latency, 10 Gbps network. Your HAWQ master and segment cluster instances should support enhanced networking and reside in a single placement group (and subnet) for optimal network performance.</p>
 
 <p>If your Ambari node is not a DataNode, locating the Ambari node instance in a subnet separate from the HAWQ master/segment placement group enables you to manage multiple HAWQ clusters from the single Ambari instance.</p>
 
 <p>Amazon recommends that you use the same instance type for all instances in the placement group and that you launch all instances within the placement group at the same time.</p>
 
-<p>Membership in a placement group has some implications on your HAWQ cluster.  Specifically, growing the cluster over capacity may require shutting down all HAWQ instances in the current placement group and restarting the instances to a new placement group. Instance store volumes are lost in this scenario.</p>
+<p>Membership in a placement group has some implications for your HAWQ cluster.  Specifically, growing the cluster beyond the placement group capacity may require shutting down all HAWQ instances in the current placement group and restarting the instances in a new placement group. <strong>Warning</strong>: Instance store volumes are lost in this scenario.</p>
+
+<p><strong>Note</strong>: If cluster down time during expansion is not acceptable for your HAWQ deployment, do not use placement groups.</p>
 
 <h3><a id="topic_selinsttype"></a>Select EC2 Instance Type</h3>
 
@@ -1028,16 +1046,9 @@
 <th>Memory (GB)</th>
 <th>Disk Capacity (GB)</th>
 <th>Storage Type</th>
+<th>Network Speed</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>cc2.8xlarge</td>
-<td>Dev</td>
-<td>32</td>
-<td>60.5</td>
-<td>4 x 840</td>
-<td>HDD</td>
-</tr>
 <tr>
 <td>d2.2xlarge</td>
 <td>Dev</td>
@@ -1045,6 +1056,7 @@
 <td>60</td>
 <td>6 x 2000</td>
 <td>HDD</td>
+<td>High</td>
 </tr>
 <tr>
 <td>d2.4xlarge</td>
@@ -1053,6 +1065,25 @@
 <td>122</td>
 <td>12 x 2000</td>
 <td>HDD</td>
+<td>High</td>
+</tr>
+<tr>
+<td>c3.8xlarge</td>
+<td>Dev/QA</td>
+<td>32</td>
+<td>60</td>
+<td>2 x 320</td>
+<td>SSD</td>
+<td>10 Gigabit</td>
+</tr>
+<tr>
+<td>r3.8xlarge</td>
+<td>Dev/QA</td>
+<td>32</td>
+<td>244</td>
+<td>2 x 320</td>
+<td>SSD</td>
+<td>10 Gigabit</td>
 </tr>
 <tr>
 <td>i2.8xlarge</td>
@@ -1061,14 +1092,7 @@
 <td>244</td>
 <td>8 x 800</td>
 <td>SSD</td>
-</tr>
-<tr>
-<td>hs1.8xlarge</td>
-<td>Prod</td>
-<td>16</td>
-<td>117</td>
-<td>24 x 2000</td>
-<td>HDD</td>
+<td>10 Gigabit</td>
 </tr>
 <tr>
 <td>d2.8xlarge</td>
@@ -1077,54 +1101,90 @@
 <td>244</td>
 <td>24 x 2000</td>
 <td>HDD</td>
+<td>10 Gigabit</td>
 </tr>
 </tbody></table>
 
-<p>For optimal network performance, the chosen HAWQ instance type should support EC2 enhanced networking. Enhanced networking results in higher performance, lower latency, and lower jitter. Refer to <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/enhanced-networking.html">Enhanced Networking on Linux Instances</a> for detailed information on enabling enhanced networking in your instances.</p>
+<p><strong>Note</strong>: This list is not exhaustive. You may find other instance types with similar specifications suitable for your HAWQ deployment.</p>
 
-<p>All instance types identified in the table above support enhanced networking.</p>
+<p>For optimal network performance, the chosen HAWQ instance type should support EC2 enhanced networking. Enhanced networking results in higher performance, lower latency, and lower jitter. Refer to <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/enhanced-networking.html">Enhanced Networking on Linux Instances</a> for detailed information on enabling enhanced networking in supported EC2 instance types.</p>
 
-<h3><a id="topic_cfgnetw"></a>Configure Networking</h3>
+<h3><a id="topic_cfgnetw"></a>Configure Networking and VPC</h3>
 
-<p>Your HAWQ cluster instances should be in a single VPC and on the same subnet. Instances are always assigned a VPC internal IP address. This internal IP address should be used for HAWQ communication between hosts. You can also use the internal IP address to access an instance from another instance within the HAWQ VPC.</p>
+<p>Place your HAWQ cluster instances in a single VPC and on the same subnet. Instances are always assigned a VPC internal IP address. Use this internal IP address for HAWQ communication between hosts. You can also use the internal IP address to access an instance from another instance within the HAWQ VPC.</p>
 
 <p>You may choose to locate your Ambari node on a separate subnet in the VPC. Both a public IP address for the instance and an Internet gateway configured for the EC2 VPC are required to access the Ambari instance from an external source and for the instance to access the Internet. </p>
 
-<p>Ensure your Ambari and HAWQ master instances are each assigned a public IP address for external and internet access. We recommend you also assign an Elastic IP Address to the HAWQ master instance.</p>
+<p>Ensure your Ambari and HAWQ master instances are each assigned a public IP address for external and internet access. Also assign an Elastic IP Address to the HAWQ master instance.</p>
 
 <h3>Configure Security Groups<a id="topic_cfgsecgrp"></a></h3>
 
 <p>A security group is a set of rules that control network traffic to and from your HAWQ instance.  One or more rules may be associated with a security group, and one or more security groups may be associated with an instance.</p>
 
-<p>To configure HAWQ communication between nodes in the HAWQ cluster, include and open the following ports in the appropriate security group for the HAWQ master and segment nodes:</p>
+<p>To configure HAWQ communication between nodes in a HAWQ cluster, include and open appropriate ports in the security group for the HAWQ master and segment nodes. For example, if you have a single VPC, you may create a single security group named <code>hawq-cluster-sg</code> for your cluster, and configure this security group to open the following ports:</p>
 
 <table><thead>
 <tr>
 <th>Port</th>
+<th>Protocol</th>
 <th>Application</th>
+<th>Source</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>22</td>
-<td>ssh - secure connect to other hosts</td>
+<td>-1</td>
+<td>ICMP</td>
+<td><code>ping</code></td>
+<td><code>hawq-cluster-sg</code></td>
+</tr>
+<tr>
+<td>5432</td>
+<td>TCP</td>
+<td>HAWQ/Postgres</td>
+<td>cidr 0.0.0.0/0</td>
+</tr>
+<tr>
+<td>50700</td>
+<td>TCP</td>
+<td>HDFS NameNode</td>
+<td>cidr 0.0.0.0/0</td>
+</tr>
+<tr>
+<td>0-65535</td>
+<td>TCP</td>
+<td><code>ssh</code>, HAWQ segment communication</td>
+<td><code>hawq-cluster-sg</code></td>
+</tr>
+<tr>
+<td>0-65535</td>
+<td>UDP</td>
+<td>HAWQ segment communication</td>
+<td><code>hawq-cluster-sg</code></td>
 </tr>
 </tbody></table>
 
-<p>To allow access to/from a source external to the Ambari management node, include and open the following ports in an appropriate security group for your Ambari node:</p>
+<p>This configuration allows communication between the HAWQ segment nodes. It also allows <code>ping</code> on and <code>ssh</code> between all instances in the <code>hawq-cluster-sg</code>  security group. The HAWQ master and HDFS NameNode ports are open with the above settings.</p>
+
+<p>Open and/or restrict these and any additional ports required for your HAWQ deployment environment.</p>
+
+<p>Include and open the following ports in an appropriate security group for your Ambari node to allow access to/from a source external to this node:</p>
 
 <table><thead>
 <tr>
 <th>Port</th>
+<th>Protocol</th>
 <th>Application</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>22</td>
-<td>ssh - secure connect to other hosts</td>
+<td>TCP</td>
+<td><code>ssh</code> - secure shell to/from other hosts</td>
 </tr>
 <tr>
 <td>8080</td>
-<td>Ambari - HAWQ admin/config web console</td>
+<td>TCP</td>
+<td>Ambari - HAWQ admininstration web console</td>
 </tr>
 </tbody></table>
 
@@ -1134,19 +1194,21 @@
 
 <p>A key pair for an EC2 instance consists of a <em>public key</em> that AWS stores, and a <em>private key file</em> that you maintain. Together, they allow you to connect to your instance securely. The private key file name typically has a <code>.pem</code> suffix.</p>
 
-<p>This example logs into an into EC2 instance from an external location with the private key file <code>my-test.pem</code> as user <code>user1</code>.  In this example, the instance is configured with the public IP address <code>192.0.2.0</code> and the private key file resides in the current directory.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>ssh -i my-test.pem user1@192.0.2.0
+<p>The following example logs into an into EC2 instance from an external location with the private key file <code>my-test.pem</code> as user <code>user1</code>.  In this example, the instance is configured with the public IP address <code>192.0.2.0</code> and the private key file resides in the current directory.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>ssh -i ./my-test.pem user1@192.0.2.0
 </code></pre>
 
 <h2>Additional HAWQ Considerations <a id="topic_mj4_524_2v"></a></h2>
 
-<p>After launching your HAWQ instance, you will connect to and configure the instance. The  <em>Instances</em> page of the EC2 Console lists the running instances and their associated network access information.</p>
+<p>After launching your HAWQ instance, you will connect to and configure the instance. The <strong>Instances</strong> page of the EC2 Console lists the running instances and their associated network access information.</p>
 
-<p>Before installing HAWQ, set up the EC2 instances as you would local host server machines. Configure the host operating system, configure host network information (for example, update the <code>/etc/hosts</code> file), set operating system parameters, and install operating system packages. For information about how to prepare your operating system environment for HAWQ, see <a href="/docs/userguide/2.1.0.0-incubating/requirements/system-requirements.html">Apache HAWQ System Requirements</a> and <a href="/docs/userguide/2.1.0.0-incubating/install/select-hosts.html">Select HAWQ Host Machines</a>.</p>
+<p>Before installing HAWQ, set up the EC2 instances as you would local host server machines. Configure the host operating system, configure host network information (for example, update the <code>/etc/hosts</code> file), set operating system parameters, and install operating system packages. <a href="/docs/userguide/2.1.0.0-incubating/requirements/system-requirements.html">Apache HAWQ System Requirements</a> and <a href="/docs/userguide/2.1.0.0-incubating/install/select-hosts.html">Select HAWQ Host Machines</a> provide the information necessary to prepare your operating system environment for HAWQ.</p>
 
 <h3>Passwordless SSH Configuration<a id="topic_pwdlessssh_cc"></a></h3>
 
-<p>HAWQ hosts will be configured during the installation process to use passwordless SSH for intra-cluster communications. Temporary password-based authentication must be enabled on each HAWQ host in preparation for this configuration. Password authentication is typically disabled by default in cloud images. Update the cloud configuration in <code>/etc/cloud/cloud.cfg</code> to enable password authentication in your AMI(s). Set <code>ssh_pwauth: True</code> in this file. If desired, disable password authentication after HAWQ installation by setting the property back to <code>False</code>.</p>
+<p>HAWQ hosts are configured during the installation process to use passwordless SSH for intra-cluster communications. Temporary password-based authentication must be enabled on each HAWQ host in preparation for this configuration.</p>
+
+<p>Password authentication is typically disabled by default in cloud images. Update the cloud configuration in <code>/etc/cloud/cloud.cfg</code> to enable password authentication in your AMI(s). Set <code>ssh_pwauth: True</code> in this configuration file. If desired, set the property back to <code>False</code> after HAWQ installation to disable password authentication.</p>
 
 <h2>References<a id="topic_hgz_zwy_bv"></a></h2>
 

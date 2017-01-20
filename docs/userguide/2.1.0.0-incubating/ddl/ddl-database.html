@@ -129,11 +129,13 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/setuphawqopenv.html">Introducing the HAWQ Operating Environment</a>
           </li>
-          <li>
+          <li class="has_submenu">
             <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-admin.html">Managing HAWQ Using Ambari</a>
-          </li>
-          <li>
-            <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+           <ul>
+            <li>
+              <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+            </li>
+           </ul>
           </li>
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/startstop.html">Starting and Stopping HAWQ</a>
@@ -413,6 +415,7 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HivePXF.html">Accessing Hive Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HBasePXF.html">Accessing HBase Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/JsonPXF.html">Accessing JSON Data</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HDFSWritablePXF.html">Writing Data to HDFS</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/ReadWritePXF.html">Using Profiles to Read and Write Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/PXFExternalTableandAPIReference.html">PXF External Tables and API</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/TroubleshootingPXF.html">Troubleshooting PXF</a></li>
@@ -740,6 +743,7 @@
             <ul>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ABORT.html">ABORT</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-AGGREGATE.html">ALTER AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-CONVERSION.html">ALTER CONVERSION</a></li>  
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-DATABASE.html">ALTER DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-FUNCTION.html">ALTER FUNCTION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-OPERATOR.html">ALTER OPERATOR</a></li>
@@ -757,6 +761,8 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COMMIT.html">COMMIT</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COPY.html">COPY</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-AGGREGATE.html">CREATE AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-CAST.html">CREATE CAST</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-CONVERSION.html">CREATE CONVERSION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-DATABASE.html">CREATE DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html">CREATE EXTERNAL TABLE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-FUNCTION.html">CREATE FUNCTION</a></li>
@@ -777,6 +783,8 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DEALLOCATE.html">DEALLOCATE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DECLARE.html">DECLARE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-AGGREGATE.html">DROP AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-CAST.html">DROP CAST</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-CONVERSION.html">DROP CONVERSION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-DATABASE.html">DROP DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-EXTERNAL-TABLE.html">DROP EXTERNAL TABLE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-FILESPACE.html">DROP FILESPACE</a></li>
@@ -967,62 +975,60 @@
         <div class="to-top" id="js-to-top">
           <a href="#top" title="back to top"></a>
         </div>
-        <p>A HAWQ system is a single instance of HAWQ. There can be several separate HAWQ systems installed, but usually just one is selected by environment variable settings. See your HAWQ administrator for details.</p>
-
-<p>There can be multiple databases in a HAWQ system. This is different from some database management systems (such as Oracle) where the database instance <em>is</em> the database. Although you can create many databases in a HAWQ system, client programs can connect to and access only one database at a time — you cannot cross-query between databases.</p>
+        <p>Your HAWQ deployment may have multiple databases. This is different from some database management systems (such as Oracle) where the database instance <em>is</em> the database. Although you can create many databases in a HAWQ system, client programs can connect to and access only one database at a time — you cannot cross-query between databases.</p>
 
 <h2><a id="topic3"></a>About Template Databases</h2>
 
-<p>Each new database you create is based on a <em>template</em>. HAWQ provides a default database, <em>template1</em>. Use <em>template1</em> to connect to HAWQ for the first time. HAWQ uses <em>template1</em> to create databases unless you specify another template. Do not create any objects in <em>template1</em> unless you want those objects to be in every database you create.</p>
+<p>Each new database you create is based on a <em>template</em>. HAWQ provides a default database, <code>template1</code>. HAWQ uses <code>template1</code> to create databases unless you specify another template. Do not create any objects in <code>template1</code> unless you want those objects to be in every database you create.</p>
 
-<p>HAWQ uses two other database templates, <em>template0</em> and <em>postgres</em>, internally. Do not drop or modify <em>template0</em> or <em>postgres</em>. You can use <em>template0</em> to create a completely clean database containing only the standard objects predefined by HAWQ at initialization, especially if you modified <em>template1</em>.</p>
+<p>HAWQ uses two other database templates internally, <code>template0</code> and <code>postgres</code>. Do not drop or modify <code>template0</code> or <code>postgres</code>. You can use <code>template0</code> to create a completely clean database containing only the standard objects predefined by HAWQ at initialization. This may be necessary if you have modified <code>template1</code>.</p>
 
 <h2><a id="topic4"></a>Creating a Database</h2>
 
-<p>The <code>CREATE DATABASE</code> command creates a new database. For example:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">new_dbname</span><span class="p">;</span>
+<p>You must have appropriate privileges or be a HAWQ superuser to create a database. If you do not have the correct privileges, you cannot create a database. The HAWQ administrator must either grant you the necessary privileges or create a database for you.</p>
+
+<p>The <a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-DATABASE.html">CREATE DATABASE</a> command creates a new database. For example:</p>
+<pre class="highlight sql"><code><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="o">&lt;</span><span class="n">new_dbname</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre>
 
-<p>To create a database, you must have privileges to create a database or be a HAWQ superuser. If you do not have the correct privileges, you cannot create a database. The HAWQ administrator must either give you the necessary privileges or to create a database for you.</p>
-
-<p>You can also use the client program <code>createdb</code> to create a database. For example, running the following command in a command line terminal connects to HAWQ using the provided host name and port and creates a database named <em>mydatabase</em>:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>createdb -h masterhost -p 5432 mydatabase
+<p>You can also use the client program <code>createdb</code> to create a database. For example, running the following command connects to HAWQ on the host named <code>hmaster</code> at port <code>5432</code> and creates a database named <code>mydatabase</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>createdb -h hmaster -p 5432 mydatabase
 </code></pre>
 
-<p>The host name and port must match the host name and port of the installed HAWQ system.</p>
+<p>The host name and port must match the host name and port of the HAWQ master node.</p>
 
-<p>Some objects, such as roles, are shared by all the databases in a HAWQ system. Other objects, such as tables that you create, are known only in the database in which you create them.</p>
+<p>Some objects, such as roles, are shared by all of the databases in a HAWQ deployment. Other objects, such as tables that you create, are known only to the database in which you create them.</p>
 
 <h3><a id="topic5"></a>Cloning a Database</h3>
 
-<p>By default, a new database is created by cloning the standard system database template, <em>template1</em>. Any database can be used as a template when creating a new database, thereby providing the capability to &lsquo;clone&rsquo; or copy an existing database and all objects and data within that database. For example:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">new_dbname</span> <span class="k">TEMPLATE</span> <span class="n">old_dbname</span>
+<p>By default, a new database is created by cloning the standard system database template, <code>template1</code>. You can identify an alternate template to use for database creation. As mentioned in the section above, you can specify <code>template0</code> as the template:</p>
+<pre class="highlight sql"><code><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="o">&lt;</span><span class="n">new_dbname</span><span class="o">&gt;</span> <span class="k">WITH</span> <span class="k">TEMPLATE</span> <span class="n">template0</span><span class="p">;</span>
 </code></pre>
 
 <h2><a id="topic6"></a>Viewing the List of Databases</h2>
 
-<p>If you are working in the <code>psql</code> client program, you can use the <code>\l</code> meta-command to show the list of databases and templates in your HAWQ system. If using another client program and you are a superuser, you can query the list of databases from the <code>pg_database</code> system catalog table. For example:</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">datname</span> <span class="k">FROM</span> <span class="n">pg_database</span><span class="p">;</span>
+<p>You can use the <code>\l</code> meta-command of the <code>psql</code> client subsystem to display the list of databases and templates in your HAWQ deployment. If you are a database superuser, you can query the list of databases from the <code>pg_database</code> system catalog table. For example:</p>
+<pre class="highlight sql"><code><span class="o">=#</span> <span class="k">SELECT</span> <span class="n">datname</span> <span class="k">FROM</span> <span class="n">pg_database</span><span class="p">;</span>
 </code></pre>
 
 <h2><a id="topic7"></a>Altering a Database</h2>
 
-<p>The ALTER DATABASE command changes database attributes such as owner, name, or default configuration attributes. For example, the following command alters a database by setting its default schema search path (the <code>search_path</code> configuration parameter):</p>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">mydatabase</span> <span class="k">SET</span> <span class="n">search_path</span> <span class="k">TO</span> <span class="n">myschema</span><span class="p">,</span> <span class="k">public</span><span class="p">,</span> <span class="n">pg_catalog</span><span class="p">;</span>
+<p>Use the <a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-DATABASE.html">ALTER DATABASE</a> command to update database attributes including owner or name. You can also use ALTER DATABASE to update a database&rsquo;s default configuration. For example, the following command alters the <code>search_path</code> server configuration parameter to change the default schema search path for database <code>mydatabase</code>:</p>
+<pre class="highlight sql"><code><span class="o">=#</span> <span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">mydatabase</span> <span class="k">SET</span> <span class="n">search_path</span> <span class="k">TO</span> <span class="n">myschema</span><span class="p">,</span> <span class="k">public</span><span class="p">,</span> <span class="n">pg_catalog</span><span class="p">;</span>
 </code></pre>
 
 <p>To alter a database, you must be the owner of the database or a superuser.</p>
 
 <h2><a id="topic8"></a>Dropping a Database</h2>
 
-<p>The <code>DROP DATABASE</code> command drops (or deletes) a database. It removes the system catalog entries for the database and deletes the database directory on disk that contains the data. You must be the database owner or a superuser to drop a database, and you cannot drop a database while you or anyone else is connected to it. Connect to <code>template1</code> (or another database) before dropping a database. For example:</p>
-<pre class="highlight shell"><code><span class="gp">=&gt; </span><span class="se">\c</span> template1
+<p>The <a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-DATABASE.html">DROP DATABASE</a> command drops (deletes) a database. It removes the system catalog entries for the database and deletes the data on disk. You must be the database owner or a superuser to drop a database, and you cannot drop a database while you or anyone else is connected to it. Connect to <code>template1</code> (or another database) before dropping a database. For example:</p>
+<pre class="highlight shell"><code><span class="gp">=# </span><span class="se">\c</span> template1
 </code></pre>
-<pre class="highlight sql"><code><span class="o">=&gt;</span> <span class="k">DROP</span> <span class="k">DATABASE</span> <span class="n">mydatabase</span><span class="p">;</span>
+<pre class="highlight sql"><code><span class="o">=#</span> <span class="k">DROP</span> <span class="k">DATABASE</span> <span class="n">mydatabase</span><span class="p">;</span>
 </code></pre>
 
-<p>You can also use the client program <code>dropdb</code> to drop a database. For example, the following command connects to HAWQ using the provided host name and port and drops the database <em>mydatabase</em>:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>dropdb -h masterhost -p 5432 mydatabase
+<p>You can also use the client program <code>dropdb</code> to drop a database. For example, the following command connects to HAWQ on the host named <code>hmaster</code> at port <code>5432</code> and drops the database named <code>mydatabase</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>dropdb -h hmaster -p 5432 mydatabase
 </code></pre>
 
 <p><strong>Warning:</strong> Dropping a database cannot be undone.</p>

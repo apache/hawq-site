@@ -129,11 +129,13 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/setuphawqopenv.html">Introducing the HAWQ Operating Environment</a>
           </li>
-          <li>
+          <li class="has_submenu">
             <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-admin.html">Managing HAWQ Using Ambari</a>
-          </li>
-          <li>
-            <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+           <ul>
+            <li>
+              <a href="/docs/userguide/2.1.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+            </li>
+           </ul>
           </li>
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/startstop.html">Starting and Stopping HAWQ</a>
@@ -413,6 +415,7 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HivePXF.html">Accessing Hive Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HBasePXF.html">Accessing HBase Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/JsonPXF.html">Accessing JSON Data</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/HDFSWritablePXF.html">Writing Data to HDFS</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/ReadWritePXF.html">Using Profiles to Read and Write Data</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/PXFExternalTableandAPIReference.html">PXF External Tables and API</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/pxf/TroubleshootingPXF.html">Troubleshooting PXF</a></li>
@@ -740,6 +743,7 @@
             <ul>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ABORT.html">ABORT</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-AGGREGATE.html">ALTER AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-CONVERSION.html">ALTER CONVERSION</a></li>  
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-DATABASE.html">ALTER DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-FUNCTION.html">ALTER FUNCTION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/ALTER-OPERATOR.html">ALTER OPERATOR</a></li>
@@ -757,6 +761,8 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COMMIT.html">COMMIT</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/COPY.html">COPY</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-AGGREGATE.html">CREATE AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-CAST.html">CREATE CAST</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-CONVERSION.html">CREATE CONVERSION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-DATABASE.html">CREATE DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html">CREATE EXTERNAL TABLE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/CREATE-FUNCTION.html">CREATE FUNCTION</a></li>
@@ -777,6 +783,8 @@
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DEALLOCATE.html">DEALLOCATE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DECLARE.html">DECLARE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-AGGREGATE.html">DROP AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-CAST.html">DROP CAST</a></li>
+              <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-CONVERSION.html">DROP CONVERSION</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-DATABASE.html">DROP DATABASE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-EXTERNAL-TABLE.html">DROP EXTERNAL TABLE</a></li>
               <li><a href="/docs/userguide/2.1.0.0-incubating/reference/sql/DROP-FILESPACE.html">DROP FILESPACE</a></li>
@@ -987,20 +995,20 @@
 
 <p>The creator becomes the owner of the new database by default. Superusers can create databases owned by other users by using the <code>OWNER</code> clause. They can even create databases owned by users with no special privileges. Non-superusers with <code>CREATEDB</code> privilege can only create databases owned by themselves.</p>
 
-<p>By default, the new database will be created by cloning the standard system database <code>template1</code>. A different template can be specified by writing <code>TEMPLATE &lt;template&gt;</code>. In particular, by writing <code>TEMPLATE template0</code>, you can create a clean database containing only the standard objects predefined by HAWQ. This is useful if you wish to avoid copying any installation-local objects that may have been added to <code>template1</code>.</p>
+<p>By default, the new database is created by cloning the standard system database template named <code>template1</code>. You can specify a different template by including the <code>WITH TEMPLATE=&lt;template&gt;</code> clause in the <code>CREATE DATABASE</code> command. In particular, specifying <code>WITH TEMPLATE=template0</code> creates a clean database containing only the standard objects predefined by HAWQ. This is useful if you wish to avoid copying any installation-local objects that may have been added to <code>template1</code>.</p>
 
 <h2><a id="topic1__section4"></a>Parameters</h2>
 
 <p><dt>&lt;database_name&gt;</dt>
 <dd>The name of a database to create.</p>
 
-<p><strong>Note:</strong> HAWQ reserves the database name &ldquo;hcatalog&rdquo; for system use.</dd></p>
+<p><strong>Note:</strong> HAWQ reserves the database name <code>hcatalog</code> for system use.</dd></p>
 
 <p><dt>OWNER=&lt;database_owner&gt; </dt>
 <dd>The name of the database user who will own the new database, or <code>DEFAULT</code> to use the default owner (the user executing the command).</dd></p>
 
 <p><dt>TEMPLATE=&lt;template&gt; </dt>
-<dd>The name of the template from which to create the new database, or <code>DEFAULT</code> to use the default template (<em>template1</em>).</dd></p>
+<dd>The name of the template from which to create the new database, or <code>DEFAULT</code> to use the default template (<code>template1</code>).</dd></p>
 
 <p><dt>ENCODING=&lt;encoding&gt; </dt>
 <dd>Character set encoding to use in the new database. Specify a string constant (such as <code>&#39;SQL_ASCII&#39;</code>), an integer encoding number, or <code>DEFAULT</code> to use the default encoding.</dd></p>
@@ -1015,21 +1023,21 @@
 
 <p><code>CREATE DATABASE</code> cannot be executed inside a transaction block.</p>
 
-<p>When you copy a database by specifying its name as the template, no other sessions can be connected to the template database while it is being copied. New connections to the template database are locked out until <code>CREATE DATABASE</code> completes.</p>
+<p>Only template databases may be specified in the <code>WITH TEMPLATE=&lt;template&gt;</code> clause. When you specify <code>template1</code> or <code>template0</code> as the database template, no other sessions can be connected to the template database during the create operation. New connections to the template database are locked out until <code>CREATE DATABASE</code> completes.</p>
 
 <p>The <code>CONNECTION LIMIT</code> is not enforced against superusers.</p>
 
 <h2><a id="topic1__section6"></a>Examples</h2>
 
-<p>To create a new database:</p>
+<p>To create a new database using the default template:</p>
 <pre class="highlight plaintext"><code>CREATE DATABASE gpdb;
 </code></pre>
 
-<p>To create a database <code>sales</code> owned by user <code>salesapp</code> with a default tablespace of <code>salesspace</code>:</p>
+<p>To create a database named <code>sales</code> owned by user <code>salesapp</code> with a default tablespace of <code>salesspace</code>:</p>
 <pre class="highlight plaintext"><code>CREATE DATABASE sales OWNER=salesapp TABLESPACE=salesspace;
 </code></pre>
 
-<p>To create a database <code>music</code> which supports the ISO-8859-1 character set:</p>
+<p>To create a database named <code>music</code> which supports the ISO-8859-1 character set:</p>
 <pre class="highlight plaintext"><code>CREATE DATABASE music ENCODING='LATIN1';
 </code></pre>
 
