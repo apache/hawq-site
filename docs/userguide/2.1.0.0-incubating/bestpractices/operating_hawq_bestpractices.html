@@ -170,6 +170,9 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
           </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
         </ul>
       </li>
       <li class="has_submenu">
@@ -443,6 +446,7 @@
       </li>
       <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
         <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
@@ -565,11 +569,17 @@
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
@@ -963,37 +973,52 @@
 
           <div id="js-quick-links" >
             <div class="quick-links"><ul>
-<li><a href="#best_practice_config">Best Practices for Configuring HAWQ Parameters</a></li>
-<li><a href="#task_qgk_bz3_1v">Best Practices to Start/Stop HAWQ Cluster Members</a></li>
+<li><a href="#task_qgk_bz3_1v">Best Practices Using the Command Line to Start/Stop HAWQ Cluster Members</a></li>
 <li><a href="#id_trr_m1j_1v">Guidelines for Cluster Expansion</a></li>
+<li>
+<a href="#best_pract_monitoring">Best Practices for Monitoring a HAWQ System</a><ul>
 <li><a href="#id_o5n_p1j_1v">Database State Monitoring Activities</a></li>
 <li><a href="#id_d3w_p1j_1v">Hardware and Operating System Monitoring</a></li>
 <li><a href="#id_khd_q1j_1v">Data Maintenance</a></li>
 <li><a href="#id_lx4_q1j_1v">Database Maintenance</a></li>
 <li><a href="#id_blv_q1j_1v">Patching and Upgrading</a></li>
+</ul>
+</li>
 </ul></div>
           </div>
         <div class="to-top" id="js-to-top">
           <a href="#top" title="back to top"></a>
         </div>
-        <p>This topic provides best practices for operating HAWQ, including recommendations for stopping, starting and monitoring HAWQ.</p>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
 
-<h2><a id="best_practice_config"></a>Best Practices for Configuring HAWQ Parameters</h2>
+  http://www.apache.org/licenses/LICENSE-2.0
 
-<p>The HAWQ configuration guc/parameters are located in <code>$GPHOME/etc/hawq-site.xml</code>. This configuration file resides on all HAWQ instances and can be modified either by the Ambari interface or the command line. </p>
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
 
-<p>If you install and manage HAWQ using Ambari, use the Ambari interface for all configuration changes. Do not use command line utilities such as <code>hawq config</code> to set or change HAWQ configuration properties for Ambari-managed clusters. Configuration changes to <code>hawq-site.xml</code> made outside the Ambari interface will be overwritten when you restart or reconfigure HAWQ using Ambari.</p>
+<p>This topic provides best practices for operating HAWQ, including recommendations for stopping, starting and monitoring HAWQ.</p>
 
-<p>If you manage your cluster using command line tools instead of Ambari, use a consistent <code>hawq-site.xml</code> file to configure your entire cluster. </p>
+<h2><a id="task_qgk_bz3_1v"></a>Best Practices Using the Command Line to Start/Stop HAWQ Cluster Members</h2>
 
-<p><strong>Note:</strong> While <code>postgresql.conf</code> still exists in HAWQ, any parameters defined in <code>hawq-site.xml</code> will overwrite configurations in <code>postgresql.conf</code>. For this reason, we recommend that you only use <code>hawq-site.xml</code> to configure your HAWQ cluster. For Ambari clusters, always use Ambari for configuring <code>hawq-site.xml</code> parameters.</p>
-
-<h2><a id="task_qgk_bz3_1v"></a>Best Practices to Start/Stop HAWQ Cluster Members</h2>
-
-<p>For best results in using <code>hawq start</code> and <code>hawq stop</code> to manage your HAWQ system, the following best practices are recommended.</p>
+<p>The following best practices are recommended when using <code>hawq start</code> and <code>hawq stop</code> to manage your HAWQ cluster.</p>
 
 <ul>
-<li>  Issue the <code>CHECKPOINT</code> command to update and flush all data files to disk and update the log file before stopping the cluster. A checkpoint ensures that, in the event of a crash, files can be restored from the checkpoint snapshot.</li>
+<li>  Always use HAWQ management commands to start and stop HAWQ, instead of Postgres equivalents.</li>
+<li>  Use <code>hawq start cluster</code> or <code>hawq restart cluster</code> to start the entire cluster, rather than starting the master and individual segments.</li>
+<li>  If you do decide to use <code>hawq start standby|master|segment</code> to start nodes individually, always start the standby before the active master. Otherwise, the standby can become unsynchronized with the active master.</li>
+<li>  When stopping a cluster, issue the <code>CHECKPOINT</code> command to update and flush all data files to disk and update the log file before stopping the cluster. A checkpoint ensures that, in the event of a crash, files can be restored from the checkpoint snapshot.</li>
 <li><p>Stop the entire HAWQ system by stopping the cluster on the master host:
 <code>shell
 $ hawq stop cluster
@@ -1013,7 +1038,6 @@ $ hawq stop cluster
 </code></pre>
 <pre class="highlight shell"><code><span class="gp">$ </span>hawq stop allsegments
 </code></pre></li>
-<li><p>Typically you should always use <code>hawq start cluster</code> or <code>hawq               restart cluster</code> to start the cluster. If you do end up using <code>hawq start standby|master|segment</code> to start nodes individually, make sure you always start the standby before the active master. Otherwise, the standby can become unsynchronized with the active master.</p></li>
 </ul>
 
 <h2><a id="id_trr_m1j_1v"></a>Guidelines for Cluster Expansion</h2>
@@ -1030,7 +1054,13 @@ $ hawq stop cluster
 <li>  If you are using hash tables, consider updating the <code>default_hash_table_bucket_number</code> server configuration parameter to a larger value after expanding the cluster but before redistributing the hash tables.</li>
 </ul>
 
-<h2><a id="id_o5n_p1j_1v"></a>Database State Monitoring Activities</h2>
+<h2><a id="best_pract_monitoring"></a>Best Practices for Monitoring a HAWQ System</h2>
+
+<p>The sections below provide recommendations for common monitoring tasks. </p>
+
+<p><strong>Note:</strong> If your HAWQ cluster is managed through the Ambari interface, use Ambari to perform the suggested monitoring tasks. </p>
+
+<h3><a id="id_o5n_p1j_1v"></a>Database State Monitoring Activities</h3>
 
 <p><a id="id_o5n_p1j_1v__d112e31"></a></p>
 
@@ -1065,7 +1095,7 @@ WHERE status &lt;&gt; &#39;u&#39;;</code></pre></td>
 </tbody>
 </table>
 
-<h2><a id="id_d3w_p1j_1v"></a>Hardware and Operating System Monitoring</h2>
+<h3><a id="id_d3w_p1j_1v"></a>Hardware and Operating System Monitoring</h3>
 
 <p><a id="id_d3w_p1j_1v__d112e111"></a></p>
 
@@ -1139,7 +1169,7 @@ If transfer rates are lower than expected, consult with your data architect rega
 </tbody>
 </table>
 
-<h2><a id="id_khd_q1j_1v"></a>Data Maintenance</h2>
+<h3><a id="id_khd_q1j_1v"></a>Data Maintenance</h3>
 
 <p><a id="id_khd_q1j_1v__d112e279"></a></p>
 
@@ -1167,7 +1197,7 @@ If transfer rates are lower than expected, consult with your data architect rega
 </tbody>
 </table>
 
-<h2><a id="id_lx4_q1j_1v"></a>Database Maintenance</h2>
+<h3><a id="id_lx4_q1j_1v"></a>Database Maintenance</h3>
 
 <p><a id="id_lx4_q1j_1v__d112e343"></a></p>
 
@@ -1219,7 +1249,7 @@ If transfer rates are lower than expected, consult with your data architect rega
 </tbody>
 </table>
 
-<h2><a id="id_blv_q1j_1v"></a>Patching and Upgrading</h2>
+<h3><a id="id_blv_q1j_1v"></a>Patching and Upgrading</h3>
 
 <p><a id="id_blv_q1j_1v__d112e472"></a></p>
 

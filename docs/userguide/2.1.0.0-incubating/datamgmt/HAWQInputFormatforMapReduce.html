@@ -170,6 +170,9 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
           </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
         </ul>
       </li>
       <li class="has_submenu">
@@ -443,6 +446,7 @@
       </li>
       <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
         <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
@@ -565,11 +569,17 @@
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
@@ -976,7 +986,26 @@
         <div class="to-top" id="js-to-top">
           <a href="#top" title="back to top"></a>
         </div>
-        <p>MapReduce is a programming model developed by Google for processing and generating large data sets on an array of commodity servers. You can use the HAWQ InputFormat class to enable MapReduce jobs to access HAWQ data stored in HDFS.</p>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<p>MapReduce is a programming model developed by Google for processing and generating large data sets on an array of commodity servers. You can use the HAWQ InputFormat class to enable MapReduce jobs to access HAWQ data stored in HDFS.</p>
 
 <p>To use HAWQ InputFormat, you need only to provide the URL of the database to connect to, along with the table name you want to access. HAWQ InputFormat fetches only the metadata of the database and table of interest, which is much less data than the table data itself. After getting the metadata, HAWQ InputFormat determines where and how the table data is stored in HDFS. It reads and parses those HDFS files and processes the parsed table tuples directly inside a Map task.</p>
 

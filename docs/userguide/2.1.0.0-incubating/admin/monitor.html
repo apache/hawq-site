@@ -170,6 +170,9 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
           </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
         </ul>
       </li>
       <li class="has_submenu">
@@ -443,6 +446,7 @@
       </li>
       <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
         <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
@@ -565,11 +569,17 @@
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
@@ -973,12 +983,6 @@
 </ul>
 </li>
 <li>
-<a href="#topic28">Viewing the Database Server Log Files</a><ul>
-<li><a href="#topic29">Log File Format</a></li>
-<li><a href="#topic30">Searching the HAWQ Server Log Files</a></li>
-</ul>
-</li>
-<li>
 <a href="#topic_jx2_rqg_kp">HAWQ Error Codes</a><ul><li><a href="#topic_pyh_sqg_kp">SQL Standard Error Codes</a></li></ul>
 </li>
 </ul></div>
@@ -986,7 +990,26 @@
         <div class="to-top" id="js-to-top">
           <a href="#top" title="back to top"></a>
         </div>
-        <p>You can monitor a HAWQ system using a variety of tools included with the system or available as add-ons.</p>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<p>You can monitor a HAWQ system using a variety of tools included with the system or available as add-ons.</p>
 
 <p>Observing the HAWQ system day-to-day performance helps administrators understand the system behavior, plan workflow, and troubleshoot problems. This chapter discusses tools for monitoring database performance and activity.</p>
 
@@ -1108,62 +1131,6 @@ Distributed by: (id)
 <li>  <em>hawq_workfile_usage_per_query</em> - one row for each running query currently using disk space for workfiles on a segment</li>
 <li>  <em>hawq_workfile_usage_per_segment</em> - one row for each segment where each row displays the total amount of disk space currently in use for workfiles on the segment</li>
 </ul>
-
-<h2><a id="topic28"></a>Viewing the Database Server Log Files</h2>
-
-<p>Every database instance in HAWQ (master and segments) runs a PostgreSQL database server with its own server log file. Daily log files are created in the <code>pg_log</code> directory of the master  and each segment data directory.</p>
-
-<h3><a id="topic29"></a>Log File Format</h3>
-
-<p>The server log files are written in comma-separated values (CSV) format. Log entries may not include values for all log fields. For example, only log entries associated with a query worker process will have the <code>slice_id</code> populated. You can identify related log entries of a particular query by the query&rsquo;s session identifier (<code>gp_session_id</code>) and command identifier (<code>gp_command_count</code>).</p>
-
-<p>Log entries may include the following fields:</p>
-
-<table>
-  <tr><th>#</th><th>Field Name</th><th>Data Type</th><th>Description</th></tr>
-  <tr><td>1</td><td>event_time</td><td>timestamp with time zone</td><td>Time that the log entry was written to the log</td></tr>
-  <tr><td>2</td><td>user_name</td><td>varchar(100)</td><td>The database user name</td></tr>
-  <tr><td>3</td><td>database_name</td><td>varchar(100)</td><td>The database name</td></tr>
-  <tr><td>4</td><td>process_id</td><td>varchar(10)</td><td>The system process ID (prefixed with &ldquo;p&rdquo;)</td></tr>
-  <tr><td>5</td><td>thread_id</td><td>varchar(50)</td><td>The thread count (prefixed with &ldquo;th&rdquo;)</td></tr>
-  <tr><td>6</td><td>remote_host</td><td>varchar(100)</td><td>On the master, the hostname/address of the client machine. On the segment, the hostname/address of the master.</td></tr>
-  <tr><td>7</td><td>remote_port</td><td>varchar(10)</td><td>The segment or master port number</td></tr>
-  <tr><td>8</td><td>session_start_time</td><td>timestamp with time zone</td><td>Time session connection was opened</td></tr>
-  <tr><td>9</td><td>transaction_id</td><td>int</td><td>Top-level transaction ID on the master. This ID is the parent of any subtransactions.</td></tr>
-  <tr><td>10</td><td>gp_session_id</td><td>text</td><td>Session identifier number (prefixed with &ldquo;con&rdquo;)</td></tr>
-  <tr><td>11</td><td>gp_command_count</td><td>text</td><td>The command number within a session (prefixed with &ldquo;cmd&rdquo;)</td></tr>
-  <tr><td>12</td><td>gp_segment</td><td>text</td><td>The segment content identifier. The master always has a content ID of -1.</td></tr>
-  <tr><td>13</td><td>slice_id</td><td>text</td><td>The slice ID (portion of the query plan being executed)</td></tr>
-  <tr><td>14</td><td>distr_tranx_id</td><td>text</td><td>Distributed transaction ID</td></tr>
-  <tr><td>15</td><td>local_tranx_id</td><td>text</td><td>Local transaction ID</td></tr>
-  <tr><td>16</td><td>sub_tranx_id</td><td>text</td><td>Subtransaction ID</td></tr>
-  <tr><td>17</td><td>event_severity</td><td>varchar(10)</td><td>Values include: LOG, ERROR, FATAL, PANIC, DEBUG1, DEBUG2</td></tr>
-  <tr><td>18</td><td>sql_state_code</td><td>varchar(10)</td><td>SQL state code associated with the log message</td></tr>
-  <tr><td>19</td><td>event_message</td><td>text</td><td>Log or error message text</td></tr>
-  <tr><td>20</td><td>event_detail</td><td>text</td><td>Detail message text associated with an error or warning message</td></tr>
-  <tr><td>21</td><td>event_hint</td><td>text</td><td>Hint message text associated with an error or warning message</td></tr>
-  <tr><td>22</td><td>internal_query</td><td>text</td><td>The internally-generated query text</td></tr>
-  <tr><td>23</td><td>internal_query_pos</td><td>int</td><td>The cursor index into the internally-generated query text</td></tr>
-  <tr><td>24</td><td>event_context</td><td>text</td><td>The context in which this message gets generated</td></tr>
-  <tr><td>25</td><td>debug_query_string</td><td>text</td><td>User-supplied query string with full detail for debugging. This string can be modified for internal use.</td></tr>
-  <tr><td>26</td><td>error_cursor_pos</td><td>int</td><td>The cursor index into the query string</td></tr>
-  <tr><td>27</td><td>func_name</td><td>text</td><td>The function in which this message is generated</td></tr>
-  <tr><td>28</td><td>file_name</td><td>text</td><td>The internal code file where the message originated</td></tr>
-  <tr><td>29</td><td>file_line</td><td>int</td><td>The line of the code file where the message originated</td></tr>
-  <tr><td>30</td><td>stack_trace</td><td>text</td><td>Stack trace text associated with this message</td></tr>
-</table>
-
-<h3><a id="topic30"></a>Searching the HAWQ Server Log Files</h3>
-
-<p>You can use the <code>gplogfilter</code> HAWQ utility to search through a HAWQ log file for entries matching specific criteria. By default, this utility searches through the HAWQ master log file in the default logging location. For example, to display the entries to the master log file starting after 2 pm on a certain date:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>gplogfilter -b <span class="s1">'2016-01-18 14:00'</span>
-</code></pre>
-
-<p>To search through all segment log files simultaneously, run <code>gplogfilter</code> through the <code>hawq ssh</code> utility. For example, specify a &lt;seg_hosts&gt; file that includes all segment hosts of interest, then invoke <code>gplogfilter</code> to display the last three lines of each segment log file on each segment host. (Note: enter the commands after the <code>=&gt;</code> prompt, do not include the <code>=&gt;</code>.):</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>hawq ssh -f &lt;seg_hosts&gt;
-<span class="gp">=&gt; </span><span class="nb">source</span> /usr/local/hawq/greenplum_path.sh
-<span class="gp">=&gt; </span>gplogfilter -n 3 /data/hawq/segment/pg_log/hawq<span class="k">*</span>.csv
-</code></pre>
 
 <h2><a id="topic_jx2_rqg_kp"></a>HAWQ Error Codes</h2>
 

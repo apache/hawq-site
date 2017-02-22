@@ -170,6 +170,9 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
           </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
         </ul>
       </li>
       <li class="has_submenu">
@@ -443,6 +446,7 @@
       </li>
       <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
         <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
@@ -565,11 +569,17 @@
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
@@ -964,40 +974,42 @@
           <div id="js-quick-links" >
             <div class="quick-links"><ul>
 <li><a href="#overview-topic">Overview</a></li>
-<li><a href="#topic10">Database Server Log Files</a></li>
-<li><a href="#topic11">Management Utility Log Files</a></li>
+<li><a href="#topic10">Log File Maintenance</a></li>
 </ul></div>
           </div>
         <div class="to-top" id="js-to-top">
           <a href="#top" title="back to top"></a>
         </div>
-        <h2><a id="overview-topic"></a>Overview</h2>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<h2><a id="overview-topic"></a>Overview</h2>
 
 <p>To keep a HAWQ system running efficiently, the database must be regularly cleared of expired data and the table statistics must be updated so that the query optimizer has accurate information.</p>
 
 <p>HAWQ requires that certain tasks be performed regularly to achieve optimal performance. The tasks discussed here are required, but database administrators can automate them using standard UNIX tools such as <code>cron</code> scripts. An administrator sets up the appropriate scripts and checks that they execute successfully. See <a href="/docs/userguide/2.1.0.0-incubating/admin/RecommendedMonitoringTasks.html">Recommended Monitoring and Maintenance Tasks</a> for additional suggested maintenance activities you can implement to keep your HAWQ system running optimally.</p>
 
-<h2><a id="topic10"></a>Database Server Log Files</h2>
+<h2><a id="topic10"></a>Log File Maintenance</h2>
 
-<p>HAWQ log output tends to be voluminous, especially at higher debug levels, and you do not need to save it indefinitely. Administrators rotate the log files periodically so new log files are started and old ones are removed.</p>
+<p>Every database instance in HAWQ (master and segments) runs a PostgreSQL database server with its own server log file. For information about managing these log files, refer to <a href="/docs/userguide/2.1.0.0-incubating/admin/logfiles.html#topic28">HAWQ Database Server Log Files</a>.</p>
 
-<p>HAWQ has log file rotation enabled on the master and all segment instances. Daily log files are created in the <code>pg_log</code> subdirectory of the master and each segment data directory using the following naming convention: <code>hawq-<i>YYYY-MM-DD_hhmmss</i>.csv</code>. Although log files are rolled over daily, they are not automatically truncated or deleted. Administrators need to implement scripts or programs to periodically clean up old log files in the <code>pg_log</code> directory of the master and of every segment instance.</p>
-
-<p>For information about viewing the database server log files, see <a href="/docs/userguide/2.1.0.0-incubating/admin/monitor.html">Viewing the Database Server Log Files</a>.</p>
-
-<h2><a id="topic11"></a>Management Utility Log Files</h2>
-
-<p>Log files for the HAWQ management utilities are written to <code>~/hawqAdminLogs</code> by default. The naming convention for management log files is:</p>
-
-<pre><code><i>script_name_date</i>.log
-</code></pre>
-
-<p>The log entry format is:</p>
-
-<pre><code><i>timestamp:utility:host:user</i>:[INFO|WARN|FATAL]:<i>message</i>
-</code></pre>
-
-<p>The log file for a particular utility execution is appended to its daily log file each time that utility is run.</p>
+<p>Log files are also generated when you invoke HAWQ management utilities such as <code>hawq start</code> and <code>gpfdist</code>. <a href="/docs/userguide/2.1.0.0-incubating/admin/logfiles.html#mgmtutil_log">Management Utility Log Files</a> provides information and maintenance strategies for these log files.</p>
 
         
 

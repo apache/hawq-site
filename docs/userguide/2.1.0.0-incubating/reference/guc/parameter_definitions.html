@@ -170,6 +170,9 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
           </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
         </ul>
       </li>
       <li class="has_submenu">
@@ -443,6 +446,7 @@
       </li>
       <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
         <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
@@ -565,11 +569,17 @@
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
@@ -967,7 +977,26 @@
         <div class="to-top" id="js-to-top">
           <a href="#top" title="back to top"></a>
         </div>
-        <p>Descriptions of the HAWQ server configuration parameters listed alphabetically.</p>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<p>Descriptions of the HAWQ server configuration parameters listed alphabetically.</p>
 
 <ul>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#add_missing_from">add_missing_from</a></strong></p></li>
@@ -1052,11 +1081,19 @@
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></strong></p></li>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></strong></p></li>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></strong></p></li>
+<li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></strong></p></li>
+<li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></strong></p></li>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></strong></p></li>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></strong></p></li>
+<li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></strong></p></li>
+<li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></strong></p></li>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></strong></p></li>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></strong></p></li>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></strong></p></li>
+<li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period
+</a></strong></p></li>
+<li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period
+</a></strong></p></li>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></strong></p></li>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></strong></p></li>
 <li><p><strong><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></strong></p></li>
@@ -2791,6 +2828,50 @@ Automatic statistics collection is triggered if data is inserted directly in a l
 </tbody>
 </table>
 
+<h2><a name="gp_interconnect_cache_future_packets"></a>gp_interconnect_cache_future_packets</h2>
+
+<p>Controls whether future packets are cached.</p>
+
+<table><thead>
+<tr>
+<th>Value Range</th>
+<th>Default</th>
+<th>Set Classifications</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Boolean</td>
+<td>true (on)</td>
+<td>master, session, reload</td>
+</tr>
+</tbody></table>
+
+<h2><a name="gp_interconnect_default_rtt"></a>gp_interconnect_default_rtt</h2>
+
+<p>Sets the default rtt (in ms) for UDP interconnect.</p>
+
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Value Range</th>
+<th>Default</th>
+<th>Set Classifications</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1-1000ms</td>
+<td>20ms</td>
+<td>master, session, reload</td>
+</tr>
+</tbody>
+</table>
+
 <h2><a name="gp_interconnect_fc_method"></a>gp_interconnect_fc_method</h2>
 
 <p>Specifies the flow control method used for UDP interconnect when the value of <a href="#gp_interconnect_type">gp_interconnect_type</a> is UDPIFC.</p>
@@ -2840,6 +2921,42 @@ Automatic statistics collection is triggered if data is inserted directly in a l
 </tr>
 </tbody></table>
 
+<h2><a name="gp_interconnect_min_retries_before\_timeout"></a>gp_interconnect_min_retries_before_timeout</h2>
+
+<p>Sets the minimum number of retries before reporting a transmit timeout in the interconnect.</p>
+
+<table><thead>
+<tr>
+<th>Value Range</th>
+<th>Default</th>
+<th>Set Classifications</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1-4096</td>
+<td>100</td>
+<td>master, session, reload</td>
+</tr>
+</tbody></table>
+
+<h2><a name="gp_interconnect_min_rto"></a>gp_interconnect_min_rto</h2>
+
+<p>Sets the minimum rto (in ms) for UDP interconnect.</p>
+
+<table><thead>
+<tr>
+<th>Value Range</th>
+<th>Default</th>
+<th>Set Classifications</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1-1000ms</td>
+<td>20ms</td>
+<td>master, session, reload</td>
+</tr>
+</tbody></table>
+
 <h2><a name="gp_interconnect_queue_depth"></a>gp_interconnect_queue_depth</h2>
 
 <p>Sets the amount of data per-peer to be queued by the UDP interconnect on receivers (when data is received but no space is available to receive it the data will be dropped, and the transmitter will need to resend it). Increasing the depth from its default value will cause the system to use more memory; but may increase performance. It is reasonable for this to be set between 1 and 10. Queries with data skew potentially perform better when this is increased. Increasing this may radically increase the amount of memory used by the system.</p>
@@ -2860,9 +2977,11 @@ Automatic statistics collection is triggered if data is inserted directly in a l
 
 <h2><a name="gp_interconnect_setup_timeout"></a>gp_interconnect_setup_timeout</h2>
 
-<p>When the interconnect type is UDP, the time to wait for the Interconnect to complete setup before it times out.</p>
+<p>When the interconnect type is UDP, the time to wait for the Interconnect to complete setup before it times out. </p>
 
 <p>This parameter is used only when <a href="#gp_interconnect_type">gp_interconnect_type</a> is set to UDP.</p>
+
+<p><strong>Warning</strong>: The <code>gp_interconnect_setup_timeout</code> server configuration parameter is deprecated and will be removed in a future HAWQ release.</p>
 
 <table><thead>
 <tr>
@@ -2894,6 +3013,60 @@ Automatic statistics collection is triggered if data is inserted directly in a l
 <tr>
 <td>1 - 4096</td>
 <td>2</td>
+<td>master, session, reload</td>
+</tr>
+</tbody></table>
+
+<h2><a name="gp_interconnect_timer_period"></a>gp_interconnect_timer_period</h2>
+
+<p>Sets the timer period (in ms) for UDP interconnect.</p>
+
+<table><thead>
+<tr>
+<th>Value Range</th>
+<th>Default</th>
+<th>Set Classifications</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1-100ms</td>
+<td>5ms</td>
+<td>master, session, reload</td>
+</tr>
+</tbody></table>
+
+<h2><a name="gp_interconnect_timer_checking_period"></a>gp_interconnect_timer_checking_period</h2>
+
+<p>Sets the timer checking period (in ms) for UDP interconnect.</p>
+
+<table><thead>
+<tr>
+<th>Value Range</th>
+<th>Default</th>
+<th>Set Classifications</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1-100ms</td>
+<td>20ms</td>
+<td>master, session, reload</td>
+</tr>
+</tbody></table>
+
+<h2><a name="gp_interconnect_transmit_timeout"></a>gp_interconnect_transmit_timeout</h2>
+
+<p>Timeout (in seconds) on interconnect to transmit a packet.</p>
+
+<table><thead>
+<tr>
+<th>Value Range</th>
+<th>Default</th>
+<th>Set Classifications</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1-7200s</td>
+<td>3600s</td>
 <td>master, session, reload</td>
 </tr>
 </tbody></table>
@@ -5012,21 +5185,7 @@ Automatic statistics collection is triggered if data is inserted directly in a l
 
 <h2><a name="optimizer_minidump"></a>optimizer_minidump</h2>
 
-<p>GPORCA generates minidump files to describe the optimization context for a given query. Use the minidump files to analyze HAWQ issues. The minidump file is located under the master data directory and uses the following naming format:</p>
-
-<p><code>Minidump_date_time.mdp</code></p>
-
-<p>The minidump file contains this query related information:</p>
-
-<ul>
-<li>  Catalog objects including data types, tables, operators, and statistics required by GPORCA</li>
-<li>  An internal representation (DXL) of the query</li>
-<li>  An internal representation (DXL) of the plan produced by GPORCA</li>
-<li>  System configuration information passed to GPORCA such as server configuration parameters, cost and statistics configuration, and number of segments</li>
-<li>  A stack trace of errors generated while optimizing the query</li>
-</ul>
-
-<p>Setting this parameter to <code>ALWAYS</code> generates a minidump for all queries.</p>
+<p>GPORCA generates minidump files to describe the optimization context for a given query. Set this parameter to <code>ALWAYS</code> to generate a minidump for all queries.</p>
 
 <p><strong>Note:</strong> Set this parameter to <code>ONERROR</code> in production environments to minimize total optimization time.</p>
 

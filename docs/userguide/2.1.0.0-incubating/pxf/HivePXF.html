@@ -170,6 +170,9 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
           </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
         </ul>
       </li>
       <li class="has_submenu">
@@ -443,6 +446,7 @@
       </li>
       <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
         <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
@@ -565,11 +569,17 @@
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
@@ -973,7 +983,17 @@
 </li>
 <li><a href="#hive_sampledataset">Sample Data Set</a></li>
 <li>
-<a href="#hivecommandline">Hive Command Line</a><ul><li><a href="#hivecommandline_createdb">Example: Create a Hive Database</a></li></ul>
+<a href="#hivecommandline">Hive Command Line</a><ul>
+<li><a href="#hivecommandline_createdb">Example: Create a Hive Database</a></li>
+<li><a href="#get_hdfs_file_location">Determine the HDFS location of a Hive Table</a></li>
+</ul>
+</li>
+<li>
+<a href="#hcatalog">Using PXF and HCatalog to Query Hive</a><ul>
+<li><a href="#topic_j1l_enabling">Enabling HCatalog Integration</a></li>
+<li><a href="#topic_j1l_y55_c5">Usage</a></li>
+<li><a href="#topic_r5k_pst_25">Limitations</a></li>
+</ul>
 </li>
 <li><a href="#topic_p2s_lvl_28">Querying External Hive Data</a></li>
 <li>
@@ -986,21 +1006,12 @@
 <a href="#profile_hiverc">HiveRC Profile</a><ul><li><a href="#profile_hiverc_rcfiletbl_using">Example: Using the HiveRC Profile</a></li></ul>
 </li>
 <li><a href="#topic_dbb_nz3_ts">Accessing Parquet-Format Hive Tables</a></li>
-<li><a href="#profileperf">Profile Performance Considerations</a></li>
-<li><a href="#complex_dt_example">Complex Data Type Example</a></li>
-<li>
-<a href="#hcatalog">Using PXF and HCatalog to Query Hive</a><ul>
-<li><a href="#topic_j1l_enabling">Enabling HCatalog Integration</a></li>
-<li><a href="#topic_j1l_y55_c5">Usage</a></li>
-<li><a href="#topic_r5k_pst_25">Limitations</a></li>
-</ul>
-</li>
+<li><a href="#complex_dt_example">Hive Profile Complex Data Type Example</a></li>
 <li>
 <a href="#partitionfiltering">Partition Filtering</a><ul>
 <li><a href="#partitionfiltering_pushdowncfg">Configure Partition Filtering Push-Down</a></li>
-<li><a href="#example2">Create Partitioned Hive Table</a></li>
-<li><a href="#example3">Query Without Pushdown</a></li>
-<li><a href="#example4">Query With Pushdown</a></li>
+<li><a href="#example_hive_part">Example: Using the Hive Profile to Access Partitioned Homogenous Data</a></li>
+<li><a href="#example_hive_part_multi">Example: Using the Hive Profile to Access Partitioned Heterogenous Data</a></li>
 </ul>
 </li>
 <li><a href="#topic_fdm_zrh_1s">Using PXF with Hive Default Partitions</a></li>
@@ -1009,13 +1020,32 @@
         <div class="to-top" id="js-to-top">
           <a href="#top" title="back to top"></a>
         </div>
-        <p>Apache Hive is a distributed data warehousing infrastructure.  Hive facilitates managing large data sets supporting multiple data formats, including comma-separated value (.csv), RC, ORC, and parquet. The PXF Hive plug-in reads data stored in Hive, as well as HDFS or HBase.</p>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<p>Apache Hive is a distributed data warehousing infrastructure.  Hive facilitates managing large data sets supporting multiple data formats, including comma-separated value (.csv), RC, ORC, and parquet. The PXF Hive plug-in reads data stored in Hive, as well as HDFS or HBase.</p>
 
 <p>This section describes how to use PXF to access Hive data. Options for querying data stored in Hive include:</p>
 
 <ul>
-<li> Creating an external table in PXF and querying that table</li>
 <li> Querying Hive tables via PXF&rsquo;s integration with HCatalog</li>
+<li> Creating an external table in PXF and querying that table</li>
 </ul>
 
 <h2><a id="installingthepxfhiveplugin"></a>Prerequisites</h2>
@@ -1023,8 +1053,10 @@
 <p>Before accessing Hive data with HAWQ and PXF, ensure that:</p>
 
 <ul>
-<li>  The PXF HDFS plug-in is installed on all cluster nodes. See <a href="/docs/userguide/2.1.0.0-incubating/pxf/InstallPXFPlugins.html">Installing PXF Plug-ins</a> for PXF plug-in installation information.</li>
-<li>  The PXF Hive plug-in is installed on all cluster nodes.</li>
+<li>  The PXF HDFS plug-in is installed on all HAWQ and HDFS cluster nodes (master, segment, NameNode, DataNode). See <a href="/docs/userguide/2.1.0.0-incubating/pxf/InstallPXFPlugins.html">Installing PXF Plug-ins</a> for PXF plug-in installation information.</li>
+<li>  The PXF Hive plug-in is installed on all HAWQ and HDFS cluster nodes.</li>
+<li>  If you configured Hadoop with high availability, PXF must also be installed on all HDFS nodes running NameNode services.</li>
+<li>  The Hive client is installed on all PXF nodes.</li>
 <li>  The Hive JAR files and conf directory are installed on all cluster nodes.</li>
 <li>  You have tested PXF on HDFS.</li>
 <li>  You are running the Hive Metastore service on a machine in your cluster. </li>
@@ -1136,7 +1168,7 @@
 
 <p>Hive supports complex data types including array, struct, map, and union. PXF maps each of these complex types to <code>text</code>.  While HAWQ does not natively support these types, you can create HAWQ functions or application code to extract subcomponents of these complex data types.</p>
 
-<p>An example using complex data types is provided later in this topic.</p>
+<p>An example using complex data types with the <code>Hive</code> profile is provided later in this topic.</p>
 
 <h2><a id="hive_sampledataset"></a>Sample Data Set</h2>
 
@@ -1217,17 +1249,142 @@ Beijing,Dec,100,4248.41
 <li><p>Load the <code>pxf_hive_datafile.txt</code> sample data file into the <code>sales_info</code> table you just created:</p>
 <pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">LOAD</span> <span class="k">DATA</span> <span class="k">LOCAL</span> <span class="n">INPATH</span> <span class="s1">'/tmp/pxf_hive_datafile.txt'</span>
         <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">sales_info</span><span class="p">;</span>
-</code></pre></li>
+</code></pre>
+
+<p>In examples later in this section, you will access the <code>sales_info</code> Hive table directly via PXF. You will also insert <code>sales_info</code> data into tables of other Hive file format types, and use PXF to access those directly as well.</p></li>
 <li><p>Perform a query on <code>sales_info</code> to verify that the data was loaded successfully:</p>
 <pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales_info</span><span class="p">;</span>
 </code></pre></li>
 </ol>
 
-<p>In examples later in this section, you will access the <code>sales_info</code> Hive table directly via PXF. You will also insert <code>sales_info</code> data into tables of other Hive file format types, and use PXF to access those directly as well.</p>
+<h3><a id="get_hdfs_file_location"></a>Determine the HDFS location of a Hive Table</h3>
+
+<p>Should you need to identify the HDFS file location of a Hive managed table, reference it using its HDFS file path. You can determine a Hive table&rsquo;s location in HDFS using the <code>DESCRIBE</code> command, for example:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">DESCRIBE</span> <span class="n">EXTENDED</span> <span class="n">sales_info</span><span class="p">;</span>
+<span class="n">Detailed</span> <span class="k">Table</span> <span class="n">Information</span>
+<span class="p">...</span>
+<span class="k">location</span><span class="p">:</span><span class="n">hdfs</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">namenode</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;/</span><span class="n">apps</span><span class="o">/</span><span class="n">hive</span><span class="o">/</span><span class="n">warehouse</span><span class="o">/</span><span class="n">sales_info</span>
+<span class="p">...</span>
+</code></pre>
+
+<p>The <code>location</code> value identifies the HDFS file path of the table.</p>
+
+<h2><a id="hcatalog"></a>Using PXF and HCatalog to Query Hive</h2>
+
+<p>You can query Hive tables directly through HCatalog integration with HAWQ and PXF, regardless of the underlying file storage format. This integration allows HAWQ to directly use table metadata stored in HCatalog.</p>
+
+<p>HCatalog is built on top of the Hive metastore and incorporates Hive&rsquo;s DDL. This provides several advantages:</p>
+
+<ul>
+<li>  You do not need to know the table schema of your Hive tables</li>
+<li>  You do not need to manually enter information about Hive table location or format</li>
+<li>  If Hive table metadata changes, HCatalog provides updated metadata. This is in contrast to the use of static external PXF tables to define Hive table metadata for HAWQ.</li>
+</ul>
+
+<p>The following diagram depicts how HAWQ integrates with HCatalog to query Hive tables:</p>
+
+<p><img src="../images/hawq_hcatalog.png" id="hcatalog__image_ukw_h2v_c5" class="image" width="672" /></p>
+
+<ol>
+<li> HAWQ retrieves table metadata from HCatalog using PXF.</li>
+<li> HAWQ creates in-memory catalog tables from the retrieved metadata. If a table is referenced multiple times in a transaction, HAWQ uses its in-memory metadata to reduce external calls to HCatalog.</li>
+<li> PXF queries Hive using table metadata that is stored in the HAWQ in-memory catalog tables. Table metadata is dropped at the end of the transaction.</li>
+</ol>
+
+<h3><a id="topic_j1l_enabling"></a>Enabling HCatalog Integration</h3>
+
+<p>To enable HCatalog query integration in HAWQ, perform the following steps:</p>
+
+<ol>
+<li> Make sure your deployment meets the requirements listed in <a href="#installingthepxfhiveplugin">Prerequisites</a>.</li>
+<li><p>If necessary, set the <code>pxf_service_address</code> global configuration property to the hostname or IP address and port where you have installed the PXF Hive plug-in. By default, the value is set to <code>localhost:51200</code>.</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SET</span> <span class="n">pxf_service_address</span> <span class="k">TO</span> <span class="o">&lt;</span><span class="n">hivenode</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">51200</span>
+</code></pre></li>
+<li><p>HCatalog internally uses the <code>pxf</code> protocol to query.  Grant this protocol privilege to all roles requiring access:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">ON</span> <span class="n">PROTOCOL</span> <span class="n">pxf</span> <span class="k">TO</span> <span class="o">&lt;</span><span class="k">role</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></li>
+<li><p>It is not recommended to create a HAWQ table using the <code>WITH (OIDS)</code> clause. If any user tables were created using the <code>WITH (OIDS)</code> clause, additional operations are required to enable HCatalog integration. To access a Hive table via HCatalog when user tables were created using <code>WITH (OIDS)</code>, HAWQ users must have <code>SELECT</code> permission to query every user table within the same schema that was created using the <code>WITH (OIDS)</code> clause.</p>
+
+<ol>
+<li><p>Determine which user tables were created using the <code>WITH (OIDS)</code> clause:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="n">oid</span><span class="p">,</span> <span class="n">relname</span> <span class="k">FROM</span> <span class="n">pg_class</span>
+             <span class="k">WHERE</span> <span class="n">relhasoids</span> <span class="o">=</span> <span class="k">true</span>
+               <span class="k">AND</span> <span class="n">relnamespace</span> <span class="o">&lt;&gt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">oid</span> <span class="k">FROM</span> <span class="n">pg_namespace</span> <span class="k">WHERE</span> <span class="n">nspname</span> <span class="o">=</span> <span class="s1">'pg_catalog'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Grant <code>SELECT</code> privilege on all returned tables to all roles to which you chose to provide HCatalog query access. For example:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">GRANT</span> <span class="k">SELECT</span> <span class="k">ON</span> <span class="o">&lt;</span><span class="k">table</span><span class="o">-</span><span class="n">created</span><span class="o">-</span><span class="k">WITH</span><span class="o">-</span><span class="k">OIDS</span><span class="o">&gt;</span> <span class="k">TO</span> <span class="o">&lt;</span><span class="k">role</span><span class="o">&gt;</span>
+</code></pre></li>
+</ol></li>
+</ol>
+
+<h3><a id="topic_j1l_y55_c5"></a>Usage</h3>
+
+<p>To query a Hive table with HCatalog integration, query HCatalog directly from HAWQ. The query syntax is:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">hcatalog</span><span class="p">.</span><span class="n">hive</span><span class="o">-</span><span class="n">db</span><span class="o">-</span><span class="n">name</span><span class="p">.</span><span class="n">hive</span><span class="o">-</span><span class="k">table</span><span class="o">-</span><span class="n">name</span><span class="p">;</span>
+</code></pre>
+
+<p>For example:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">hcatalog</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">sales_info</span><span class="p">;</span>
+</code></pre>
+
+<p>To obtain a description of a Hive table with HCatalog integration, you can use the <code>psql</code> client interface.</p>
+
+<ul>
+<li><p>Within HAWQ, use either the <code>\d                                         hcatalog.hive-db-name.hive-table-name</code> or <code>\d+                                         hcatalog.hive-db-name.hive-table-name</code> commands to describe a single table.  <code>\d</code> displays only HAWQ&rsquo;s interpretation of the underlying source (Hive in this case) data type, while <code>\d+</code> displays both the HAWQ interpreted and Hive source data types. For example, from the <code>psql</code> client interface:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d postgres
+</code></pre>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="err">\</span><span class="n">d</span><span class="o">+</span> <span class="n">hcatalog</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">sales_info</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code>   PXF Hive Table <span class="s2">"default.sales_info"</span>
+      Column      |  Type  | Source <span class="nb">type</span> 
+------------------+--------+-------------
+ location         | text   | string
+ month            | text   | string
+ number_of_orders | int4   | int
+ total_sales      | float8 | double
+</code></pre></li>
+<li><p>Use <code>\d hcatalog.hive-db-name.*</code> to describe the whole database schema, i.e. all tables in <code>hive-db-name</code>.</p></li>
+<li><p>Use <code>\d hcatalog.*.*</code> to describe the whole schema, i.e. all databases and tables.</p></li>
+</ul>
+
+<p>When using <code>\d</code> or <code>\d+</code> commands in the <code>psql</code> HAWQ client, <code>hcatalog</code> will not be listed as a database. If you use other <code>psql</code> compatible clients, <code>hcatalog</code> will be listed as a database with a size value of <code>-1</code> since <code>hcatalog</code> is not a real database in HAWQ.</p>
+
+<p>Alternatively, you can use the <code>pxf_get_item_fields</code> user-defined function (UDF) to obtain Hive table descriptions from other client interfaces or third-party applications. The UDF takes a PXF profile and a table pattern string as its input parameters.  <strong>Note:</strong> The only supported input profile at this time is <code>&#39;Hive&#39;</code>.</p>
+
+<ul>
+<li><p>The following statement returns a description of a specific table. The description includes path, itemname (table), fieldname, fieldtype (HAWQ type), and sourcefieldtype (Hive type).</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_get_item_fields</span><span class="p">(</span><span class="s1">'Hive'</span><span class="p">,</span><span class="s1">'default.sales_info'</span><span class="p">);</span>
+</code></pre>
+<pre class="highlight plaintext"><code>  path   |  itemname  |    fieldname     | fieldtype | sourcefieldtype 
+---------+------------+------------------+-----------+-----------------
+ default | sales_info | location         | text      | string
+ default | sales_info | month            | text      | string
+ default | sales_info | number_of_orders | int4      | int
+ default | sales_info | total_sales      | float8    | double
+</code></pre></li>
+<li><p>The following statement returns table descriptions from the default database.</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_get_item_fields</span><span class="p">(</span><span class="s1">'Hive'</span><span class="p">,</span><span class="s1">'default.*'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>The following statement returns a description of the entire schema.</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_get_item_fields</span><span class="p">(</span><span class="s1">'Hive'</span><span class="p">,</span> <span class="s1">'*.*'</span><span class="p">);</span>
+</code></pre></li>
+</ul>
+
+<h3><a id="topic_r5k_pst_25"></a>Limitations</h3>
+
+<p>HCatalog integration has the following limitations:</p>
+
+<ul>
+<li>  HCatalog queries on Hive tables with complex type fields return those fields serialized as text.</li>
+<li>  Even for primitive types, HCatalog metadata descriptions produced by <code>\d</code> are HAWQ&rsquo;s interpretation of the underlying Hive data types. For example, the Hive type <code>tinyint</code> is converted to HAWQ type <code>int2</code>. (See <a href="#hive_primdatatypes">Data Type Mapping</a>.)</li>
+<li>  HAWQ reserves the database name <code>hcatalog</code> for system use. You cannot connect to or alter the system <code>hcatalog</code> database.</li>
+</ul>
 
 <h2><a id="topic_p2s_lvl_28"></a>Querying External Hive Data</h2>
 
-<p>The PXF Hive plug-in supports several Hive-related profiles. These include <code>Hive</code>, <code>HiveText</code>, and <code>HiveRC</code>.</p>
+<p>In the previous section, you used HCatalog integration to query a Hive table. You can also create a PXF/HAWQ external table to access Hive table data. This Hive table access mechanism requires that you identify an appropriate Hive profile.</p>
+
+<p>The PXF Hive plug-in supports several Hive-related profiles. These include <code>Hive</code>, <code>HiveText</code>, and <code>HiveRC</code>. The <code>HiveText</code> and <code>HiveRC</code> profiles are specifically optimized for text and RC file formats, respectively. The <code>Hive</code> profile is optimized for all file storage types; use the <code>Hive</code> profile when the underlying Hive table is composed of multiple partitions with differing file formats.</p>
 
 <p>Use the following syntax to create a HAWQ external table representing Hive data:</p>
 <pre class="highlight sql"><code><span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="k">table_name</span><span class="o">&gt;</span>
@@ -1277,9 +1434,7 @@ Beijing,Dec,100,4248.41
 
 <h2><a id="profile_hive"></a>Hive Profile</h2>
 
-<p>The <code>Hive</code> profile works with any Hive file format. It can access heterogenous format data in a single table where each partition may be stored as a different file format.</p>
-
-<p>While you can use the <code>Hive</code> profile to access any file format, the more specific profiles perform better for those single file format types.</p>
+<p>Use the <code>Hive</code> profile with any Hive file storage format. With the <code>Hive</code> profile, you can also access heterogenous format data in a single table where each partition may be stored in a different file format. In both cases, the <code>Hive</code> profile will use the optimal <code>Hive*</code> profile for the underlying file storage type. Refer to the <a href="#partitionfiltering">Partition Filtering</a> discussion later in this topic for additional information on partitioning and the <code>Hive</code> profile.</p>
 
 <h3><a id="profile_hive_using"></a>Example: Using the Hive Profile</h3>
 
@@ -1306,9 +1461,9 @@ Beijing,Dec,100,4248.41
 
 <h2><a id="profile_hivetext"></a>HiveText Profile</h2>
 
-<p>Use the <code>HiveText</code> profile to query text format files. The <code>HiveText</code> profile is more performant than the <code>Hive</code> profile.</p>
+<p>Use the <code>HiveText</code> profile to query text format files.</p>
 
-<p><strong>Note</strong>: When using the <code>HiveText</code> profile, you <em>must</em> specify a delimiter option in <em>both</em> the <code>LOCATION</code> and <code>FORMAT</code> clauses.</p>
+<p><strong>Note</strong>: When using the <code>HiveText</code> profile, you <strong>must</strong> specify a delimiter option in both the <code>LOCATION</code> and <code>FORMAT</code> clauses.</p>
 
 <h3><a id="profile_hivetext_using"></a>Example: Using the HiveText Profile</h3>
 
@@ -1344,9 +1499,11 @@ Beijing,Dec,100,4248.41
 
 <p>The RCFile Hive format is used for row columnar formatted data. The <code>HiveRC</code> profile provides access to RCFile data.</p>
 
+<p><strong>Note</strong>: When using the <code>HiveRC</code> profile, you <strong>must</strong> specify a delimiter option in both the <code>LOCATION</code> and <code>FORMAT</code> clauses.</p>
+
 <h3><a id="profile_hiverc_rcfiletbl_using"></a>Example: Using the HiveRC Profile</h3>
 
-<p>Use the <code>HiveRC</code> profile to query RCFile-formatted data in Hive tables. The <code>HiveRC</code> profile is more performant than the <code>Hive</code> profile for this file format type.</p>
+<p>Use the <code>HiveRC</code> profile to query RCFile-formatted data in Hive tables.</p>
 
 <ol>
 <li><p>Create a Hive table with RCFile format:</p>
@@ -1365,7 +1522,7 @@ Beijing,Dec,100,4248.41
 <li><p>Perform a Hive query on <code>sales_info_rcfile</code> to verify that the data was loaded successfully:</p>
 <pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales_info_rcfile</span><span class="p">;</span>
 </code></pre></li>
-<li><p>Use the PXF <code>HiveRC</code> profile to create a queryable HAWQ external table from the Hive <code>sales_info_rcfile</code> table created in the previous step. When using the <code>HiveRC</code> profile, you <strong>must</strong> specify a delimiter option in <em>both</em> the <code>LOCATION</code> and <code>FORMAT</code> clauses.:</p>
+<li><p>Use the PXF <code>HiveRC</code> profile to create a queryable HAWQ external table from the Hive <code>sales_info_rcfile</code> table created in the previous step. You <em>must</em> specify a delimiter option in both the <code>LOCATION</code> and <code>FORMAT</code> clauses.:</p>
 <pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">salesinfo_hivercprofile</span><span class="p">(</span><span class="k">location</span> <span class="n">text</span><span class="p">,</span> <span class="k">month</span> <span class="n">text</span><span class="p">,</span> <span class="n">num_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">float8</span><span class="p">)</span>
              <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/default.sales_info_rcfile?PROFILE=HiveRC&amp;DELIMITER=</span><span class="se">\x</span><span class="s1">2c'</span><span class="p">)</span>
            <span class="n">FORMAT</span> <span class="s1">'TEXT'</span> <span class="p">(</span><span class="k">delimiter</span><span class="o">=</span><span class="n">E</span><span class="s1">','</span><span class="p">);</span>
@@ -1402,13 +1559,9 @@ Beijing,Dec,100,4248.41
 <pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="n">fname</span><span class="p">,</span><span class="n">lname</span> <span class="k">FROM</span> <span class="n">pxf_parquet_table</span><span class="p">;</span>
 </code></pre>
 
-<h2><a id="profileperf"></a>Profile Performance Considerations</h2>
+<h2><a id="complex_dt_example"></a>Hive Profile Complex Data Type Example</h2>
 
-<p>The <code>HiveRC</code> and <code>HiveText</code> profiles are faster than the generic <code>Hive</code> profile.</p>
-
-<h2><a id="complex_dt_example"></a>Complex Data Type Example</h2>
-
-<p>This example will employ the array and map complex types, specifically an array of integers and a string key/value pair map.</p>
+<p>This example employs the <code>Hive</code> profile and the array and map complex types, specifically an array of integers and a string key/value pair map.</p>
 
 <p>The data schema for this example includes fields with the following names and data types:</p>
 
@@ -1507,121 +1660,8 @@ Beijing,Dec,100,4248.41
 <span class="o">(</span>10 rows<span class="o">)</span>
 </code></pre>
 
-<p><code>intarray</code> and <code>propmap</code> are each text strings.</p></li>
+<p><code>intarray</code> and <code>propmap</code> are each serialized as text strings.</p></li>
 </ol>
-
-<h2><a id="hcatalog"></a>Using PXF and HCatalog to Query Hive</h2>
-
-<p>Hive tables can be queried directly through HCatalog integration with HAWQ and PXF, regardless of the underlying file storage format.</p>
-
-<p>In previous sections, you created an external table in PXF that described the target table&rsquo;s Hive metadata. Another option for querying Hive tables is to take advantage of HAWQ&rsquo;s integration with HCatalog. This integration allows HAWQ to directly use table metadata stored in HCatalog.</p>
-
-<p>HCatalog is built on top of the Hive metastore and incorporates Hive&rsquo;s DDL. This provides several advantages:</p>
-
-<ul>
-<li>  You do not need to know the table schema of your Hive tables</li>
-<li>  You do not need to manually enter information about Hive table location or format</li>
-<li>  If Hive table metadata changes, HCatalog provides updated metadata. This is in contrast to the use of static external PXF tables to define Hive table metadata for HAWQ.</li>
-</ul>
-
-<p>The following diagram depicts how HAWQ integrates with HCatalog to query Hive tables:</p>
-
-<p><img src="../images/hawq_hcatalog.png" id="hcatalog__image_ukw_h2v_c5" class="image" width="672" /></p>
-
-<ol>
-<li> HAWQ retrieves table metadata from HCatalog using PXF.</li>
-<li> HAWQ creates in-memory catalog tables from the retrieved metadata. If a table is referenced multiple times in a transaction, HAWQ uses its in-memory metadata to reduce external calls to HCatalog.</li>
-<li> PXF queries Hive using table metadata that is stored in the HAWQ in-memory catalog tables. Table metadata is dropped at the end of the transaction.</li>
-</ol>
-
-<h3><a id="topic_j1l_enabling"></a>Enabling HCatalog Integration</h3>
-
-<p>To enable HCatalog query integration in HAWQ, perform the following steps:</p>
-
-<ol>
-<li> Make sure your deployment meets the requirements listed in <a href="#installingthepxfhiveplugin">Prerequisites</a>.</li>
-<li><p>If necessary, set the <code>pxf_service_address</code> global configuration property to the hostname or IP address and port where you have installed the PXF Hive plug-in. By default, the value is set to <code>localhost:51200</code>.</p>
-<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SET</span> <span class="n">pxf_service_address</span> <span class="k">TO</span> <span class="o">&lt;</span><span class="n">hivenode</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">51200</span>
-</code></pre></li>
-<li><p>HCatalog internally uses the <code>pxf</code> protocol to query.  Grant this protocol privilege to all roles requiring access:</p>
-<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">ON</span> <span class="n">PROTOCOL</span> <span class="n">pxf</span> <span class="k">TO</span> <span class="o">&lt;</span><span class="k">role</span><span class="o">&gt;</span><span class="p">;</span>
-</code></pre></li>
-<li><p>It is not recommended to create a HAWQ table using the <code>WITH (OIDS)</code> clause. If any user tables were created using the <code>WITH (OIDS)</code> clause, additional operations are required to enable HCatalog integration. To access a Hive table via HCatalog when user tables were created using <code>WITH (OIDS)</code>, HAWQ users must have <code>SELECT</code> permission to query every user table within the same schema that was created using the <code>WITH (OIDS)</code> clause. </p>
-
-<ol>
-<li><p>Determine which user tables were created using the <code>WITH (OIDS)</code> clause:</p>
-<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="n">oid</span><span class="p">,</span> <span class="n">relname</span> <span class="k">FROM</span> <span class="n">pg_class</span> 
-             <span class="k">WHERE</span> <span class="n">relhasoids</span> <span class="o">=</span> <span class="k">true</span> 
-               <span class="k">AND</span> <span class="n">relnamespace</span> <span class="o">&lt;&gt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">oid</span> <span class="k">FROM</span> <span class="n">pg_namespace</span> <span class="k">WHERE</span> <span class="n">nspname</span> <span class="o">=</span> <span class="s1">'pg_catalog'</span><span class="p">);</span>
-</code></pre></li>
-<li><p>Grant <code>SELECT</code> privilege on all returned tables to all roles to which you chose to provide HCatalog query access. For example:</p>
-<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">GRANT</span> <span class="k">SELECT</span> <span class="k">ON</span> <span class="o">&lt;</span><span class="k">table</span><span class="o">-</span><span class="n">created</span><span class="o">-</span><span class="k">WITH</span><span class="o">-</span><span class="k">OIDS</span><span class="o">&gt;</span> <span class="k">TO</span> <span class="o">&lt;</span><span class="k">role</span><span class="o">&gt;</span>
-</code></pre></li>
-</ol></li>
-</ol>
-
-<h3><a id="topic_j1l_y55_c5"></a>Usage</h3>
-
-<p>To query a Hive table with HCatalog integration, query HCatalog directly from HAWQ. The query syntax is:</p>
-<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">hcatalog</span><span class="p">.</span><span class="n">hive</span><span class="o">-</span><span class="n">db</span><span class="o">-</span><span class="n">name</span><span class="p">.</span><span class="n">hive</span><span class="o">-</span><span class="k">table</span><span class="o">-</span><span class="n">name</span><span class="p">;</span>
-</code></pre>
-
-<p>For example:</p>
-<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">hcatalog</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">sales_info</span><span class="p">;</span>
-</code></pre>
-
-<p>To obtain a description of a Hive table with HCatalog integration, you can use the <code>psql</code> client interface.</p>
-
-<ul>
-<li><p>Within HAWQ, use either the <code>\d                                         hcatalog.hive-db-name.hive-table-name</code> or <code>\d+                                         hcatalog.hive-db-name.hive-table-name</code> commands to describe a single table.  <code>\d</code> displays only HAWQ&rsquo;s interpretation of the underlying source (Hive in this case) data type, while <code>\d+</code> displays both the HAWQ interpreted and Hive source data types. For example, from the <code>psql</code> client interface:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>psql -d postgres
-</code></pre>
-<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="err">\</span><span class="n">d</span><span class="o">+</span> <span class="n">hcatalog</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">sales_info_rcfile</span><span class="p">;</span>
-</code></pre>
-<pre class="highlight shell"><code>PXF Hive Table <span class="s2">"default.sales_info_rcfile"</span>
-      Column      |  Type  | Source <span class="nb">type</span> 
-------------------+--------+-------------
- location         | text   | string
- month            | text   | string
- number_of_orders | int4   | int
- total_sales      | float8 | double
-</code></pre></li>
-<li><p>Use <code>\d hcatalog.hive-db-name.*</code> to describe the whole database schema, i.e. all tables in <code>hive-db-name</code>.</p></li>
-<li><p>Use <code>\d hcatalog.*.*</code> to describe the whole schema, i.e. all databases and tables.</p></li>
-</ul>
-
-<p>When using <code>\d</code> or <code>\d+</code> commands in the <code>psql</code> HAWQ client, <code>hcatalog</code> will not be listed as a database. If you use other <code>psql</code> compatible clients, <code>hcatalog</code> will be listed as a database with a size value of <code>-1</code> since <code>hcatalog</code> is not a real database in HAWQ.</p>
-
-<p>Alternatively, you can use the <code>pxf_get_item_fields</code> user-defined function (UDF) to obtain Hive table descriptions from other client interfaces or third-party applications. The UDF takes a PXF profile and a table pattern string as its input parameters.  <strong>Note:</strong> The only supported input profile at this time is <code>&#39;Hive&#39;</code>.</p>
-
-<ul>
-<li><p>The following statement returns a description of a specific table. The description includes path, itemname (table), fieldname, and fieldtype.</p>
-<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_get_item_fields</span><span class="p">(</span><span class="s1">'Hive'</span><span class="p">,</span><span class="s1">'default.sales_info_rcfile'</span><span class="p">);</span>
-</code></pre>
-<pre class="highlight plaintext"><code>  path   |     itemname      |    fieldname     | fieldtype
----------+-------------------+------------------+-----------
- default | sales_info_rcfile | location         | text
- default | sales_info_rcfile | month            | text
- default | sales_info_rcfile | number_of_orders | int4
- default | sales_info_rcfile | total_sales      | float8
-</code></pre></li>
-<li><p>The following statement returns table descriptions from the default database.</p>
-<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_get_item_fields</span><span class="p">(</span><span class="s1">'Hive'</span><span class="p">,</span><span class="s1">'default.*'</span><span class="p">);</span>
-</code></pre></li>
-<li><p>The following statement returns a description of the entire schema.</p>
-<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_get_item_fields</span><span class="p">(</span><span class="s1">'Hive'</span><span class="p">,</span> <span class="s1">'*.*'</span><span class="p">);</span>
-</code></pre></li>
-</ul>
-
-<h3><a id="topic_r5k_pst_25"></a>Limitations</h3>
-
-<p>HCatalog integration has the following limitations:</p>
-
-<ul>
-<li>  HCatalog integration queries and describe commands do not support complex types; only primitive types are supported. Use PXF external tables to query complex types in Hive. (See <a href="#complex_dt_example">Complex Types Example</a>.)</li>
-<li>  Even for primitive types, HCatalog metadata descriptions produced by <code>\d</code> are HAWQ&rsquo;s interpretation of the underlying Hive data types. For example, the Hive type <code>tinyint</code> is converted to HAWQ type <code>int2</code>. (See <a href="#hive_primdatatypes">Data Type Mapping</a>.)</li>
-<li>  HAWQ reserves the database name <code>hcatalog</code> for system use. You cannot connect to or alter the system <code>hcatalog</code> database.</li>
-</ul>
 
 <h2><a id="partitionfiltering"></a>Partition Filtering</h2>
 
@@ -1642,15 +1682,17 @@ Beijing,Dec,100,4248.41
 <span class="n">postgres</span><span class="o">=#</span> <span class="k">SET</span> <span class="n">pxf_enable_filter_pushdown</span><span class="o">=</span><span class="k">off</span><span class="p">;</span>
 </code></pre>
 
-<h3><a id="example2"></a>Create Partitioned Hive Table</h3>
+<h3><a id="example_hive_part"></a>Example: Using the Hive Profile to Access Partitioned Homogenous Data</h3>
 
-<p>Create a Hive table <code>sales_part</code> with two partition columns, <code>delivery_state</code> and <code>delivery_city:</code></p>
+<p>In this example, you will use the <code>Hive</code> profile to query a Hive table named <code>sales_part</code> you partition on <code>delivery_state</code> and <code>delivery_city</code> fields.  You will then create a HAWQ external table to query <code>sales_part</code>, including specific examples illustrating filter pushdown.</p>
+
+<ol>
+<li><p>Create a Hive table named <code>sales_part</code> with two partition columns, <code>delivery_state</code> and <code>delivery_city:</code></p>
 <pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">sales_part</span> <span class="p">(</span><span class="n">name</span> <span class="n">string</span><span class="p">,</span> <span class="k">type</span> <span class="n">string</span><span class="p">,</span> <span class="n">supplier_key</span> <span class="n">int</span><span class="p">,</span> <span class="n">price</span> <span class="n">double</span><span class="p">)</span>
         <span class="n">PARTITIONED</span> <span class="k">BY</span> <span class="p">(</span><span class="n">delivery_state</span> <span class="n">string</span><span class="p">,</span> <span class="n">delivery_city</span> <span class="n">string</span><span class="p">)</span>
         <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span><span class="p">;</span>
-</code></pre>
-
-<p>Load data into this Hive table and add some partitions:</p>
+</code></pre></li>
+<li><p>Load data into this Hive table and add some partitions:</p>
 <pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">sales_part</span> 
         <span class="n">PARTITION</span><span class="p">(</span><span class="n">delivery_state</span> <span class="o">=</span> <span class="s1">'CALIFORNIA'</span><span class="p">,</span> <span class="n">delivery_city</span> <span class="o">=</span> <span class="s1">'Fresno'</span><span class="p">)</span> 
         <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'block'</span><span class="p">,</span> <span class="s1">'widget'</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">15</span><span class="p">.</span><span class="mi">17</span><span class="p">);</span>
@@ -1663,43 +1705,132 @@ Beijing,Dec,100,4248.41
 <span class="n">hive</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">sales_part</span> 
         <span class="n">PARTITION</span><span class="p">(</span><span class="n">delivery_state</span> <span class="o">=</span> <span class="s1">'NEVADA'</span><span class="p">,</span> <span class="n">delivery_city</span> <span class="o">=</span> <span class="s1">'Las Vegas'</span><span class="p">)</span> 
         <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'px49'</span><span class="p">,</span> <span class="s1">'pipe'</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">99</span><span class="p">.</span><span class="mi">82</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Query the <code>sales_part</code> table:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales_part</span><span class="p">;</span>
 </code></pre>
 
-<p>The Hive storage directory structure for the <code>sales_part</code> table appears as follows:</p>
-<pre class="highlight plaintext"><code>$ sudo -u hdfs hdfs dfs -ls -R /apps/hive/warehouse/sales_part
-/apps/hive/warehouse/sales_part/delivery_state=CALIFORNIA/delivery_city=’Fresno’/
-/apps/hive/warehouse/sales_part/delivery_state=CALIFORNIA/delivery_city=Sacramento/
-/apps/hive/warehouse/sales_part/delivery_state=NEVADA/delivery_city=Reno/
-/apps/hive/warehouse/sales_part/delivery_state=NEVADA/delivery_city=’Las Vegas’/
+<p>A <code>SELECT *</code> statement on a Hive partitioned table shows the partition fields at the end of the record.</p></li>
+<li><p>Examine the Hive/HDFS directory structure for the <code>sales_part</code> table:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>sudo -u hdfs hdfs dfs -ls -R /apps/hive/warehouse/sales_part
+/apps/hive/warehouse/sales_part/delivery_state<span class="o">=</span>CALIFORNIA/delivery_city<span class="o">=</span>Fresno/
+/apps/hive/warehouse/sales_part/delivery_state<span class="o">=</span>CALIFORNIA/delivery_city<span class="o">=</span>Sacramento/
+/apps/hive/warehouse/sales_part/delivery_state<span class="o">=</span>NEVADA/delivery_city<span class="o">=</span>Reno/
+/apps/hive/warehouse/sales_part/delivery_state<span class="o">=</span>NEVADA/delivery_city<span class="o">=</span>Las Vegas/
+</code></pre></li>
+<li><p>Create a PXF external table to read the partitioned <code>sales_part</code> Hive table.  To take advantage of partition filter push-down, define fields corresponding to the Hive partition fields at the end of the <code>CREATE EXTERNAL TABLE</code> attribute list.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d postgres
 </code></pre>
-
-<p>To define a HAWQ PXF table that will read this Hive table and take advantage of partition filter push-down, define the fields corresponding to the Hive partition fields at the end of the <code>CREATE EXTERNAL TABLE</code> attribute list. In HiveQL, a <code>SELECT *</code> statement on a partitioned table shows the partition fields at the end of the record.</p>
 <pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">pxf_sales_part</span><span class="p">(</span>
-  <span class="n">item_name</span> <span class="n">TEXT</span><span class="p">,</span> 
-  <span class="n">item_type</span> <span class="n">TEXT</span><span class="p">,</span> 
-  <span class="n">supplier_key</span> <span class="n">INTEGER</span><span class="p">,</span> 
-  <span class="n">item_price</span> <span class="n">DOUBLE</span> <span class="k">PRECISION</span><span class="p">,</span> 
-  <span class="n">delivery_state</span> <span class="n">TEXT</span><span class="p">,</span> 
-  <span class="n">delivery_city</span> <span class="n">TEXT</span>
-<span class="p">)</span>
-<span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/sales_part?Profile=Hive'</span><span class="p">)</span>
-<span class="n">FORMAT</span> <span class="s1">'CUSTOM'</span> <span class="p">(</span><span class="n">FORMATTER</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span><span class="p">);</span>
-
-<span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_sales_part</span><span class="p">;</span>
-</code></pre>
-
-<h3><a id="example3"></a>Query Without Pushdown</h3>
-
-<p>In the following example, the HAWQ query filters the <code>delivery_city</code> partition <code>Sacramento</code>. The filter on  <code>item_name</code> is not pushed down, since it is not a partition column. It is performed on the HAWQ side after all the data on <code>Sacramento</code> is transferred for processing.</p>
+             <span class="n">item_name</span> <span class="n">TEXT</span><span class="p">,</span> <span class="n">item_type</span> <span class="n">TEXT</span><span class="p">,</span> 
+             <span class="n">supplier_key</span> <span class="n">INTEGER</span><span class="p">,</span> <span class="n">item_price</span> <span class="n">DOUBLE</span> <span class="k">PRECISION</span><span class="p">,</span> 
+             <span class="n">delivery_state</span> <span class="n">TEXT</span><span class="p">,</span> <span class="n">delivery_city</span> <span class="n">TEXT</span><span class="p">)</span>
+           <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/sales_part?Profile=Hive'</span><span class="p">)</span>
+           <span class="n">FORMAT</span> <span class="s1">'CUSTOM'</span> <span class="p">(</span><span class="n">FORMATTER</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Query the table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_sales_part</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Perform another query (no pushdown) on <code>pxf_sales_part</code> to return records where the <code>delivery_city</code> is <code>Sacramento</code> and  <code>item_name</code> is <code>cube</code></p>
 <pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_sales_part</span> <span class="k">WHERE</span> <span class="n">delivery_city</span> <span class="o">=</span> <span class="s1">'Sacramento'</span> <span class="k">AND</span> <span class="n">item_name</span> <span class="o">=</span> <span class="s1">'cube'</span><span class="p">;</span>
 </code></pre>
 
-<h3><a id="example4"></a>Query With Pushdown</h3>
-
-<p>The following HAWQ query reads all the data under <code>delivery_state</code> partition <code>CALIFORNIA</code>, regardless of the city.</p>
+<p>The query filters the <code>delivery_city</code> partition <code>Sacramento</code>. The filter on  <code>item_name</code> is not pushed down, since it is not a partition column. It is performed on the HAWQ side after all the data in the <code>Sacramento</code> partition is transferred for processing.</p></li>
+<li><p>Query (with pushdown) for all records where <code>delivery_state</code> is <code>CALIFORNIA</code>:</p>
 <pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SET</span> <span class="n">pxf_enable_filter_pushdown</span><span class="o">=</span><span class="k">on</span><span class="p">;</span>
 <span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_sales_part</span> <span class="k">WHERE</span> <span class="n">delivery_state</span> <span class="o">=</span> <span class="s1">'CALIFORNIA'</span><span class="p">;</span>
 </code></pre>
+
+<p>This query reads all of the data in the <code>CALIFORNIA</code> <code>delivery_state</code> partition, regardless of the city.</p></li>
+</ol>
+
+<h3><a id="example_hive_part_multi"></a>Example: Using the Hive Profile to Access Partitioned Heterogenous Data</h3>
+
+<p>The <code>Hive</code> profile supports multiple data format types. This support enables you  to query a partitioned Hive table that may be composed of data of different formats.</p>
+
+<p>In this example, you will use the <code>Hive</code> profile both directly and indirectly via PXF HCatalog integration to query a partitioned Hive external table. The table is composed of the HDFS data files associated with the <code>sales_info</code> (text format) and <code>sales_info_rcfile</code> (RC format) Hive tables you created in previous exercises. You will partition the data by year, assigning the data from <code>sales_info</code> to the year 2013, and the data from <code>sales_info_rcfile</code> to the year 2016. (Ignore at the moment the fact that the tables contain the same data.)</p>
+
+<ol>
+<li><p>Create a Hive external table named <code>hive_multiformpart</code> that is partitioned by a string field named <code>year</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nv">HADOOP_USER_NAME</span><span class="o">=</span>hdfs hive
+</code></pre>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">hive_multiformpart</span><span class="p">(</span> <span class="k">location</span> <span class="n">string</span><span class="p">,</span> <span class="k">month</span> <span class="n">string</span><span class="p">,</span> <span class="n">number_of_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">double</span><span class="p">)</span>
+        <span class="n">PARTITIONED</span> <span class="k">BY</span><span class="p">(</span> <span class="k">year</span> <span class="n">string</span> <span class="p">)</span>
+        <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Describe the <code>sales_info</code> and <code>sales_info_rcfile</code> tables, making note of the HDFS file <code>location</code>s:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">DESCRIBE</span> <span class="n">EXTENDED</span> <span class="n">sales_info</span><span class="p">;</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">DESCRIBE</span> <span class="n">EXTENDED</span> <span class="n">sales_info_rcfile</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Create partitions in the <code>hive_multiformpart</code> table for the HDFS locations associated with each of the <code>sales_info</code> and <code>sales_info_rcfile</code> tables:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">hive_multiformpart</span> <span class="k">ADD</span> <span class="n">PARTITION</span> <span class="p">(</span><span class="k">year</span> <span class="o">=</span> <span class="s1">'2013'</span><span class="p">)</span> <span class="k">LOCATION</span> <span class="s1">'hdfs://namenode:8020/apps/hive/warehouse/sales_info'</span><span class="p">;</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">hive_multiformpart</span> <span class="k">ADD</span> <span class="n">PARTITION</span> <span class="p">(</span><span class="k">year</span> <span class="o">=</span> <span class="s1">'2016'</span><span class="p">)</span> <span class="k">LOCATION</span> <span class="s1">'hdfs://namenode:8020/apps/hive/warehouse/sales_info_rcfile'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Explicitly identify the file format of the partition associated with the  <code>sales_info_rcfile</code> table:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">hive_multiformpart</span> <span class="n">PARTITION</span> <span class="p">(</span><span class="k">year</span><span class="o">=</span><span class="s1">'2016'</span><span class="p">)</span> <span class="k">SET</span> <span class="n">FILEFORMAT</span> <span class="n">RCFILE</span><span class="p">;</span>
+</code></pre>
+
+<p>You need not specify the file format of the partition associated with the <code>sales_info</code> table, as <code>TEXTFILE</code> format is the default.</p></li>
+<li><p>Query the <code>hive_multiformpart</code> table:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">from</span> <span class="n">hive_multiformpart</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="n">Bangalore</span>   <span class="n">Jul</span> <span class="mi">271</span> <span class="mi">8320</span><span class="p">.</span><span class="mi">55</span> <span class="mi">2016</span>
+<span class="n">Beijing</span> <span class="n">Dec</span> <span class="mi">100</span> <span class="mi">4248</span><span class="p">.</span><span class="mi">41</span> <span class="mi">2016</span>
+<span class="n">Prague</span>  <span class="n">Jan</span> <span class="mi">101</span> <span class="mi">4875</span><span class="p">.</span><span class="mi">33</span> <span class="mi">2013</span>
+<span class="n">Rome</span>    <span class="n">Mar</span> <span class="mi">87</span>  <span class="mi">1557</span><span class="p">.</span><span class="mi">39</span> <span class="mi">2013</span>
+<span class="p">...</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">from</span> <span class="n">hive_multiformpart</span> <span class="k">WHERE</span> <span class="k">year</span><span class="o">=</span><span class="s1">'2013'</span><span class="p">;</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">from</span> <span class="n">hive_multiformpart</span> <span class="k">WHERE</span> <span class="k">year</span><span class="o">=</span><span class="s1">'2016'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Show the partitions defined for the <code>hive_multiformpart</code> table and exit <code>hive</code>:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SHOW</span> <span class="n">PARTITIONS</span> <span class="n">hive_multiformpart</span><span class="p">;</span>
+<span class="k">year</span><span class="o">=</span><span class="mi">2013</span>
+<span class="k">year</span><span class="o">=</span><span class="mi">2016</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="n">quit</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d postgres
+</code></pre></li>
+<li><p>Use PXF HCatalog integration to query the Hive <code>hive_multiformpart</code> external table you created in the previous steps:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">hcatalog</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">hive_multiformpart</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code>   location    | month | number_of_orders | total_sales | year 
+---------------+-------+------------------+-------------+------
+ ...
+ Prague        | Dec   |              333 |     9894.77 | 2013
+ Bangalore     | Jul   |              271 |     8320.55 | 2013
+ Beijing       | Dec   |              100 |     4248.41 | 2013
+ Prague        | Jan   |              101 |     4875.33 | 2016
+ Rome          | Mar   |               87 |     1557.39 | 2016
+ Bangalore     | May   |              317 |     8936.99 | 2016
+ ...
+</code></pre></li>
+<li><p>Use the PXF <code>Hive</code> profile to create a readable HAWQ external table derived from the Hive <code>hive_multiformpart</code> external table you created in the previous steps:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">pxf_multiformpart</span><span class="p">(</span><span class="k">location</span> <span class="n">text</span><span class="p">,</span> <span class="k">month</span> <span class="n">text</span><span class="p">,</span> <span class="n">num_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">float8</span><span class="p">,</span> <span class="k">year</span> <span class="n">text</span><span class="p">)</span>
+             <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/default.hive_multiformpart?PROFILE=Hive'</span><span class="p">)</span>
+           <span class="n">FORMAT</span> <span class="s1">'CUSTOM'</span> <span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Query the PXF external table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_multiformpart</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code>   location    | month | num_orders | total_sales | year 
+---------------+-------+------------+-------------+--------
+ ....
+ Prague        | Dec   |        333 |     9894.77 | 2013
+ Bangalore     | Jul   |        271 |     8320.55 | 2013
+ Beijing       | Dec   |        100 |     4248.41 | 2013
+ Prague        | Jan   |        101 |     4875.33 | 2016
+ Rome          | Mar   |         87 |     1557.39 | 2016
+ Bangalore     | May   |        317 |     8936.99 | 2016
+ ....
+</code></pre></li>
+<li><p>Perform a second query to calculate the total number of orders for the year 2013:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="k">sum</span><span class="p">(</span><span class="n">num_orders</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">pxf_multiformpart</span> <span class="k">WHERE</span> <span class="k">month</span><span class="o">=</span><span class="s1">'Dec'</span> <span class="k">AND</span> <span class="k">year</span><span class="o">=</span><span class="s1">'2013'</span><span class="p">;</span>
+ <span class="k">sum</span> 
+<span class="c1">-----</span>
+ <span class="mi">433</span>
+</code></pre></li>
+</ol>
 
 <h2><a id="topic_fdm_zrh_1s"></a>Using PXF with Hive Default Partitions</h2>
 
@@ -1722,7 +1853,7 @@ Beijing,Dec,100,4248.41
 <p>The insertion of row 4 creates a Hive default partition, because the partition column <code>xdate</code> contains a null value.</p>
 
 <p>In Hive, any query that filters on the partition column omits data in the default partition. For example, the following query returns no rows:</p>
-<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales</span> <span class="k">WHERE</span> <span class="n">xdate</span> <span class="k">is</span> <span class="k">null</span><span class="p">;</span>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales</span> <span class="k">WHERE</span> <span class="n">xdate</span> <span class="k">IS</span> <span class="k">null</span><span class="p">;</span>
 </code></pre>
 
 <p>However, if you map this table as a PXF external table in HAWQ, all default partition values are translated into actual NULL values. In HAWQ, executing the same query against the PXF table returns row 4 as the result, because the filter matches the NULL value.</p>

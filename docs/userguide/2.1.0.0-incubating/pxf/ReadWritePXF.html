@@ -170,6 +170,9 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
           </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
         </ul>
       </li>
       <li class="has_submenu">
@@ -443,6 +446,7 @@
       </li>
       <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
         <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
@@ -565,11 +569,17 @@
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
@@ -970,7 +980,26 @@
         <div class="to-top" id="js-to-top">
           <a href="#top" title="back to top"></a>
         </div>
-        <p>PXF profiles are collections of common metadata attributes that can be used to simplify the reading and writing of data. You can use any of the built-in profiles that come with PXF or you can create your own.</p>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<p>PXF profiles are collections of common metadata attributes that can be used to simplify the reading and writing of data. You can use any of the built-in profiles that come with PXF or you can create your own.</p>
 
 <p>For example, if you are writing single line records to text files on HDFS, you could use the built-in HdfsTextSimple profile. You specify this profile when you create the PXF external table used to write the data to HDFS.</p>
 
@@ -985,7 +1014,7 @@
 <li>  JSON (Read only)</li>
 </ul>
 
-<p>You can specify a built-in profile when you want to read data that exists inside HDFS files, Hive tables, HBase tables, and JSON files and for writing data into HDFS files.</p>
+<p>You can specify a built-in profile when you want to read data that exists inside HDFS files, Hive tables, HBase tables, or JSON files, and when you want to write data into HDFS files.</p>
 
 <table>
 <colgroup>
@@ -997,7 +1026,7 @@
 <tr class="header">
 <th>Profile</th>
 <th>Description</th>
-<th>Fragmenter/Accessor/Resolver</th>
+<th>Fragmenter/Accessor/Resolver/Metadata/OutputFormat</th>
 </tr>
 </thead>
 <tbody>
@@ -1026,6 +1055,8 @@
 <li>org.apache.hawq.pxf.plugins.hive.HiveDataFragmenter</li>
 <li>org.apache.hawq.pxf.plugins.hive.HiveAccessor</li>
 <li>org.apache.hawq.pxf.plugins.hive.HiveResolver</li>
+<li>org.apache.hawq.pxf.plugins.hive.HiveMetadataFetcher</li>
+<li>org.apache.hawq.pxf.service.io.GPDBWritable</li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -1038,6 +1069,20 @@ Note: The <code class="ph codeph">DELIMITER</code> parameter is mandatory.
 <li>org.apache.hawq.pxf.plugins.hive.HiveInputFormatFragmenter</li>
 <li>org.apache.hawq.pxf.plugins.hive.HiveRCFileAccessor</li>
 <li>org.apache.hawq.pxf.plugins.hive.HiveColumnarSerdeResolver</li>
+<li>org.apache.hawq.pxf.plugins.hive.HiveMetadataFetcher</li>
+<li>org.apache.hawq.pxf.service.io.Text</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>HiveORC</td>
+<td>Optimized read of a Hive table where each partition is stored as an ORC file.
+</td>
+<td><ul>
+<li>org.apache.hawq.pxf.plugins.hive.HiveInputFormatFragmenter</li>
+<li>org.apache.hawq.pxf.plugins.hive.HiveORCAccessor</li>
+<li>org.apache.hawq.pxf.plugins.hive.HiveORCSerdeResolver</li>
+<li>org.apache.hawq.pxf.plugins.hive.HiveMetadataFetcher</li>
+<li>org.apache.hawq.pxf.service.io.GPDBWritable</li>
 </ul></td>
 </tr>
 <tr class="odd">
@@ -1050,6 +1095,8 @@ Note: The <code class="ph codeph">DELIMITER</code> parameter is mandatory.
 <li>org.apache.hawq.pxf.plugins.hive.HiveInputFormatFragmenter</li>
 <li>org.apache.hawq.pxf.plugins.hive.HiveLineBreakAccessor</li>
 <li>org.apache.hawq.pxf.plugins.hive.HiveStringPassResolver</li>
+<li>org.apache.hawq.pxf.plugins.hive.HiveMetadataFetcher</li>
+<li>org.apache.hawq.pxf.service.io.Text</li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -1081,6 +1128,8 @@ Note: The <code class="ph codeph">DELIMITER</code> parameter is mandatory.
 </tr>
 </tbody>
 </table>
+
+<p><strong>Notes</strong>: Metadata identifies the Java class that provides field definitions in the relation. OutputFormat identifies the output serialization format (text or binary) for which a specific profile is optimized. While the built-in <code>Hive*</code> profiles provide Metadata and OutputFormat classes, other profiles may have no need to implement or specify these classes.</p>
 
 <h2><a id="addingandupdatingprofiles"></a>Adding and Updating Profiles</h2>
 

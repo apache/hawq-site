@@ -170,6 +170,9 @@
           <li>
             <a href="/docs/userguide/2.1.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
           </li>
+          <li>
+            <a href="/docs/userguide/2.1.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
         </ul>
       </li>
       <li class="has_submenu">
@@ -443,6 +446,7 @@
       </li>
       <li class="has_submenu"><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
         <ul>
+          <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
           <li><a href="/docs/userguide/2.1.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
@@ -565,11 +569,17 @@
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
                   <li><a href="/docs/userguide/2.1.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
@@ -981,7 +991,26 @@
         <div class="to-top" id="js-to-top">
           <a href="#top" title="back to top"></a>
         </div>
-        <h2><a id="pxerrortbl"></a>PXF Errors</h2>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<h2><a id="pxerrortbl"></a>PXF Errors</h2>
 
 <p>The following table lists some common errors encountered while using PXF:</p>
 
@@ -1146,6 +1175,8 @@
 
 <h3><a id="pxfdblogmsg"></a>Database-Level Logging</h3>
 
+<p>Database-level logging may provide insight into internal PXF service operations. Additionally, when you access Hive tables using <code>hcatalog</code> or the <code>Hive*</code> profiles, log messages identify the underlying <code>Hive*</code> profile(s) employed to access the data.</p>
+
 <p>Enable HAWQ and PXF debug message logging during operations on PXF external tables by setting the <code>client_min_messages</code> server configuration parameter to <code>DEBUG2</code> in your <code>psql</code> session.</p>
 <pre class="highlight shell"><code><span class="gp">$ </span>psql
 </code></pre>
@@ -1157,6 +1188,8 @@
 <span class="n">DEBUG2</span><span class="p">:</span>  <span class="n">churl</span> <span class="n">http</span> <span class="n">header</span><span class="p">:</span> <span class="n">cell</span> <span class="o">#</span><span class="mi">21</span><span class="p">:</span> <span class="n">X</span><span class="o">-</span><span class="n">GP</span><span class="o">-</span><span class="k">DATA</span><span class="o">-</span><span class="n">DIR</span><span class="p">:</span> <span class="n">pxf_hive1</span>
 <span class="n">DEBUG2</span><span class="p">:</span>  <span class="n">churl</span> <span class="n">http</span> <span class="n">header</span><span class="p">:</span> <span class="n">cell</span> <span class="o">#</span><span class="mi">22</span><span class="p">:</span> <span class="n">X</span><span class="o">-</span><span class="n">GP</span><span class="o">-</span><span class="n">profile</span><span class="p">:</span> <span class="n">Hive</span>
 <span class="n">DEBUG2</span><span class="p">:</span>  <span class="n">churl</span> <span class="n">http</span> <span class="n">header</span><span class="p">:</span> <span class="n">cell</span> <span class="o">#</span><span class="mi">23</span><span class="p">:</span> <span class="n">X</span><span class="o">-</span><span class="n">GP</span><span class="o">-</span><span class="n">URI</span><span class="p">:</span> <span class="n">pxf</span><span class="p">:</span><span class="o">//</span><span class="n">namenode</span><span class="p">:</span><span class="mi">51200</span><span class="o">/</span><span class="n">pxf_hive1</span><span class="o">?</span><span class="n">profile</span><span class="o">=</span><span class="n">Hive</span>
+<span class="p">...</span>
+<span class="n">DEBUG2</span><span class="p">:</span>  <span class="n">pxf</span><span class="p">:</span> <span class="n">set_current_fragment_headers</span><span class="p">:</span> <span class="k">using</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Hive</span>
 <span class="p">...</span>
 </code></pre>
 
