@@ -23,7 +23,7 @@ a {
   background: #eeeeee;
 }
 .sprite {
-  /*background: url(../image/sprite.png) no-repeat;*/
+  /*background: url(../images/sprite.png) no-repeat;*/
 }
 .sprite-contribution-icons {
   /*background: url(../image/contribute-icons.png) no-repeat;*/
@@ -98,7 +98,7 @@ p + p {
 }
 .button {
   display: block;
-  /*background: url(../image/sprite.png) no-repeat;*/
+  background: url(../images/sprite.png) no-repeat;
   background-color: #30546d;
   background-position: 100% -171px;
   width: 288px;
@@ -198,7 +198,7 @@ blockquote {
 }
 .logo,
 .closing {
-  /*background: url(../image/sprite.png) no-repeat;*/
+  /*background: url(../images/sprite.png) no-repeat;*/
   -webkit-transition: background 0.25s linear;
   -moz-transition: background 0.25s linear;
   transition: background 0.25s linear;
@@ -331,7 +331,7 @@ blockquote {
   -moz-transition: background 0.25s linear;
   transition: background 0.25s linear;
   width: 36px;
-  /*background: url(../image/sprite.png) no-repeat;*/
+  /*background: url(../images/sprite.png) no-repeat;*/
   background-position: 3px -127px;
   background-color: #30546d;
 }
@@ -377,7 +377,7 @@ blockquote {
   bottom: 0;
   right: 0;
   width: 36px;
-  /*background: url(../image/sprite.png) no-repeat;*/
+  /*background: url(../images/sprite.png) no-repeat;*/
   background-position: -156px -95px;
   background-color: #30546d;
 }
@@ -409,7 +409,7 @@ blockquote {
   -webkit-transition: background 0.25s linear;
   -moz-transition: background 0.25s linear;
   transition: background 0.25s linear;
-  /*background: url(../image/sprite.png) no-repeat;*/
+  background: url(../images/sprite.png) no-repeat;
   background-position: -160px -127px;
   background-color: #30546d;
   color: #fff;
@@ -468,7 +468,7 @@ blockquote {
   bottom: 0;
   right: 0;
   width: 36px;
-  /*background: url(../image/sprite.png) no-repeat;*/
+  /*background: url(../images/sprite.png) no-repeat;*/
   background-position: -156px -95px;
   background-color: #30546d;
 }
@@ -518,7 +518,7 @@ blockquote {
   padding: 5px;
   border: none;
   width: 36px;
-  /*background: url(../image/sprite.png) no-repeat;*/
+  /*background: url(../images/sprite.png) no-repeat;*/
   background-position: -156px -95px;
   background-color: #30546d;
 }
@@ -526,9 +526,9 @@ blockquote {
     Misc
 ---------------------------------------------------*/
 .icon {
-  /*background: url(../image/sprite.png) no-repeat;*/
+  background: url(../images/sprite.png) no-repeat;
   background-position: 0 -220px;
-  /*padding-left: 78px;*/
+  padding-left: 78px;
 }
 .icon-about {
   background-position: 0 -220px;
@@ -559,9 +559,13 @@ a.pt-about {
   margin: -100px 0 130px;
   border: none;
 }
+a.pt-download {
+  margin: -100px 0 100px;
+  border: none;
+}
 .corner,
 .more .corner {
-  /*background: url(../image/sprite.png) no-repeat;*/
+  /*background: url(../images/sprite.png) no-repeat;*/
   background-position: 0 -808px;
   position: absolute;
   left: 0;
