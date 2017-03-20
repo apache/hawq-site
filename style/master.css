@@ -559,6 +559,10 @@ a.pt-about {
   margin: -100px 0 130px;
   border: none;
 }
+a.pt-download {
+  margin: -100px 0 100px;
+  border: none;
+}
 .corner,
 .more .corner {
   /*background: url(../image/sprite.png) no-repeat;*/
