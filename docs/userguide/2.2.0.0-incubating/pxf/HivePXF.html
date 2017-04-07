@@ -1,0 +1,2024 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Always force latest IE rendering engine or request Chrome Frame -->
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400italic,400,600' rel='stylesheet' type='text/css'>
+  <!-- Use title if it's in the page YAML frontmatter -->
+  <title>
+      Accessing Hive Data |
+    Apache HAWQ (Incubating) Docs
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/stylesheets/all.css" rel="stylesheet" media="screen, print" />
+  <link href="/stylesheets/print.css" rel="stylesheet" media="print" />
+  <link href='/images/favicon.ico' rel='shortcut icon'>
+
+  <script src="/javascripts/all.js"></script>
+  
+</head>
+
+<body class="docs docs_userguide docs_userguide_2_2_0_0-incubating docs_userguide_2_2_0_0-incubating_pxf docs_userguide_2_2_0_0-incubating_pxf_HivePXF has-subnav">
+
+<div class="viewport">
+  <div class='wrap'>
+    <script type="text/javascript">
+      document.domain = "";
+    </script>
+
+     
+  <header class="header header-layout">
+    <h1 class="logo">
+      <a href="/">Apache HAWQ (incubating) Documentation</a>
+    </h1>
+    
+    <div class="header-links js-bar-links">
+      <div class="btn-menu" data-behavior="MenuMobile"></div>
+      <div class="header-item"><a href="http://hawq.incubator.apache.org/">Back to Apache HAWQ Page</a></div>
+      <div class="header-item">
+        <a href="https://issues.apache.org/jira/browse/HAWQ" target="_blank">Issues</a>
+      </div>
+      
+    </div>
+  </header>
+
+
+    <div class="container">
+
+      <!--googleoff: index-->
+      <div id="sub-nav" class="js-sidenav nav-container" role="navigation">
+  <a class="sidenav-title" data-behavior="SubMenuMobile">  Doc Index</a>
+  <div class="nav-content">
+    <ul>
+      <li>
+        Apache HAWQ (incubating)
+      </li>
+      <li><a href="/docs/userguide/2.2.0.0-incubating/requirements/system-requirements.html">System Requirements</a>
+      </li>
+      <li class="has_submenu">
+        <span>
+          HAWQ System Overview
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/HAWQOverview.html">What is HAWQ?</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/HAWQArchitecture.html">HAWQ Architecture</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/TableDistributionStorage.html">Table Distribution and Storage</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/ElasticSegments.html">Elastic Query Execution Runtime</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/ResourceManagement.html">Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/HDFSCatalogCache.html">HDFS Catalog Cache</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/ManagementTools.html">Management Tools</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/RedundancyFailover.html">High Availability, Redundancy and Fault Tolerance</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Running a HAWQ Cluster
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/RunningHAWQ.html">Overview</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/setuphawqopenv.html">Introducing the HAWQ Operating Environment</a>
+          </li>
+          <li class="has_submenu">
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/ambari-admin.html">Managing HAWQ Using Ambari</a>
+           <ul>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+            </li>
+           </ul>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/startstop.html">Starting and Stopping HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/ClusterExpansion.html">Expanding a Cluster</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/ClusterShrink.html">Removing a Node</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/BackingUpandRestoringHAWQDatabases.html">Backing Up and Restoring HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/HighAvailability.html">High Availability in HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/MasterMirroring.html">Master Mirroring</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/HAWQFilespacesandHighAvailabilityEnabledHDFS.html">HAWQ Filespaces and High Availability Enabled HDFS</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/FaultTolerance.html">Understanding the Fault Tolerance Service</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/RecommendedMonitoringTasks.html">Recommended Monitoring and Maintenance Tasks</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/maintain.html">Routine System Maintenance Tasks</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Managing Resources
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/HAWQResourceManagement.html">How HAWQ Manages Resources</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/best-practices.html">Best Practices for Configuring Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/ConfigureResourceManagement.html">Configuring Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/YARNIntegration.html">Integrating YARN with HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/ResourceQueues.html">Working with Hierarchical Resource Queues</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/ResourceManagerStatus.html">Analyzing Resource Manager Status</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Managing Client Access
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/client_auth.html">Configuring Client Authentication</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/ldap.html">Using LDAP Authentication with TLS/SSL</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/kerberos.html">Using Kerberos Authentication</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/disable-kerberos.html">Disabling Kerberos Security</a>
+          </li>
+          <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/hawq-access-checks.html">Overview of HAWQ Authorization</a>
+          </li>
+          <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/roles_privs.html">Using HAWQ Native Authorization</a>
+          </li>
+          <li class="has_submenu">
+                     <span>
+                        Using Ranger for Authorization
+                     </span>
+               <ul>
+                  <li>
+                     <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-overview.html">Overview of Ranger Policy Management</a>
+                  </li>
+                  <li>
+                     <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-integration-config.html">Configuring HAWQ to use Ranger Policy Management</a>
+                  </li>
+                  <li class="has_submenu">
+                     <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-policy-creation.html">Creating HAWQ Authorization Policies in Ranger</a>
+                    <ul>
+                      <li>
+                         <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-resource-perms.html">HAWQ Resources and Permissions</a>
+                      </li>
+                      <li>
+                         <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-sqlcmd-summary.html">SQL Command Permissions Summary</a>
+                      </li>
+                      <li>
+                         <a href="/docs/userguide/2.2.0.0-incubating/ranger/madlib-ranger.html">Using MADLib with Ranger Authorization</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                     <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-auditing.html">Auditing Authorization Events</a>
+                  </li>
+               </ul>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-establishing-a-database-session.html">Establishing a Database Session</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-supported-client-applications.html">Supported Client Applications</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-hawq-database-client-applications.html">HAWQ Client Applications</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-connecting-with-psql.html">Connecting with psql</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-database-application-interfaces.html">HAWQ Database Drivers and APIs</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-troubleshooting-connection-problems.html">Troubleshooting Connection Problems</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Defining Database Objects
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl.html">Overview</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-database.html">Creating and Managing Databases</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-tablespace.html">Creating and Managing Tablespaces</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-schema.html">Creating and Managing Schemas</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-table.html">Creating and Managing Tables</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-storage.html">Choosing the Table Storage Model</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-partition.html">Partitioning Large Tables</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-view.html">Creating and Managing Views</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Using Procedural Languages
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/UsingProceduralLanguages.html">Using Languages in HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/builtin_langs.html">Using HAWQ Built-In Languages</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/using_pljava.html">Using PL/Java</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/using_plpgsql.html">Using PL/pgSQL</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/using_plpython.html">Using PL/Python</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/using_plr.html">Using PL/R</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/dml.html">Managing Data with HAWQ</a>
+        <ul>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/BasicDataOperations.html">Basic Data Operations</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/about_statistics.html">About Database Statistics</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/ConcurrencyControl.html">Concurrency Control</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/Transactions.html">Working with Transactions</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-loading-and-unloading-data.html">Loading and Unloading Data</a>
+            <ul>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-working-with-file-based-ext-tables.html">Working with File-Based External Tables</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-external-tables.html">Accessing File-Based External Tables</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-gpfdist-protocol.html">gpfdist Protocol</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-gpfdists-protocol.html">gpfdists Protocol</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-handling-errors-ext-table-data.html">Handling Errors in External Table Data</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-using-the-hawq-file-server--gpfdist-.html">Using the HAWQ File Server (gpfdist)</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-about-gpfdist-setup-and-performance.html">About gpfdist Setup and Performance</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-controlling-segment-parallelism.html">Controlling Segment Parallelism</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-installing-gpfdist.html">Installing gpfdist</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-starting-and-stopping-gpfdist.html">Starting and Stopping gpfdist</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-troubleshooting-gpfdist.html">Troubleshooting gpfdist</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-creating-and-using-web-external-tables.html">Creating and Using Web External Tables</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-command-based-web-external-tables.html">Command-based Web External Tables</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-url-based-web-external-tables.html">URL-based Web External Tables</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-loading-data-using-an-external-table.html">Loading Data Using an External Table</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-loading-and-writing-non-hdfs-custom-data.html">Loading and Writing Non-HDFS Custom Data</a>
+                <ul>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-using-a-custom-format.html">Using a Custom Format</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-importing-and-exporting-fixed-width-data.html">Importing and Exporting Fixed Width Data</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-examples-read-fixed-width-data.html">Examples - Read Fixed-Width Data</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/creating-external-tables-examples.html">Creating External Tables - Examples</a>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-handling-load-errors.html">Handling Load Errors</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-define-an-external-table-with-single-row-error-isolation.html">Define an External Table with Single Row Error Isolation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-create-an-error-table-and-declare-a-reject-limit.html">Capture Row Formatting Errors and Declare a Reject Limit </a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-identifying-invalid-csv-files-in-error-table-data.html">Identifying Invalid CSV Files in Error Table Data</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-moving-data-between-tables.html">Moving Data between Tables</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-register_files.html">Registering Files into HAWQ Internal Tables</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-loading-data-with-hawqload.html">Loading Data with hawq load</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-loading-data-with-copy.html">Loading Data with COPY</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-running-copy-in-single-row-error-isolation-mode.html">Running COPY in Single Row Error Isolation Mode</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-optimizing-data-load-and-query-performance.html">Optimizing Data Load and Query Performance</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-unloading-data-from-hawq-database.html">Unloading Data from HAWQ</a>
+                <ul>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-defining-a-file-based-writable-external-table.html">Defining a File-Based Writable External Table</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-example-hawq-file-server-gpfdist.html">Example - HAWQ file server (gpfdist)</a></li>
+                    </ul>
+                  </li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-defining-a-command-based-writable-external-web-table.html">Defining a Command-Based Writable External Web Table</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-disabling-execute-for-web-or-writable-external-tables.html">Disabling EXECUTE for Web or Writable External Tables</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-unloading-data-using-a-writable-external-table.html">Unloading Data Using a Writable External Table</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-unloading-data-using-copy.html">Unloading Data Using COPY</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-transforming-xml-data.html">Transforming XML Data</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-determine-the-transformation-schema.html">Determine the Transformation Schema</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-write-a-transform.html">Write a Transform</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-write-the-gpfdist-configuration.html">Write the gpfdist Configuration</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-load-the-data.html">Load the Data</a></li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-transfer-and-store-the-data.html">Transfer and Store the Data</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-transforming-with-gpload.html">Transforming with GPLOAD</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-transforming-with-insert-into-select-from.html">Transforming with INSERT INTO SELECT FROM</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-configuration-file-format.html">Configuration File Format</a></li>
+                    </ul>
+                  </li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-xml-transformation-examples.html">XML Transformation Examples</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-example-1-dblp-database-publications-in-demo-directory.html">Command-based Web External Tables</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-example-irs-mef-xml-files-in-demo-directory.html">Example using IRS MeF XML Files (In demo Directory)</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-example-witsml-files-in-demo-directory.html">Example using WITSML™ Files (In demo Directory)</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-formatting-data-files.html">Formatting Data Files</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-formatting-rows.html">Formatting Rows</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-formatting-columns.html">Formatting Columns</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-representing-null-values.html">Representing NULL Values</a></li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-escaping.html">Escaping</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-escaping-in-text-formatted-files.html">Escaping in Text Formatted Files</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-escaping-in-csv-formatted-files.html">Escaping in CSV Formatted Files</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-character-encoding.html">Character Encoding</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/HAWQInputFormatforMapReduce.html">HAWQ InputFormat for MapReduce</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/pxf/HawqExtensionFrameworkPXF.html">Using PXF with Unmanaged Data</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/InstallPXFPlugins.html">Installing PXF Plugins</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/ConfigurePXF.html">Configuring PXF</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/HDFSFileDataPXF.html">Accessing HDFS File Data</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/HivePXF.html">Accessing Hive Data</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/HBasePXF.html">Accessing HBase Data</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/JsonPXF.html">Accessing JSON Data</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/HDFSWritablePXF.html">Writing Data to HDFS</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/ReadWritePXF.html">Using Profiles to Read and Write Data</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/PXFExternalTableandAPIReference.html">PXF External Tables and API</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/TroubleshootingPXF.html">Troubleshooting PXF</a></li>
+            </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/query/query.html">Querying Data</a>
+        <ul>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/query/HAWQQueryProcessing.html">About HAWQ Query Processing</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-optimizer.html">About GPORCA</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-overview.html">Overview of GPORCA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-features.html">GPORCA Features and Enhancements</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-enable.html">Enabling GPORCA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-notes.html">Considerations when Using GPORCA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-fallback.html">Determining The Query Optimizer In Use</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-changed.html">Changed Behavior with GPORCA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-limitations.html">GPORCA Limitations</a></li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/query/defining-queries.html">Defining Queries</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/query/functions-operators.html">Using Functions and Operators</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/query/query-performance.html">Query Performance</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/query/query-profiling.html">Query Profiling</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
+        <ul>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/managing_data_bestpractices.html">Managing Data</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/querying_data_bestpractices.html">Querying Data</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html">Troubleshooting</a>
+        <ul>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html#topic_dwd_rnx_15">Query Performance Issues</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html#topic_vm5_znx_15">Rejection of Query Resource Requests</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html#topic_qq4_rkl_wv">Queries Cancelled Due to High VMEM Usage</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html#topic_hlj_zxx_15">Segments Do Not Appear in gp_segment_configuration</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html#topic_mdz_q2y_15">Handling Segment Resource Fragmentation</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/hawq-reference.html">HAWQ Reference</a>
+        <ul>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/SQLCommandReference.html">SQL Commands</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ABORT.html">ABORT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-AGGREGATE.html">ALTER AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-CONVERSION.html">ALTER CONVERSION</a></li>  
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-DATABASE.html">ALTER DATABASE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-FUNCTION.html">ALTER FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-OPERATOR.html">ALTER OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-OPERATOR-CLASS.html">ALTER OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-RESOURCE-QUEUE.html">ALTER RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-ROLE.html">ALTER ROLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-SEQUENCE.html">ALTER SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-TABLE.html">ALTER TABLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-TABLESPACE.html">ALTER TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-TYPE.html">ALTER TYPE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-USER.html">ALTER USER</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ANALYZE.html">ANALYZE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/BEGIN.html">BEGIN</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CHECKPOINT.html">CHECKPOINT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CLOSE.html">CLOSE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/COMMIT.html">COMMIT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/COPY.html">COPY</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-AGGREGATE.html">CREATE AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-CAST.html">CREATE CAST</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-CONVERSION.html">CREATE CONVERSION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-DATABASE.html">CREATE DATABASE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html">CREATE EXTERNAL TABLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-FUNCTION.html">CREATE FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-GROUP.html">CREATE GROUP</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-LANGUAGE.html">CREATE LANGUAGE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-OPERATOR.html">CREATE OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-OPERATOR-CLASS.html">CREATE OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-RESOURCE-QUEUE.html">CREATE RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-ROLE.html">CREATE ROLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-SCHEMA.html">CREATE SCHEMA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-SEQUENCE.html">CREATE SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-TABLE.html">CREATE TABLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-TABLE-AS.html">CREATE TABLE AS</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-TABLESPACE.html">CREATE TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-TYPE.html">CREATE TYPE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-USER.html">CREATE USER</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-VIEW.html">CREATE VIEW</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DEALLOCATE.html">DEALLOCATE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DECLARE.html">DECLARE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-AGGREGATE.html">DROP AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-CAST.html">DROP CAST</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-CONVERSION.html">DROP CONVERSION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-DATABASE.html">DROP DATABASE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-EXTERNAL-TABLE.html">DROP EXTERNAL TABLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-FILESPACE.html">DROP FILESPACE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-FUNCTION.html">DROP FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-GROUP.html">DROP GROUP</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-LANGUAGE.html">DROP LANGUAGE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-OPERATOR.html">DROP OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-OPERATOR-CLASS.html">DROP OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-OWNED.html">DROP OWNED</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-RESOURCE-QUEUE.html">DROP RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-ROLE.html">DROP ROLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-SCHEMA.html">DROP SCHEMA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-SEQUENCE.html">DROP SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-TABLE.html">DROP TABLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-TABLESPACE.html">DROP TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-TYPE.html">DROP TYPE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-USER.html">DROP USER</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-VIEW.html">DROP VIEW</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/END.html">END</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/EXECUTE.html">EXECUTE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/EXPLAIN.html">EXPLAIN</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/FETCH.html">FETCH</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/GRANT.html">GRANT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/INSERT.html">INSERT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/PREPARE.html">PREPARE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/REASSIGN-OWNED.html">REASSIGN OWNED</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/RELEASE-SAVEPOINT.html">RELEASE SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/RESET.html">RESET</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/REVOKE.html">REVOKE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ROLLBACK.html">ROLLBACK</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ROLLBACK-TO-SAVEPOINT.html">ROLLBACK TO SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SAVEPOINT.html">SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SELECT.html">SELECT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SELECT-INTO.html">SELECT INTO</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SET.html">SET</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SET-ROLE.html">SET ROLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SET-SESSION-AUTHORIZATION.html">SET SESSION AUTHORIZATION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SHOW.html">SHOW</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/TRUNCATE.html">TRUNCATE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/VACUUM.html">VACUUM</a></li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/HAWQSiteConfig.html">Server Configuration Parameter Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_config.html">About Server Configuration Parameters</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html">Configuration Parameter Categories</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic_hfd_1tl_zp">Append-Only Table Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic39">Client Connection Default Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic12">Connection and Authentication Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic47">Database and Tablespace/Filespace Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic29">Error Reporting and Logging Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic45">External Table Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic57">GPORCA Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic49">HAWQ Array Configuration Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic_pxfparam">HAWQ Extension Framework (PXF) Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic56">HAWQ PL/Java Extension Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#hawq_resource_management">HAWQ Resource Management Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic43">Lock Management Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic48">Past PostgreSQL Version Compatibility Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic21">Query Tuning Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#ranger_related">Ranger Configuration Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#statistics_collection">Statistics Collection Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic15">System Resource Consumption Parameters</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html">Configuration Parameters</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#add_missing_from">add_missing_from</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#application_name">application_name</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#array_nulls">array_nulls</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#authentication_timeout">authentication_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#backslash_quote">backslash_quote</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#block_size">block_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#bonjour_name">bonjour_name</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#check_function_bodies">check_function_bodies</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#client_encoding">client_encoding</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#client_min_messages">client_min_messages</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#cpu_index_tuple_cost">cpu_index_tuple_cost</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#cpu_operator_cost">cpu_operator_cost</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#cpu_tuple_cost">cpu_tuple_cost</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#cursor_tuple_fraction">cursor_tuple_fraction</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#custom_variable_classes">custom_variable_classes</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#DateStyle">DateStyle</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#db_user_namespace">db_user_namespace</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#deadlock_timeout">deadlock_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_assertions">debug_assertions</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_pretty_print">debug_pretty_print</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_parse">debug_print_parse</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_plan">debug_print_plan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_prelim_plan">debug_print_prelim_plan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_rewritten">debug_print_rewritten</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_slice_table">debug_print_slice_table</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#topic_fqj_4fd_kv">default_hash_table_bucket_number</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#default_statistics_target">default_statistics_target</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#default_tablespace">default_tablespace</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#default_transaction_isolation">default_transaction_isolation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#default_transaction_read_only">default_transaction_read_only</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#dynamic_library_path">dynamic_library_path</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#effective_cache_size">effective_cache_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_bitmapscan">enable_bitmapscan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_groupagg">enable_groupagg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_hashagg">enable_hashagg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_hashjoin">enable_hashjoin</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_indexscan">enable_indexscan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_mergejoin">enable_mergejoin</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_nestloop">enable_nestloop</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_seqscan">enable_seqscan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_sort">enable_sort</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_tidscan">enable_tidscan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#escape_string_warning">escape_string_warning</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#explain_pretty_print">explain_pretty_print</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#extra_float_digits">extra_float_digits</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#from_collapse_limit">from_collapse_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_adjust_selectivity_for_outerjoins">gp_adjust_selectivity_for_outerjoins</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_analyze_relative_error">gp_analyze_relative_error</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_autostats_mode">gp_autostats_mode</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#topic_imj_zhf_gw">gp_autostats_on_change_threshhold</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_backup_directIO">gp_backup_directIO</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_backup_directIO_read_chunk_mb">gp_backup_directIO_read_chunk_mb</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_cached_segworkers_threshold">gp_cached_segworkers_threshold</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_command_count">gp_command_count</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_connections_per_thread">gp_connections_per_thread</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_debug_linger">gp_debug_linger</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_dynamic_partition_pruning">gp_dynamic_partition_pruning</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_agg_distinct">gp_enable_agg_distinct</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_agg_distinct_pruning">gp_enable_agg_distinct_pruning</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_direct_dispatch">gp_enable_direct_dispatch</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_fallback_plan">gp_enable_fallback_plan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_fast_sri">gp_enable_fast_sri</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_groupext_distinct_gather">gp_enable_groupext_distinct_gather</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_groupext_distinct_pruning">gp_enable_groupext_distinct_pruning</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_multiphase_agg">gp_enable_multiphase_agg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_predicate_propagation">gp_enable_predicate_propagation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_preunique">gp_enable_preunique</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sequential_window_plans">gp_enable_sequential_window_plans</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sort_distinct">gp_enable_sort_distinct</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sort_limit">gp_enable_sort_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_enable_exec">gp_external_enable_exec</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_grant_privileges">gp_external_grant_privileges</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_max_segs">gp_external_max_segs</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_count">gp_filerep_tcp_keepalives_count</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_idle">gp_filerep_tcp_keepalives_idle</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_databases">gp_max_databases</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_filespaces">gp_max_filespaces</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_packet_size">gp_max_packet_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_plan_size">gp_max_plan_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_tablespaces">gp_max_tablespaces</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_motion_cost_per_row">gp_motion_cost_per_row</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_reject_percent_threshold">gp_reject_percent_threshold</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_reraise_signal">gp_reraise_signal</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_role">gp_role</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_safefswritesize">gp_safefswritesize</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_segment_connect_timeout">gp_segment_connect_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_segments_for_planner">gp_segments_for_planner</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_session_id">gp_session_id</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_set_proc_affinity">gp_set_proc_affinity</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_set_read_only">gp_set_read_only</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_statistics_pullup_from_child_partition">gp_statistics_pullup_from_child_partition</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_statistics_use_fkeys">gp_statistics_use_fkeys</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_vmem_idle_resource_timeout">gp_vmem_idle_resource_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_vmem_protect_segworker_cache_limit">gp_vmem_protect_segworker_cache_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_checksumming">gp_workfile_checksumming</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_compress_algorithm">gp_workfile_compress_algorithm</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_files_per_query">gp_workfile_limit_files_per_query</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_per_query">gp_workfile_limit_per_query</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_per_segment">gp_workfile_limit_per_segment</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_acl_type">hawq_acl_type</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_dfs_url">hawq_dfs_url</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_global_rm_type">hawq_global_rm_type</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_address_host">hawq_master_address_host</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_address_port">hawq_master_address_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_directory">hawq_master_directory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_temp_directory">hawq_master_temp_directory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_re_memory_overcommit_max">hawq_re_memory_overcommit_max</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_cluster_report">hawq_rm_cluster_report_period</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_force_alterqueue_cancel_queued_request">hawq_rm_force_alterqueue_cancel_queued_request</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_master_port">hawq_rm_master_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_memory_limit_perseg">hawq_rm_memory_limit_perseg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_min_resource_perseg">hawq_rm_min_resource_perseg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nresqueue_limit">hawq_rm_nresqueue_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nslice_perseg_limit">hawq_rm_nslice_perseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvcore_limit_perseg">hawq_rm_nvcore_limit_perseg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_perquery_limit">hawq_rm_nvseg_perquery_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_perquery_perseg_limit">hawq_rm_nvseg_perquery_perseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_variance_amon_seg_limit">hawq_rm_nvseg_variance_amon_seg_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_rejectrequest_nseg_limit">hawq_rm_rejectrequest_nseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_resource_idle_timeout">hawq_rm_resource_idle_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_return_percent_on_overcommit">hawq_rm_return_percent_on_overcommit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_segment_heartbeat_interval">hawq_rm_segment_heartbeat_interval</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_segment_port">hawq_rm_segment_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_stmt_nvseg">hawq_rm_stmt_nvseg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_stmt_vseg_memory">hawq_rm_stmt_vseg_memory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_tolerate_nseg_limit">hawq_rm_tolerate_nseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_address">hawq_rm_yarn_address</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_app_name">hawq_rm_yarn_app_name</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_queue_name">hawq_rm_yarn_queue_name</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_scheduler_address">hawq_rm_yarn_scheduler_address</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rps_address_port">hawq_rps_address_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_address_port">hawq_segment_address_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_directory">hawq_segment_directory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_temp_directory">hawq_segment_temp_directory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#integer_datetimes">integer_datetimes</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#IntervalStyle">IntervalStyle</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#join_collapse_limit">join_collapse_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#krb_caseins_users">krb_caseins_users</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#krb_server_keyfile">krb_server_keyfile</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#krb_srvname">krb_srvname</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_collate">lc_collate</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_ctype">lc_ctype</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_messages">lc_messages</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_monetary">lc_monetary</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_numeric">lc_numeric</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_time">lc_time</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#listen_addresses">listen_addresses</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#local_preload_libraries">local_preload_libraries</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_autostats">log_autostats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_connections">log_connections</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_disconnections">log_disconnections</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_dispatch_stats">log_dispatch_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_duration">log_duration</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_error_verbosity">log_error_verbosity</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_executor_stats">log_executor_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_hostname">log_hostname</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_min_duration_statement">log_min_duration_statement</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_min_error_statement">log_min_error_statement</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_min_messages">log_min_messages</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_parser_stats">log_parser_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_planner_stats">log_planner_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_rotation_age">log_rotation_age</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_rotation_size">log_rotation_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_statement">log_statement</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_statement_stats">log_statement_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_timezone">log_timezone</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_truncate_on_rotation">log_truncate_on_rotation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_appendonly_tables">max_appendonly_tables</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_connections">max_connections</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_files_per_process">max_files_per_process</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_fsm_pages">max_fsm_pages</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_fsm_relations">max_fsm_relations</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_function_args">max_function_args</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_identifier_length">max_identifier_length</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_index_keys">max_index_keys</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_locks_per_transaction">max_locks_per_transaction</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_prepared_transactions">max_prepared_transactions</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_stack_depth">max_stack_depth</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#optimizer">optimizer</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_analyze_root_partition">optimizer_analyze_root_partition</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_minidump">optimizer_minidump</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_parts_to_force_sort_on_insert">optimizer_parts_to_force_sort_on_insert</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_prefer_scalar_dqa_multistage_agg">optimizer_prefer_scalar_dqa_multistage_agg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#password_encryption">password_encryption</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pgstat_track_activity_query_size">pgstat_track_activity_query_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pljava_classpath">pljava_classpath</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pljava_statement_cache_size">pljava_statement_cache_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pljava_release_lingering_savepoints">pljava_release_lingering_savepoints</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pljava_vmoptions">pljava_vmoptions</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#port">port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_enable_filter_pushdown">pxf_enable_filter_pushdown</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_enable_stat_collection">pxf_enable_stat_collection</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_remote_service_login">pxf_remote_service_login</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_remote_service_secret">pxf_remote_service_secret</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_service_address">pxf_service_address</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_service_port">pxf_service_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_stat_max_fragments">pxf_stat_max_fragments</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#random_page_cost">random_page_cost</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#regex_flavor">regex_flavor</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#runaway_detector_activation_percent">runaway_detector_activation_percent</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#search_path">search_path</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#seg_max_connections">seg_max_connections</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#seq_page_cost">seq_page_cost</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#server_encoding">server_encoding</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#server_version">server_version</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#server_version_num">server_version_num</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#shared_buffers">shared_buffers</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#shared_preload_libraries">shared_preload_libraries</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#ssl">ssl</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#ssl_ciphers">ssl_ciphers</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#standard_conforming_strings">standard_conforming_strings</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#statement_timeout">statement_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#superuser_reserved_connections">superuser_reserved_connections</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_count">tcp_keepalives_count</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_idle">tcp_keepalives_idle</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_interval">tcp_keepalives_interval</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#temp_buffers">temp_buffers</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#TimeZone">TimeZone</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#timezone_abbreviations">timezone_abbreviations</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#track_activities">track_activities</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#track_counts">track_counts</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#transaction_isolation">transaction_isolation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#transaction_read_only">transaction_read_only</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#transform_null_equals">transform_null_equals</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_directory">unix_socket_directory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_group">unix_socket_group</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_permissions">unix_socket_permissions</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#update_process_title">update_process_title</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_delay">vacuum_cost_delay</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_limit">vacuum_cost_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_page_dirty">vacuum_cost_page_dirty</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_page_miss">vacuum_cost_page_miss</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_freeze_min_age">vacuum_freeze_min_age</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#xid_stop_limit">xid_stop_limit</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/HAWQSampleSiteConfig.html">Sample hawq-site.xml Configuration File</a></li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/reference/HDFSConfigurationParameterReference.html">HDFS Configuration Reference</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/reference/HAWQEnvironmentVariables.html">Environment Variables</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/reference/CharacterSetSupportReference.html">Character Set Support Reference</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/reference/HAWQDataTypes.html">Data Types</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/catalog_ref.html">System Catalog Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/catalog_ref-tables.html">System Tables</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/catalog_ref-views.html">System Views</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/catalog_ref-html.html">System Catalogs Definitions</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_configuration_history.html">gp_configuration_history</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_distribution_policy.html">gp_distribution_policy</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_global_sequence.html">gp_global_sequence</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_master_mirroring.html">gp_master_mirroring</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_persistent_database_node.html">gp_persistent_database_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_persistent_filespace_node.html">gp_persistent_filespace_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_persistent_relation_node.html">gp_persistent_relation_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_persistent_relfile_node.html">gp_persistent_relfile_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_persistent_tablespace_node.html">gp_persistent_tablespace_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_relfile_node.html">gp_relfile_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_segment_configuration.html">gp_segment_configuration</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_version_at_initdb.html">gp_version_at_initdb</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_aggregate.html">pg_aggregate</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_am.html">pg_am</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_amop.html">pg_amop</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_amproc.html">pg_amproc</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_appendonly.html">pg_appendonly</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_attrdef.html">pg_attrdef</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_attribute.html">pg_attribute</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_attribute_encoding.html">pg_attribute_encoding</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_auth_members.html">pg_auth_members</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_authid.html">pg_authid</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_cast.html">pg_cast</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_class.html">pg_class</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_compression.html">pg_compression</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_constraint.html">pg_constraint</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_conversion.html">pg_conversion</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_database.html">pg_database</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_depend.html">pg_depend</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_description.html">pg_description</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_exttable.html">pg_exttable</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_filespace.html">pg_filespace</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_filespace_entry.html">pg_filespace_entry</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_index.html">pg_index</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_inherits.html">pg_inherits</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_language.html">pg_language</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_largeobject.html">pg_largeobject</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_listener.html">pg_listener</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_locks.html">pg_locks</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_namespace.html">pg_namespace</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_opclass.html">pg_opclass</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_operator.html">pg_operator</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partition.html">pg_partition</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partition_columns.html">pg_partition_columns</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partition_encoding.html">pg_partition_encoding</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partition_rule.html">pg_partition_rule</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partition_templates.html">pg_partition_templates</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partitions.html">pg_partitions</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_pltemplate.html">pg_pltemplate</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_proc.html">pg_proc</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_resqueue.html">pg_resqueue</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_resqueue_status.html">pg_resqueue_status</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_rewrite.html">pg_rewrite</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_roles.html">pg_roles</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_shdepend.html">pg_shdepend</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_shdescription.html">pg_shdescription</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stat_activity.html">pg_stat_activity</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stat_last_operation.html">pg_stat_last_operation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stat_last_shoperation.html">pg_stat_last_shoperation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stat_operations.html">pg_stat_operations</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stat_partition_operations.html">pg_stat_partition_operations</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_statistic.html">pg_statistic</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stats.html">pg_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_tablespace.html">pg_tablespace</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_trigger.html">pg_trigger</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_type.html">pg_type</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_type_encoding.html">pg_type_encoding</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_window.html">pg_window</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/toolkit/hawq_toolkit.html">The hawq_toolkit Administrative Schema</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic2">Checking for Tables that Need Routine Maintenance</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic16">Viewing HAWQ Server Log Files</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic38">Checking Database Object Sizes and Disk Space</a></li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/management_tools.html">HAWQ Management Tools Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/analyzedb.html">analyzedb</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/createdb.html">createdb</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/createuser.html">createuser</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/dropdb.html">dropdb</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/dropuser.html">dropuser</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/gpfdist.html">gpfdist</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/gplogfilter.html">gplogfilter</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqactivate.html">hawq activate</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqcheck.html">hawq check</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqcheckperf.html">hawq checkperf</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqconfig.html">hawq config</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqextract.html">hawq extract</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqfilespace.html">hawq filespace</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqinit.html">hawq init</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqload.html">hawq load</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqregister.html">hawq register</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqrestart.html">hawq restart</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqscp.html">hawq scp</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqssh.html">hawq ssh</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqssh-exkeys.html">hawq ssh-exkeys</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqstart.html">hawq start</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqstate.html">hawq state</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqstop.html">hawq stop</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/pg_dump.html">pg_dump</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/pg_dumpall.html">pg_dumpall</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/pg_restore.html">pg_restore</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/psql.html">psql</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/vacuumdb.html">vacuumdb</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--end of sub-nav-->
+
+      <!--googleon: index-->
+
+      <main class="content content-layout" id="js-content" role="main">
+        <a id="top"></a>
+        
+          <h1 class="title-container" >
+    Accessing Hive Data
+  </h1>
+
+
+          <div id="js-quick-links" >
+            <div class="quick-links"><ul>
+<li><a href="#installingthepxfhiveplugin">Prerequisites</a></li>
+<li><a href="#topic_p2s_lvl_25">Hive File Formats</a></li>
+<li>
+<a href="#topic_p2s_lvl_29">Data Type Mapping</a><ul>
+<li><a href="#hive_primdatatypes">Primitive Data Types</a></li>
+<li><a href="#topic_b4v_g3n_25">Complex Data Types</a></li>
+</ul>
+</li>
+<li><a href="#hive_sampledataset">Sample Data Set</a></li>
+<li>
+<a href="#hivecommandline">Hive Command Line</a><ul>
+<li><a href="#hivecommandline_createdb">Example: Create a Hive Database</a></li>
+<li><a href="#get_hdfs_file_location">Determine the HDFS location of a Hive Table</a></li>
+</ul>
+</li>
+<li>
+<a href="#hcatalog">Using PXF and HCatalog to Query Hive</a><ul>
+<li><a href="#topic_j1l_enabling">Enabling HCatalog Integration</a></li>
+<li><a href="#topic_j1l_y55_c5">Usage</a></li>
+<li><a href="#topic_r5k_pst_25">Limitations</a></li>
+</ul>
+</li>
+<li><a href="#topic_p2s_lvl_28">Querying External Hive Data</a></li>
+<li>
+<a href="#profile_hive">Hive Profile</a><ul><li><a href="#profile_hive_using">Example: Using the Hive Profile</a></li></ul>
+</li>
+<li>
+<a href="#profile_hivetext">HiveText Profile</a><ul><li><a href="#profile_hivetext_using">Example: Using the HiveText Profile</a></li></ul>
+</li>
+<li>
+<a href="#profile_hiverc">HiveRC Profile</a><ul><li><a href="#profile_hiverc_rcfiletbl_using">Example: Using the HiveRC Profile</a></li></ul>
+</li>
+<li>
+<a href="#hiveorc-intro">HiveORC Profile</a><ul><li><a href="#using-hiveorc-profile">Example: Using the HiveORC Profile</a></li></ul>
+</li>
+<li><a href="#topic_dbb_nz3_ts">Accessing Parquet-Format Hive Tables</a></li>
+<li>
+<a href="#complex_dt_example">Complex Data Types</a><ul>
+<li><a href="#complex_dt_example">Example: Using the Hive Profile with Complex Data Types</a></li>
+<li><a href="#using-hiveorc-profile-complex">Example: Using the HiveORC Profile with Complex Data Types</a></li>
+</ul>
+</li>
+<li>
+<a href="#partitionfiltering">Partition Filtering</a><ul>
+<li><a href="#partitionfiltering_pushdowncfg">Configure Partition Filtering Push-Down</a></li>
+<li><a href="#example_hive_part">Example: Using the Hive Profile to Access Partitioned Homogenous Data</a></li>
+<li><a href="#example_hive_part_multi">Example: Using the Hive Profile to Access Partitioned Heterogenous Data</a></li>
+</ul>
+</li>
+<li><a href="#topic_fdm_zrh_1s">Using PXF with Hive Default Partitions</a></li>
+</ul></div>
+          </div>
+        <div class="to-top" id="js-to-top">
+          <a href="#top" title="back to top"></a>
+        </div>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<p>Apache Hive is a distributed data warehousing infrastructure.  Hive facilitates managing large data sets supporting multiple data formats, including comma-separated value (.csv), RC, ORC, and parquet. The PXF Hive plug-in reads data stored in Hive, as well as HDFS or HBase.</p>
+
+<p>This section describes how to use PXF to access Hive data. Options for querying data stored in Hive include:</p>
+
+<ul>
+<li> Querying Hive tables via PXF&rsquo;s integration with HCatalog</li>
+<li> Creating an external table in PXF and querying that table</li>
+</ul>
+
+<h2><a id="installingthepxfhiveplugin"></a>Prerequisites</h2>
+
+<p>Before accessing Hive data with HAWQ and PXF, ensure that:</p>
+
+<ul>
+<li>  The PXF HDFS plug-in is installed on all HAWQ and HDFS cluster nodes (master, segment, NameNode, DataNode). See <a href="/docs/userguide/2.2.0.0-incubating/pxf/InstallPXFPlugins.html">Installing PXF Plug-ins</a> for PXF plug-in installation information.</li>
+<li>  The PXF Hive plug-in is installed on all HAWQ and HDFS cluster nodes.</li>
+<li>  If you configured Hadoop with high availability, PXF must also be installed on all HDFS nodes running NameNode services.</li>
+<li>  The Hive client is installed on all PXF nodes.</li>
+<li>  The Hive JAR files and conf directory are installed on all cluster nodes.</li>
+<li>  You have tested PXF on HDFS.</li>
+<li>  You are running the Hive Metastore service on a machine in your cluster. </li>
+<li>  You have set the <code>hive.metastore.uris</code> property in the <code>hive-site.xml</code> on the NameNode.</li>
+</ul>
+
+<h2><a id="topic_p2s_lvl_25"></a>Hive File Formats</h2>
+
+<p>The PXF Hive plug-in supports several file formats and profiles for accessing these formats:</p>
+
+<table><thead>
+<tr>
+<th>File Format</th>
+<th>Description</th>
+<th>Profile</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>TextFile</td>
+<td>Flat file with data in comma-, tab-, or space-separated value format or JSON notation.</td>
+<td>Hive, HiveText</td>
+</tr>
+<tr>
+<td>SequenceFile</td>
+<td>Flat file consisting of binary key/value pairs.</td>
+<td>Hive</td>
+</tr>
+<tr>
+<td>RCFile</td>
+<td>Record columnar data consisting of binary key/value pairs; high row compression rate.</td>
+<td>Hive, HiveRC</td>
+</tr>
+<tr>
+<td>ORCFile</td>
+<td>Optimized row columnar data with stripe, footer, and postscript sections; reduces data size.</td>
+<td>Hive, HiveORC</td>
+</tr>
+<tr>
+<td>Parquet</td>
+<td>Compressed columnar data representation.</td>
+<td>Hive</td>
+</tr>
+<tr>
+<td>Avro</td>
+<td>JSON-defined, schema-based data serialization format.</td>
+<td>Hive</td>
+</tr>
+</tbody></table>
+
+<p>Refer to <a href="https://cwiki.apache.org/confluence/display/Hive/FileFormats">File Formats</a> for detailed information about the file formats supported by Hive.</p>
+
+<h2><a id="topic_p2s_lvl_29"></a>Data Type Mapping</h2>
+
+<h3><a id="hive_primdatatypes"></a>Primitive Data Types</h3>
+
+<p>To represent Hive data in HAWQ, map data values that use a primitive data type to HAWQ columns of the same type.</p>
+
+<p>The following table summarizes external mapping rules for Hive primitive types.</p>
+
+<table><thead>
+<tr>
+<th>Hive Data Type</th>
+<th>Hawq Data Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>boolean</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>int</td>
+<td>int4</td>
+</tr>
+<tr>
+<td>smallint</td>
+<td>int2</td>
+</tr>
+<tr>
+<td>tinyint</td>
+<td>int2</td>
+</tr>
+<tr>
+<td>bigint</td>
+<td>int8</td>
+</tr>
+<tr>
+<td>float</td>
+<td>float4</td>
+</tr>
+<tr>
+<td>double</td>
+<td>float8</td>
+</tr>
+<tr>
+<td>string</td>
+<td>text</td>
+</tr>
+<tr>
+<td>binary</td>
+<td>bytea</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>timestamp</td>
+</tr>
+</tbody></table>
+
+<h3><a id="topic_b4v_g3n_25"></a>Complex Data Types</h3>
+
+<p>Hive supports complex data types including array, struct, map, and union. PXF maps each of these complex types to <code>text</code>.  While HAWQ does not natively support these types, you can create HAWQ functions or application code to extract subcomponents of these complex data types.</p>
+
+<p>Examples using complex data types with the <code>Hive</code> and <code>HiveORC</code> profiles are provided later in this topic.</p>
+
+<h2><a id="hive_sampledataset"></a>Sample Data Set</h2>
+
+<p>Examples used in this topic will operate on a common data set. This simple data set models a retail sales operation and includes fields with the following names and data types:</p>
+
+<table><thead>
+<tr>
+<th>Field Name</th>
+<th>Data Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>location</td>
+<td>text</td>
+</tr>
+<tr>
+<td>month</td>
+<td>text</td>
+</tr>
+<tr>
+<td>number_of_orders</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>total_sales</td>
+<td>double</td>
+</tr>
+</tbody></table>
+
+<p>Prepare the sample data set for use:</p>
+
+<ol>
+<li><p>First, create a text file:</p>
+<pre class="highlight plaintext"><code>$ vi /tmp/pxf_hive_datafile.txt
+</code></pre></li>
+<li><p>Add the following data to <code>pxf_hive_datafile.txt</code>; notice the use of the comma <code>,</code> to separate the four field values:</p>
+<pre class="highlight plaintext"><code>Prague,Jan,101,4875.33
+Rome,Mar,87,1557.39
+Bangalore,May,317,8936.99
+Beijing,Jul,411,11600.67
+San Francisco,Sept,156,6846.34
+Paris,Nov,159,7134.56
+San Francisco,Jan,113,5397.89
+Prague,Dec,333,9894.77
+Bangalore,Jul,271,8320.55
+Beijing,Dec,100,4248.41
+</code></pre></li>
+</ol>
+
+<p>Make note of the path to <code>pxf_hive_datafile.txt</code>; you will use it in later exercises.</p>
+
+<h2><a id="hivecommandline"></a>Hive Command Line</h2>
+
+<p>The Hive command line is a subsystem similar to that of <code>psql</code>. To start the Hive command line:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nv">HADOOP_USER_NAME</span><span class="o">=</span>hdfs hive
+</code></pre>
+
+<p>The default Hive database is named <code>default</code>. </p>
+
+<h3><a id="hivecommandline_createdb"></a>Example: Create a Hive Database</h3>
+
+<p>Create a Hive table to expose our sample data set.</p>
+
+<ol>
+<li><p>Create a Hive table named <code>sales_info</code> in the <code>default</code> database:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">sales_info</span> <span class="p">(</span><span class="k">location</span> <span class="n">string</span><span class="p">,</span> <span class="k">month</span> <span class="n">string</span><span class="p">,</span>
+        <span class="n">number_of_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">double</span><span class="p">)</span>
+        <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span>
+        <span class="n">STORED</span> <span class="k">AS</span> <span class="n">textfile</span><span class="p">;</span>
+</code></pre>
+
+<p>Notice that:</p>
+
+<ul>
+<li>The <code>STORED AS textfile</code> subclause instructs Hive to create the table in Textfile (the default) format.  Hive Textfile format supports comma-, tab-, and space-separated values, as well as data specified in JSON notation.</li>
+<li>The <code>DELIMITED FIELDS TERMINATED BY</code> subclause identifies the field delimiter within a data record (line). The <code>sales_info</code> table field delimiter is a comma (<code>,</code>).</li>
+</ul></li>
+<li><p>Load the <code>pxf_hive_datafile.txt</code> sample data file into the <code>sales_info</code> table you just created:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">LOAD</span> <span class="k">DATA</span> <span class="k">LOCAL</span> <span class="n">INPATH</span> <span class="s1">'/tmp/pxf_hive_datafile.txt'</span>
+        <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">sales_info</span><span class="p">;</span>
+</code></pre>
+
+<p>In examples later in this section, you will access the <code>sales_info</code> Hive table directly via PXF. You will also insert <code>sales_info</code> data into tables of other Hive file format types, and use PXF to access those directly as well.</p></li>
+<li><p>Perform a query on <code>sales_info</code> to verify that the data was loaded successfully:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales_info</span><span class="p">;</span>
+</code></pre></li>
+</ol>
+
+<h3><a id="get_hdfs_file_location"></a>Determine the HDFS location of a Hive Table</h3>
+
+<p>Should you need to identify the HDFS file location of a Hive managed table, reference it using its HDFS file path. You can determine a Hive table&rsquo;s location in HDFS using the <code>DESCRIBE</code> command, for example:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">DESCRIBE</span> <span class="n">EXTENDED</span> <span class="n">sales_info</span><span class="p">;</span>
+<span class="n">Detailed</span> <span class="k">Table</span> <span class="n">Information</span>
+<span class="p">...</span>
+<span class="k">location</span><span class="p">:</span><span class="n">hdfs</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">namenode</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;/</span><span class="n">apps</span><span class="o">/</span><span class="n">hive</span><span class="o">/</span><span class="n">warehouse</span><span class="o">/</span><span class="n">sales_info</span>
+<span class="p">...</span>
+</code></pre>
+
+<p>The <code>location</code> value identifies the HDFS file path of the table.</p>
+
+<h2><a id="hcatalog"></a>Using PXF and HCatalog to Query Hive</h2>
+
+<p>You can query Hive tables directly through HCatalog integration with HAWQ and PXF, regardless of the underlying file storage format. This integration allows HAWQ to directly use table metadata stored in HCatalog.</p>
+
+<p>HCatalog is built on top of the Hive metastore and incorporates Hive&rsquo;s DDL. This provides several advantages:</p>
+
+<ul>
+<li>  You do not need to know the table schema of your Hive tables</li>
+<li>  You do not need to manually enter information about Hive table location or format</li>
+<li>  If Hive table metadata changes, HCatalog provides updated metadata. This is in contrast to the use of static external PXF tables to define Hive table metadata for HAWQ.</li>
+</ul>
+
+<p>The following diagram depicts how HAWQ integrates with HCatalog to query Hive tables:</p>
+
+<p><img src="../images/hawq_hcatalog.png" id="hcatalog__image_ukw_h2v_c5" class="image" width="672" /></p>
+
+<ol>
+<li> HAWQ retrieves table metadata from HCatalog using PXF.</li>
+<li> HAWQ creates in-memory catalog tables from the retrieved metadata. If a table is referenced multiple times in a transaction, HAWQ uses its in-memory metadata to reduce external calls to HCatalog.</li>
+<li> PXF queries Hive using table metadata that is stored in the HAWQ in-memory catalog tables. Table metadata is dropped at the end of the transaction.</li>
+</ol>
+
+<h3><a id="topic_j1l_enabling"></a>Enabling HCatalog Integration</h3>
+
+<p>To enable HCatalog query integration in HAWQ, perform the following steps:</p>
+
+<ol>
+<li> Make sure your deployment meets the requirements listed in <a href="#installingthepxfhiveplugin">Prerequisites</a>.</li>
+<li><p>If necessary, set the <code>pxf_service_address</code> global configuration property to the hostname or IP address and port where you have installed the PXF Hive plug-in (preferably the HDFS NameNode). By default, the value is set to <code>localhost:51200</code>. For example:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SET</span> <span class="n">pxf_service_address</span> <span class="k">TO</span> <span class="s1">'&lt;namenode&gt;:51200'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>HCatalog internally uses the <code>pxf</code> protocol to query.  Grant this protocol privilege to all roles requiring access:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">ON</span> <span class="n">PROTOCOL</span> <span class="n">pxf</span> <span class="k">TO</span> <span class="o">&lt;</span><span class="k">role</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></li>
+<li><p>It is not recommended to create a HAWQ table using the <code>WITH (OIDS)</code> clause. If any user tables were created using the <code>WITH (OIDS)</code> clause, additional operations are required to enable HCatalog integration. To access a Hive table via HCatalog when user tables were created using <code>WITH (OIDS)</code>, HAWQ users must have <code>SELECT</code> permission to query every user table within the same schema that was created using the <code>WITH (OIDS)</code> clause.</p>
+
+<ol>
+<li><p>Determine which user tables were created using the <code>WITH (OIDS)</code> clause:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="n">oid</span><span class="p">,</span> <span class="n">relname</span> <span class="k">FROM</span> <span class="n">pg_class</span>
+             <span class="k">WHERE</span> <span class="n">relhasoids</span> <span class="o">=</span> <span class="k">true</span>
+               <span class="k">AND</span> <span class="n">relnamespace</span> <span class="o">&lt;&gt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">oid</span> <span class="k">FROM</span> <span class="n">pg_namespace</span> <span class="k">WHERE</span> <span class="n">nspname</span> <span class="o">=</span> <span class="s1">'pg_catalog'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Grant <code>SELECT</code> privilege on all returned tables to all roles to which you chose to provide HCatalog query access. For example:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">GRANT</span> <span class="k">SELECT</span> <span class="k">ON</span> <span class="o">&lt;</span><span class="k">table</span><span class="o">-</span><span class="n">created</span><span class="o">-</span><span class="k">WITH</span><span class="o">-</span><span class="k">OIDS</span><span class="o">&gt;</span> <span class="k">TO</span> <span class="o">&lt;</span><span class="k">role</span><span class="o">&gt;</span>
+</code></pre></li>
+</ol></li>
+</ol>
+
+<h3><a id="topic_j1l_y55_c5"></a>Usage</h3>
+
+<p>To query a Hive table with HCatalog integration, query HCatalog directly from HAWQ. The query syntax is:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">hcatalog</span><span class="p">.</span><span class="n">hive</span><span class="o">-</span><span class="n">db</span><span class="o">-</span><span class="n">name</span><span class="p">.</span><span class="n">hive</span><span class="o">-</span><span class="k">table</span><span class="o">-</span><span class="n">name</span><span class="p">;</span>
+</code></pre>
+
+<p>For example:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">hcatalog</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">sales_info</span><span class="p">;</span>
+</code></pre>
+
+<p>To obtain a description of a Hive table with HCatalog integration, you can use the <code>psql</code> client interface.</p>
+
+<ul>
+<li><p>Within HAWQ, use either the <code>\d                                         hcatalog.hive-db-name.hive-table-name</code> or <code>\d+                                         hcatalog.hive-db-name.hive-table-name</code> commands to describe a single table.  <code>\d</code> displays only HAWQ&rsquo;s interpretation of the underlying source (Hive in this case) data type, while <code>\d+</code> displays both the HAWQ interpreted and Hive source data types. For example, from the <code>psql</code> client interface:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d postgres
+</code></pre>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="err">\</span><span class="n">d</span><span class="o">+</span> <span class="n">hcatalog</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">sales_info</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code>   PXF Hive Table <span class="s2">"default.sales_info"</span>
+      Column      |  Type  | Source <span class="nb">type</span> 
+------------------+--------+-------------
+ location         | text   | string
+ month            | text   | string
+ number_of_orders | int4   | int
+ total_sales      | float8 | double
+</code></pre></li>
+<li><p>Use <code>\d hcatalog.hive-db-name.*</code> to describe the whole database schema, i.e. all tables in <code>hive-db-name</code>.</p></li>
+<li><p>Use <code>\d hcatalog.*.*</code> to describe the whole schema, i.e. all databases and tables.</p></li>
+</ul>
+
+<p>When using <code>\d</code> or <code>\d+</code> commands in the <code>psql</code> HAWQ client, <code>hcatalog</code> will not be listed as a database. If you use other <code>psql</code> compatible clients, <code>hcatalog</code> will be listed as a database with a size value of <code>-1</code> since <code>hcatalog</code> is not a real database in HAWQ.</p>
+
+<p>Alternatively, you can use the <code>pxf_get_item_fields</code> user-defined function (UDF) to obtain Hive table descriptions from other client interfaces or third-party applications. The UDF takes a PXF profile and a table pattern string as its input parameters.  <strong>Note:</strong> The only supported input profile at this time is <code>&#39;Hive&#39;</code>.</p>
+
+<ul>
+<li><p>The following statement returns a description of a specific table. The description includes path, itemname (table), fieldname, fieldtype (HAWQ type), and sourcefieldtype (Hive type).</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_get_item_fields</span><span class="p">(</span><span class="s1">'Hive'</span><span class="p">,</span><span class="s1">'default.sales_info'</span><span class="p">);</span>
+</code></pre>
+<pre class="highlight plaintext"><code>  path   |  itemname  |    fieldname     | fieldtype | sourcefieldtype 
+---------+------------+------------------+-----------+-----------------
+ default | sales_info | location         | text      | string
+ default | sales_info | month            | text      | string
+ default | sales_info | number_of_orders | int4      | int
+ default | sales_info | total_sales      | float8    | double
+</code></pre></li>
+<li><p>The following statement returns table descriptions from the default database.</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_get_item_fields</span><span class="p">(</span><span class="s1">'Hive'</span><span class="p">,</span><span class="s1">'default.*'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>The following statement returns a description of the entire schema.</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_get_item_fields</span><span class="p">(</span><span class="s1">'Hive'</span><span class="p">,</span> <span class="s1">'*.*'</span><span class="p">);</span>
+</code></pre></li>
+</ul>
+
+<h3><a id="topic_r5k_pst_25"></a>Limitations</h3>
+
+<p>HCatalog integration has the following limitations:</p>
+
+<ul>
+<li>  HCatalog queries on Hive tables with complex type fields return those fields serialized as text.</li>
+<li>  Even for primitive types, HCatalog metadata descriptions produced by <code>\d</code> are HAWQ&rsquo;s interpretation of the underlying Hive data types. For example, the Hive type <code>tinyint</code> is converted to HAWQ type <code>int2</code>. (See <a href="#hive_primdatatypes">Data Type Mapping</a>.)</li>
+<li>  HAWQ reserves the database name <code>hcatalog</code> for system use. You cannot connect to or alter the system <code>hcatalog</code> database.</li>
+</ul>
+
+<h2><a id="topic_p2s_lvl_28"></a>Querying External Hive Data</h2>
+
+<p>In the previous section, you used HCatalog integration to query a Hive table. You can also create a PXF/HAWQ external table to access Hive table data. This Hive table access mechanism requires that you identify an appropriate Hive profile.</p>
+
+<p>The PXF Hive plug-in supports several Hive-related profiles. These include <code>Hive</code>, <code>HiveText</code>, and <code>HiveRC</code>, and <code>HiveORC</code>. The <code>HiveText</code> and <code>HiveRC</code> profiles are specifically optimized for text and RC file formats, respectively. The <code>HiveORC</code> profile is optimized for ORC file formats. The <code>Hive</code> profile is optimized for all file storage types; use the <code>Hive</code> profile when the underlying Hive table is composed of multiple partitions with differing file formats.</p>
+
+<p>Use the following syntax to create a HAWQ external table representing Hive data:</p>
+<pre class="highlight sql"><code><span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="k">table_name</span><span class="o">&gt;</span>
+    <span class="p">(</span> <span class="o">&lt;</span><span class="k">column_name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">data_type</span><span class="o">&gt;</span> <span class="p">[,</span> <span class="p">...]</span> <span class="o">|</span> <span class="k">LIKE</span> <span class="o">&lt;</span><span class="n">other_table</span><span class="o">&gt;</span> <span class="p">)</span>
+<span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://&lt;host&gt;[:&lt;port&gt;]/&lt;hive-db-name&gt;.&lt;hive-table-name&gt;
+    ?PROFILE=Hive|HiveText|HiveRC|HiveORC[&amp;DELIMITER=&lt;delim&gt;'</span><span class="p">])</span>
+<span class="n">FORMAT</span> <span class="s1">'CUSTOM|TEXT'</span> <span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span> <span class="o">|</span> <span class="k">delimiter</span><span class="o">=</span><span class="s1">'&lt;delim&gt;'</span><span class="p">)</span>
+</code></pre>
+
+<p>Hive-plug-in-specific keywords and values used in the <a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html">CREATE EXTERNAL TABLE</a> call are described below.</p>
+
+<table><thead>
+<tr>
+<th>Keyword</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>&lt;host&gt;</td>
+<td>The PXF host. While &lt;host&gt; may identify any PXF agent node, use the HDFS NameNode as it is guaranteed to be available in a running HDFS cluster. If HDFS High Availability is enabled, &lt;host&gt; must identify the HDFS NameService.</td>
+</tr>
+<tr>
+<td>&lt;port&gt;</td>
+<td>The PXF port. If &lt;port&gt; is omitted, PXF assumes &lt;host&gt; identifies a High Availability HDFS Nameservice and connects to the port number designated by the <code>pxf_service_port</code> server configuration parameter value. Default is 51200.</td>
+</tr>
+<tr>
+<td>&lt;hive-db-name&gt;</td>
+<td>The name of the Hive database. If omitted, defaults to the Hive database named <code>default</code>.</td>
+</tr>
+<tr>
+<td>&lt;hive-table-name&gt;</td>
+<td>The name of the Hive table.</td>
+</tr>
+<tr>
+<td>PROFILE</td>
+<td>The <code>PROFILE</code> keyword must specify one of the values <code>Hive</code>, <code>HiveText</code>, <code>HiveRC</code>, or <code>HiveORC</code>.</td>
+</tr>
+<tr>
+<td>DELIMITER</td>
+<td>The <code>DELIMITER</code> clause is required for both the <code>HiveText</code> and <code>HiveRC</code> profiles and identifies the field delimiter used in the Hive data set.  &lt;delim&gt; must be a single ascii character or specified in hexadecimal representation.</td>
+</tr>
+<tr>
+<td>FORMAT (<code>Hive</code> and <code>HiveORC</code> profiles)</td>
+<td>The <code>FORMAT</code> clause must specify <code>CUSTOM</code>. The <code>CUSTOM</code> format supports only the built-in <code>pxfwritable_import</code> <code>formatter</code>.</td>
+</tr>
+<tr>
+<td>FORMAT (<code>HiveText</code> and <code>HiveRC</code> profiles)</td>
+<td>The <code>FORMAT</code> clause must specify <code>TEXT</code>. The <code>delimiter</code> must be specified a second time in &rsquo;&lt;delim&gt;&rsquo;.</td>
+</tr>
+</tbody></table>
+
+<h2><a id="profile_hive"></a>Hive Profile</h2>
+
+<p>Use the <code>Hive</code> profile with any Hive file storage format. With the <code>Hive</code> profile, you can also access heterogenous format data in a single table where each partition may be stored in a different file format. In both cases, the <code>Hive</code> profile will use the optimal <code>Hive*</code> profile for the underlying file storage type. Refer to the <a href="#partitionfiltering">Partition Filtering</a> discussion later in this topic for additional information on partitioning and the <code>Hive</code> profile.</p>
+
+<h3><a id="profile_hive_using"></a>Example: Using the Hive Profile</h3>
+
+<p>Use the <code>Hive</code> profile to create a queryable HAWQ external table from the Hive <code>sales_info</code> textfile format table created earlier.</p>
+
+<ol>
+<li><p>Create a queryable HAWQ external table from the Hive <code>sales_info</code> textfile format table created earlier:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">salesinfo_hiveprofile</span><span class="p">(</span><span class="k">location</span> <span class="n">text</span><span class="p">,</span> <span class="k">month</span> <span class="n">text</span><span class="p">,</span> <span class="n">num_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">float8</span><span class="p">)</span>
+            <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/default.sales_info?PROFILE=Hive'</span><span class="p">)</span>
+          <span class="n">FORMAT</span> <span class="s1">'custom'</span> <span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Query the table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">salesinfo_hiveprofile</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code>   location    | month | num_orders | total_sales
+---------------+-------+------------+-------------
+ Prague        | Jan   |        101 |     4875.33
+ Rome          | Mar   |         87 |     1557.39
+ Bangalore     | May   |        317 |     8936.99
+ ...
+
+</code></pre></li>
+</ol>
+
+<h2><a id="profile_hivetext"></a>HiveText Profile</h2>
+
+<p>Use the <code>HiveText</code> profile to query text format files.</p>
+
+<p><strong>Note</strong>: When using the <code>HiveText</code> profile, you <strong>must</strong> specify a delimiter option in both the <code>LOCATION</code> and <code>FORMAT</code> clauses.</p>
+
+<h3><a id="profile_hivetext_using"></a>Example: Using the HiveText Profile</h3>
+
+<p>Use the PXF <code>HiveText</code> profile to create a queryable HAWQ external table from the Hive <code>sales_info</code> textfile format table created earlier.</p>
+
+<ol>
+<li><p>Create the external table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">salesinfo_hivetextprofile</span><span class="p">(</span><span class="k">location</span> <span class="n">text</span><span class="p">,</span> <span class="k">month</span> <span class="n">text</span><span class="p">,</span> <span class="n">num_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">float8</span><span class="p">)</span>
+             <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/default.sales_info?PROFILE=HiveText&amp;DELIMITER=</span><span class="se">\x</span><span class="s1">2c'</span><span class="p">)</span>
+           <span class="n">FORMAT</span> <span class="s1">'TEXT'</span> <span class="p">(</span><span class="k">delimiter</span><span class="o">=</span><span class="n">E</span><span class="s1">','</span><span class="p">);</span>
+</code></pre>
+
+<p>(You can safely ignore the &ldquo;nonstandard use of escape in a string literal&rdquo; warning and related messages.)</p>
+
+<p>Notice that:</p>
+
+<ul>
+<li>The <code>LOCATION</code> subclause <code>DELIMITER</code> value is specified in hexadecimal format. <code>\x</code> is a prefix that instructs PXF to interpret the following characters as hexadecimal. <code>2c</code> is the hex value for the comma character.</li>
+<li>The <code>FORMAT</code> subclause <code>delimiter</code> value is specified as the single ascii comma character <code>&#39;,&#39;</code>. <code>E</code> escapes the character.</li>
+</ul></li>
+<li><p>Query the external table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">salesinfo_hivetextprofile</span> <span class="k">WHERE</span> <span class="k">location</span><span class="o">=</span><span class="s1">'Beijing'</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code> location | month | num_orders | total_sales
+----------+-------+------------+-------------
+ Beijing  | Jul   |        411 |    11600.67
+ Beijing  | Dec   |        100 |     4248.41
+<span class="o">(</span>2 rows<span class="o">)</span>
+</code></pre></li>
+</ol>
+
+<h2><a id="profile_hiverc"></a>HiveRC Profile</h2>
+
+<p>The RCFile Hive format is used for row columnar formatted data. The <code>HiveRC</code> profile provides access to RCFile data.</p>
+
+<p><strong>Note</strong>: When using the <code>HiveRC</code> profile, you <strong>must</strong> specify a delimiter option in both the <code>LOCATION</code> and <code>FORMAT</code> clauses.</p>
+
+<h3><a id="profile_hiverc_rcfiletbl_using"></a>Example: Using the HiveRC Profile</h3>
+
+<p>Use the <code>HiveRC</code> profile to query RCFile-formatted data in Hive tables.</p>
+
+<ol>
+<li><p>Create a Hive table with RCFile format:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nv">HADOOP_USER_NAME</span><span class="o">=</span>hdfs hive
+</code></pre>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">sales_info_rcfile</span> <span class="p">(</span><span class="k">location</span> <span class="n">string</span><span class="p">,</span> <span class="k">month</span> <span class="n">string</span><span class="p">,</span>
+        <span class="n">number_of_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">double</span><span class="p">)</span>
+      <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span>
+      <span class="n">STORED</span> <span class="k">AS</span> <span class="n">rcfile</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Insert the data from the <code>sales_info</code> table into <code>sales_info_rcfile</code>:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">sales_info_rcfile</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales_info</span><span class="p">;</span>
+</code></pre>
+
+<p>A copy of the sample data set is now stored in RCFile format in <code>sales_info_rcfile</code>. </p></li>
+<li><p>Perform a Hive query on <code>sales_info_rcfile</code> to verify that the data was loaded successfully:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales_info_rcfile</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Use the PXF <code>HiveRC</code> profile to create a queryable HAWQ external table from the Hive <code>sales_info_rcfile</code> table created in the previous step. You <em>must</em> specify a delimiter option in both the <code>LOCATION</code> and <code>FORMAT</code> clauses.:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">salesinfo_hivercprofile</span><span class="p">(</span><span class="k">location</span> <span class="n">text</span><span class="p">,</span> <span class="k">month</span> <span class="n">text</span><span class="p">,</span> <span class="n">num_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">float8</span><span class="p">)</span>
+             <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/default.sales_info_rcfile?PROFILE=HiveRC&amp;DELIMITER=</span><span class="se">\x</span><span class="s1">2c'</span><span class="p">)</span>
+           <span class="n">FORMAT</span> <span class="s1">'TEXT'</span> <span class="p">(</span><span class="k">delimiter</span><span class="o">=</span><span class="n">E</span><span class="s1">','</span><span class="p">);</span>
+</code></pre>
+
+<p>(Again, you can safely ignore the &ldquo;nonstandard use of escape in a string literal&rdquo; warning and related messages.)</p></li>
+<li><p>Query the external table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="k">location</span><span class="p">,</span> <span class="n">total_sales</span> <span class="k">FROM</span> <span class="n">salesinfo_hivercprofile</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code>   location    | total_sales
+---------------+-------------
+ Prague        |     4875.33
+ Rome          |     1557.39
+ Bangalore     |     8936.99
+ Beijing       |    11600.67
+ ...
+</code></pre></li>
+</ol>
+
+<h2><a id="hiveorc-intro"></a>HiveORC Profile</h2>
+
+<p>The Optimized Row Columnar (ORC) file format is a columnar file format that provides a highly efficient way to both store and access HDFS data. ORC format offers improvements over text and RCFile formats in terms of both compression and performance. HAWQ/PXF supports ORC version 1.2.1.</p>
+
+<p>ORC is type-aware and specifically designed for Hadoop workloads. ORC files store both the type of and encoding information for the data in the file. All columns within a single group of row data (also known as stripe) are stored together on disk in ORC format files. The columnar nature of the ORC format type enables read projection, helping avoid accessing unecessary columns during a query.</p>
+
+<p>ORC also supports predicate pushdown with built-in indexes at the file, stripe, and row levels, moving the filter operation to the data loading phase.</p>
+
+<p>Refer to the <a href="https://orc.apache.org/docs/">Apache orc</a> and the Apache Hive <a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC">LanguageManual ORC</a> websites for detailed information about the ORC file format.</p>
+
+<p>Use the <code>HiveORC</code> profile to access ORC format data. The <code>HiveORC</code> profile provides:</p>
+
+<ul>
+<li><p>Enhanced query performance - Column projection information is leveraged to enhance query performance by reducing disk I/O and data payload.</p></li>
+<li><p>Optimized predicate pushdown - Predicate pushdown is optimized for:</p>
+
+<ul>
+<li><code>int2</code>, <code>int4</code>, <code>int8</code>, <code>float8</code>, <code>text</code>, <code>bpchar</code>, and <code>boolean</code> data type and <code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>IS NULL</code>, and <code>IS NOT NULL</code> operator combinations</li>
+<li><code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>IS NULL</code>, and <code>IS NOT NULL</code> operators and comparisons between the integer types</li>
+<li><code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>IS NULL</code>, and <code>IS NOT NULL</code> operators and comparisons between the <code>float8</code> and <code>float4</code> types</li>
+<li><code>IN</code> operator on arrays of <code>int2</code>, <code>int4</code>, <code>int8</code>, <code>boolean</code>, and <code>text</code></li>
+</ul></li>
+<li><p>Complex type support - You can access Hive tables composed of array, map, struct, and union data types. PXF serializes each of these complex types to <code>text</code>.</p></li>
+</ul>
+
+<p><strong>Note</strong>: The <code>HiveORC</code> profile currently supports access to data stored in ORC format only through a Hive mapped table.</p>
+
+<h3><a id="using-hiveorc-profile"></a>Example: Using the HiveORC Profile</h3>
+
+<p>In the following example, you will create a Hive table stored in ORC format and use the <code>HiveORC</code> profile to query this Hive table.</p>
+
+<ol>
+<li><p>Create a Hive table with ORC file format:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nv">HADOOP_USER_NAME</span><span class="o">=</span>hdfs hive
+</code></pre>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">sales_info_ORC</span> <span class="p">(</span><span class="k">location</span> <span class="n">string</span><span class="p">,</span> <span class="k">month</span> <span class="n">string</span><span class="p">,</span>
+        <span class="n">number_of_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">double</span><span class="p">)</span>
+      <span class="n">STORED</span> <span class="k">AS</span> <span class="n">ORC</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Insert the data from the <code>sales_info</code> table into <code>sales_info_ORC</code>:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">sales_info_ORC</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales_info</span><span class="p">;</span>
+</code></pre>
+
+<p>A copy of the sample data set is now stored in ORC format in <code>sales_info_ORC</code>.</p></li>
+<li><p>Perform a Hive query on <code>sales_info_ORC</code> to verify that the data was loaded successfully:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales_info_ORC</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem and turn on timing:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d postgres
+</code></pre>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">timing</span>
+<span class="n">Timing</span> <span class="k">is</span> <span class="k">on</span><span class="p">.</span>
+</code></pre></li>
+<li><p>Use the PXF <code>HiveORC</code> profile to create a queryable HAWQ external table from the Hive table named <code>sales_info_ORC</code> you created in Step 1. The <code>FORMAT</code> clause must specify <code>&#39;CUSTOM&#39;</code>. The <code>HiveORC</code> <code>CUSTOM</code> format supports only the built-in <code>&#39;pxfwritable_import&#39;</code> <code>formatter</code>.</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">salesinfo_hiveORCprofile</span><span class="p">(</span><span class="k">location</span> <span class="n">text</span><span class="p">,</span> <span class="k">month</span> <span class="n">text</span><span class="p">,</span> <span class="n">num_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">float8</span><span class="p">)</span>
+             <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/default.sales_info_ORC?PROFILE=HiveORC'</span><span class="p">)</span>
+             <span class="n">FORMAT</span> <span class="s1">'CUSTOM'</span> <span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Query the external table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">salesinfo_hiveORCprofile</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight plaintext"><code>   location    | month | number_of_orders | total_sales 
+---------------+-------+------------------+-------------
+ Prague        | Jan   |              101 |     4875.33
+ Rome          | Mar   |               87 |     1557.39
+ Bangalore     | May   |              317 |     8936.99
+ ...
+
+Time: 425.416 ms
+</code></pre></li>
+</ol>
+
+<h2><a id="topic_dbb_nz3_ts"></a>Accessing Parquet-Format Hive Tables</h2>
+
+<p>The PXF <code>Hive</code> profile supports both non-partitioned and partitioned Hive tables that use the Parquet storage format in HDFS. Simply map the table columns using equivalent HAWQ data types. For example, if a Hive table is created using:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">hive_parquet_table</span> <span class="p">(</span><span class="n">fname</span> <span class="n">string</span><span class="p">,</span> <span class="n">lname</span> <span class="n">string</span><span class="p">,</span> <span class="n">custid</span> <span class="n">int</span><span class="p">,</span> <span class="n">acctbalance</span> <span class="n">double</span><span class="p">)</span>
+        <span class="n">STORED</span> <span class="k">AS</span> <span class="n">parquet</span><span class="p">;</span>
+</code></pre>
+
+<p>Define the HAWQ external table using:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">pxf_parquet_table</span> <span class="p">(</span><span class="n">fname</span> <span class="n">text</span><span class="p">,</span> <span class="n">lname</span> <span class="n">text</span><span class="p">,</span> <span class="n">custid</span> <span class="n">int</span><span class="p">,</span> <span class="n">acctbalance</span> <span class="n">double</span> <span class="k">precision</span><span class="p">)</span>
+    <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/hive-db-name.hive_parquet_table?profile=Hive'</span><span class="p">)</span>
+    <span class="n">FORMAT</span> <span class="s1">'CUSTOM'</span> <span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span><span class="p">);</span>
+</code></pre>
+
+<p>And query the HAWQ external table using:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="n">fname</span><span class="p">,</span><span class="n">lname</span> <span class="k">FROM</span> <span class="n">pxf_parquet_table</span><span class="p">;</span>
+</code></pre>
+
+<h2><a id="complex_dt_example"></a> Complex Data Types</h2>
+
+<h3><a id="complex_dt_example"></a>Example: Using the Hive Profile with Complex Data Types</h3>
+
+<p>This example employs the <code>Hive</code> profile and the array and map complex types, specifically an array of integers and a string key/value pair map.</p>
+
+<p>The data schema for this example includes fields with the following names and data types:</p>
+
+<table><thead>
+<tr>
+<th>Field Name</th>
+<th>Data Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>index</td>
+<td>int</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+</tr>
+<tr>
+<td>intarray</td>
+<td>array of integers</td>
+</tr>
+<tr>
+<td>propmap</td>
+<td>map of string key and value pairs</td>
+</tr>
+</tbody></table>
+
+<p>When specifying an array field in a Hive table, you must identify the terminator for each item in the collection. Similarly, the map key termination character must also be specified.</p>
+
+<ol>
+<li><p>Create a text file from which you will load the data set:</p>
+<pre class="highlight plaintext"><code>$ vi /tmp/pxf_hive_complex.txt
+</code></pre></li>
+<li><p>Add the following data to <code>pxf_hive_complex.txt</code>.  The data uses a comma <code>,</code> to separate field values, the percent symbol <code>%</code> to separate collection items, and a <code>:</code> to terminate map key values:</p>
+<pre class="highlight plaintext"><code>3,Prague,1%2%3,zone:euro%status:up
+89,Rome,4%5%6,zone:euro
+400,Bangalore,7%8%9,zone:apac%status:pending
+183,Beijing,0%1%2,zone:apac
+94,Sacramento,3%4%5,zone:noam%status:down
+101,Paris,6%7%8,zone:euro%status:up
+56,Frankfurt,9%0%1,zone:euro
+202,Jakarta,2%3%4,zone:apac%status:up
+313,Sydney,5%6%7,zone:apac%status:pending
+76,Atlanta,8%9%0,zone:noam%status:down
+</code></pre></li>
+<li><p>Create a Hive table to represent this data:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nv">HADOOP_USER_NAME</span><span class="o">=</span>hdfs hive
+</code></pre>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">table_complextypes</span><span class="p">(</span> <span class="k">index</span> <span class="n">int</span><span class="p">,</span> <span class="n">name</span> <span class="n">string</span><span class="p">,</span> <span class="n">intarray</span> <span class="n">ARRAY</span><span class="o">&lt;</span><span class="n">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">propmap</span> <span class="k">MAP</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span><span class="p">)</span>
+         <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span>
+         <span class="n">COLLECTION</span> <span class="n">ITEMS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">'%'</span>
+         <span class="k">MAP</span> <span class="n">KEYS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">':'</span>
+         <span class="n">STORED</span> <span class="k">AS</span> <span class="n">TEXTFILE</span><span class="p">;</span>
+</code></pre>
+
+<p>Notice that:</p>
+
+<ul>
+<li><code>FIELDS TERMINATED BY</code> identifies a comma as the field terminator.</li>
+<li>The <code>COLLECTION ITEMS TERMINATED BY</code> subclause specifies the percent sign as the collection items (array item, map key/value pair) terminator.</li>
+<li><code>MAP KEYS TERMINATED BY</code> identifies a colon as the terminator for map keys.</li>
+</ul></li>
+<li><p>Load the <code>pxf_hive_complex.txt</code> sample data file into the <code>table_complextypes</code> table you just created:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">LOAD</span> <span class="k">DATA</span> <span class="k">LOCAL</span> <span class="n">INPATH</span> <span class="s1">'/tmp/pxf_hive_complex.txt'</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">table_complextypes</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Perform a query on Hive table <code>table_complextypes</code> to verify that the data was loaded successfully:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">table_complextypes</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code>3   Prague  <span class="o">[</span>1,2,3] <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"euro"</span>,<span class="s2">"status"</span>:<span class="s2">"up"</span><span class="o">}</span>
+89  Rome    <span class="o">[</span>4,5,6] <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"euro"</span><span class="o">}</span>
+400 Bangalore   <span class="o">[</span>7,8,9] <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"apac"</span>,<span class="s2">"status"</span>:<span class="s2">"pending"</span><span class="o">}</span>
+...
+</code></pre></li>
+<li><p>Use the PXF <code>Hive</code> profile to create a queryable HAWQ external table representing the Hive <code>table_complextypes</code>:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">complextypes_hiveprofile</span><span class="p">(</span><span class="k">index</span> <span class="n">int</span><span class="p">,</span> <span class="n">name</span> <span class="n">text</span><span class="p">,</span> <span class="n">intarray</span> <span class="n">text</span><span class="p">,</span> <span class="n">propmap</span> <span class="n">text</span><span class="p">)</span>
+             <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/table_complextypes?PROFILE=Hive'</span><span class="p">)</span>
+           <span class="n">FORMAT</span> <span class="s1">'CUSTOM'</span> <span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span><span class="p">);</span>
+</code></pre>
+
+<p>Notice that the integer array and map complex types are mapped to type text.</p></li>
+<li><p>Query the external table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">complextypes_hiveprofile</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code> index |    name    | intarray |              propmap
+-------+------------+----------+------------------------------------
+     3 | Prague     | <span class="o">[</span>1,2,3]  | <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"euro"</span>,<span class="s2">"status"</span>:<span class="s2">"up"</span><span class="o">}</span>
+    89 | Rome       | <span class="o">[</span>4,5,6]  | <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"euro"</span><span class="o">}</span>
+   400 | Bangalore  | <span class="o">[</span>7,8,9]  | <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"apac"</span>,<span class="s2">"status"</span>:<span class="s2">"pending"</span><span class="o">}</span>
+   183 | Beijing    | <span class="o">[</span>0,1,2]  | <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"apac"</span><span class="o">}</span>
+    94 | Sacramento | <span class="o">[</span>3,4,5]  | <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"noam"</span>,<span class="s2">"status"</span>:<span class="s2">"down"</span><span class="o">}</span>
+   101 | Paris      | <span class="o">[</span>6,7,8]  | <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"euro"</span>,<span class="s2">"status"</span>:<span class="s2">"up"</span><span class="o">}</span>
+    56 | Frankfurt  | <span class="o">[</span>9,0,1]  | <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"euro"</span><span class="o">}</span>
+   202 | Jakarta    | <span class="o">[</span>2,3,4]  | <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"apac"</span>,<span class="s2">"status"</span>:<span class="s2">"up"</span><span class="o">}</span>
+   313 | Sydney     | <span class="o">[</span>5,6,7]  | <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"apac"</span>,<span class="s2">"status"</span>:<span class="s2">"pending"</span><span class="o">}</span>
+    76 | Atlanta    | <span class="o">[</span>8,9,0]  | <span class="o">{</span><span class="s2">"zone"</span>:<span class="s2">"noam"</span>,<span class="s2">"status"</span>:<span class="s2">"down"</span><span class="o">}</span>
+<span class="o">(</span>10 rows<span class="o">)</span>
+</code></pre>
+
+<p><code>intarray</code> and <code>propmap</code> are each serialized as text strings.</p></li>
+</ol>
+
+<h3><a id="using-hiveorc-profile-complex"></a>Example: Using the HiveORC Profile with Complex Data Types</h3>
+
+<p>In the following example, you will create a Hive table stored in ORC format. You will use the <code>HiveORC</code> profile to query the complex types in the <code>table_complextypes</code> Hive table you created in the previous exercise.</p>
+
+<ol>
+<li><p>Create a Hive table with ORC file format:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nv">HADOOP_USER_NAME</span><span class="o">=</span>hdfs hive
+</code></pre>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">table_complextypes_ORC</span><span class="p">(</span> <span class="k">index</span> <span class="n">int</span><span class="p">,</span> <span class="n">name</span> <span class="n">string</span><span class="p">,</span> <span class="n">intarray</span> <span class="n">ARRAY</span><span class="o">&lt;</span><span class="n">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">propmap</span> <span class="k">MAP</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span><span class="p">)</span>
+        <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span>
+        <span class="n">COLLECTION</span> <span class="n">ITEMS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">'%'</span>
+        <span class="k">MAP</span> <span class="n">KEYS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">':'</span>
+      <span class="n">STORED</span> <span class="k">AS</span> <span class="n">ORC</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Insert the data from the <code>table_complextypes</code> table into <code>table_complextypes_ORC</code>:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">table_complextypes_ORC</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">table_complextypes</span><span class="p">;</span>
+</code></pre>
+
+<p>A copy of the sample data set is now stored in ORC format in <code>table_complextypes_ORC</code>.</p></li>
+<li><p>Perform a Hive query on <code>table_complextypes_ORC</code> to verify that the data was loaded successfully:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">table_complextypes_ORC</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight plaintext"><code>OK
+3       Prague       [1,2,3]    {"zone":"euro","status":"up"}
+89      Rome         [4,5,6]    {"zone":"euro"}
+400     Bangalore    [7,8,9]    {"zone":"apac","status":"pending"}
+...
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d postgres
+</code></pre></li>
+<li><p>Use the PXF <code>HiveORC</code> profile to create a queryable HAWQ external table from the Hive table named <code>table_complextypes_ORC</code> you created in Step 1. The <code>FORMAT</code> clause must specify <code>&#39;CUSTOM&#39;</code>. The <code>HiveORC</code> <code>CUSTOM</code> format supports only the built-in <code>&#39;pxfwritable_import&#39;</code> <code>formatter</code>.</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">complextypes_hiveorc</span><span class="p">(</span><span class="k">index</span> <span class="n">int</span><span class="p">,</span> <span class="n">name</span> <span class="n">text</span><span class="p">,</span> <span class="n">intarray</span> <span class="n">text</span><span class="p">,</span> <span class="n">propmap</span> <span class="n">text</span><span class="p">)</span>
+           <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/default.table_complextypes_ORC?PROFILE=HiveORC'</span><span class="p">)</span>
+             <span class="n">FORMAT</span> <span class="s1">'CUSTOM'</span> <span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span><span class="p">);</span>
+</code></pre>
+
+<p>Notice that the integer array and map complex types are mapped to type text.</p></li>
+<li><p>Query the external table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">complextypes_hiveorc</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight plaintext"><code> index |    name    | intarray |              propmap               
+-------+------------+----------+------------------------------------
+     3 | Prague     | [1,2,3]  | {"zone":"euro","status":"up"}
+    89 | Rome       | [4,5,6]  | {"zone":"euro"}
+   400 | Bangalore  | [7,8,9]  | {"zone":"apac","status":"pending"}
+ ...
+
+</code></pre>
+
+<p><code>intarray</code> and <code>propmap</code> are each serialized as text strings.</p></li>
+</ol>
+
+<h2><a id="partitionfiltering"></a>Partition Filtering</h2>
+
+<p>The PXF Hive plug-in supports the Hive partitioning feature and directory structure. This enables partition exclusion on selected HDFS files comprising the Hive table. To use the partition filtering feature to reduce network traffic and I/O, run a PXF query using a <code>WHERE</code> clause that refers to a specific partition in the partitioned Hive table.</p>
+
+<p>To take advantage of PXF partition filtering push-down, the Hive and PXF partition field names should be the same. Otherwise, PXF ignores partition filtering and the filtering is performed on the HAWQ side, impacting performance.</p>
+
+<p><strong>Note:</strong> The Hive plug-in filters only on partition columns, not on other table attributes.</p>
+
+<h3><a id="partitionfiltering_pushdowncfg"></a>Configure Partition Filtering Push-Down</h3>
+
+<p>PXF partition filtering push-down is enabled by default. To disable PXF partition filtering push-down, set the <code>pxf_enable_filter_pushdown</code> HAWQ server configuration parameter to <code>off</code>:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SHOW</span> <span class="n">pxf_enable_filter_pushdown</span><span class="p">;</span>
+ <span class="n">pxf_enable_filter_pushdown</span>
+<span class="c1">-----------------------------</span>
+ <span class="k">on</span>
+<span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="k">SET</span> <span class="n">pxf_enable_filter_pushdown</span><span class="o">=</span><span class="k">off</span><span class="p">;</span>
+</code></pre>
+
+<h3><a id="example_hive_part"></a>Example: Using the Hive Profile to Access Partitioned Homogenous Data</h3>
+
+<p>In this example, you will use the <code>Hive</code> profile to query a Hive table named <code>sales_part</code> you partition on <code>delivery_state</code> and <code>delivery_city</code> fields.  You will then create a HAWQ external table to query <code>sales_part</code>, including specific examples illustrating filter pushdown.</p>
+
+<ol>
+<li><p>Create a Hive table named <code>sales_part</code> with two partition columns, <code>delivery_state</code> and <code>delivery_city:</code></p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">sales_part</span> <span class="p">(</span><span class="n">name</span> <span class="n">string</span><span class="p">,</span> <span class="k">type</span> <span class="n">string</span><span class="p">,</span> <span class="n">supplier_key</span> <span class="n">int</span><span class="p">,</span> <span class="n">price</span> <span class="n">double</span><span class="p">)</span>
+        <span class="n">PARTITIONED</span> <span class="k">BY</span> <span class="p">(</span><span class="n">delivery_state</span> <span class="n">string</span><span class="p">,</span> <span class="n">delivery_city</span> <span class="n">string</span><span class="p">)</span>
+        <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Load data into this Hive table and add some partitions:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">sales_part</span> 
+        <span class="n">PARTITION</span><span class="p">(</span><span class="n">delivery_state</span> <span class="o">=</span> <span class="s1">'CALIFORNIA'</span><span class="p">,</span> <span class="n">delivery_city</span> <span class="o">=</span> <span class="s1">'Fresno'</span><span class="p">)</span> 
+        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'block'</span><span class="p">,</span> <span class="s1">'widget'</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">15</span><span class="p">.</span><span class="mi">17</span><span class="p">);</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">sales_part</span> 
+        <span class="n">PARTITION</span><span class="p">(</span><span class="n">delivery_state</span> <span class="o">=</span> <span class="s1">'CALIFORNIA'</span><span class="p">,</span> <span class="n">delivery_city</span> <span class="o">=</span> <span class="s1">'Sacramento'</span><span class="p">)</span> 
+        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'cube'</span><span class="p">,</span> <span class="s1">'widget'</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">.</span><span class="mi">17</span><span class="p">);</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">sales_part</span> 
+        <span class="n">PARTITION</span><span class="p">(</span><span class="n">delivery_state</span> <span class="o">=</span> <span class="s1">'NEVADA'</span><span class="p">,</span> <span class="n">delivery_city</span> <span class="o">=</span> <span class="s1">'Reno'</span><span class="p">)</span> 
+        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'dowel'</span><span class="p">,</span> <span class="s1">'widget'</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">31</span><span class="p">.</span><span class="mi">82</span><span class="p">);</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">sales_part</span> 
+        <span class="n">PARTITION</span><span class="p">(</span><span class="n">delivery_state</span> <span class="o">=</span> <span class="s1">'NEVADA'</span><span class="p">,</span> <span class="n">delivery_city</span> <span class="o">=</span> <span class="s1">'Las Vegas'</span><span class="p">)</span> 
+        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'px49'</span><span class="p">,</span> <span class="s1">'pipe'</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">99</span><span class="p">.</span><span class="mi">82</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Query the <code>sales_part</code> table:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales_part</span><span class="p">;</span>
+</code></pre>
+
+<p>A <code>SELECT *</code> statement on a Hive partitioned table shows the partition fields at the end of the record.</p></li>
+<li><p>Examine the Hive/HDFS directory structure for the <code>sales_part</code> table:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>sudo -u hdfs hdfs dfs -ls -R /apps/hive/warehouse/sales_part
+/apps/hive/warehouse/sales_part/delivery_state<span class="o">=</span>CALIFORNIA/delivery_city<span class="o">=</span>Fresno/
+/apps/hive/warehouse/sales_part/delivery_state<span class="o">=</span>CALIFORNIA/delivery_city<span class="o">=</span>Sacramento/
+/apps/hive/warehouse/sales_part/delivery_state<span class="o">=</span>NEVADA/delivery_city<span class="o">=</span>Reno/
+/apps/hive/warehouse/sales_part/delivery_state<span class="o">=</span>NEVADA/delivery_city<span class="o">=</span>Las Vegas/
+</code></pre></li>
+<li><p>Create a PXF external table to read the partitioned <code>sales_part</code> Hive table.  To take advantage of partition filter push-down, define fields corresponding to the Hive partition fields at the end of the <code>CREATE EXTERNAL TABLE</code> attribute list.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d postgres
+</code></pre>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">pxf_sales_part</span><span class="p">(</span>
+             <span class="n">item_name</span> <span class="n">TEXT</span><span class="p">,</span> <span class="n">item_type</span> <span class="n">TEXT</span><span class="p">,</span> 
+             <span class="n">supplier_key</span> <span class="n">INTEGER</span><span class="p">,</span> <span class="n">item_price</span> <span class="n">DOUBLE</span> <span class="k">PRECISION</span><span class="p">,</span> 
+             <span class="n">delivery_state</span> <span class="n">TEXT</span><span class="p">,</span> <span class="n">delivery_city</span> <span class="n">TEXT</span><span class="p">)</span>
+           <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/sales_part?Profile=Hive'</span><span class="p">)</span>
+           <span class="n">FORMAT</span> <span class="s1">'CUSTOM'</span> <span class="p">(</span><span class="n">FORMATTER</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Query the table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_sales_part</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Perform another query (no pushdown) on <code>pxf_sales_part</code> to return records where the <code>delivery_city</code> is <code>Sacramento</code> and  <code>item_name</code> is <code>cube</code></p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_sales_part</span> <span class="k">WHERE</span> <span class="n">delivery_city</span> <span class="o">=</span> <span class="s1">'Sacramento'</span> <span class="k">AND</span> <span class="n">item_name</span> <span class="o">=</span> <span class="s1">'cube'</span><span class="p">;</span>
+</code></pre>
+
+<p>The query filters the <code>delivery_city</code> partition <code>Sacramento</code>. The filter on  <code>item_name</code> is not pushed down, since it is not a partition column. It is performed on the HAWQ side after all the data in the <code>Sacramento</code> partition is transferred for processing.</p></li>
+<li><p>Query (with pushdown) for all records where <code>delivery_state</code> is <code>CALIFORNIA</code>:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SET</span> <span class="n">pxf_enable_filter_pushdown</span><span class="o">=</span><span class="k">on</span><span class="p">;</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_sales_part</span> <span class="k">WHERE</span> <span class="n">delivery_state</span> <span class="o">=</span> <span class="s1">'CALIFORNIA'</span><span class="p">;</span>
+</code></pre>
+
+<p>This query reads all of the data in the <code>CALIFORNIA</code> <code>delivery_state</code> partition, regardless of the city.</p></li>
+</ol>
+
+<h3><a id="example_hive_part_multi"></a>Example: Using the Hive Profile to Access Partitioned Heterogenous Data</h3>
+
+<p>The <code>Hive</code> profile supports multiple data format types. This support enables you  to query a partitioned Hive table that may be composed of data of different formats.</p>
+
+<p>In this example, you will use the <code>Hive</code> profile both directly and indirectly via PXF HCatalog integration to query a partitioned Hive external table. The table is composed of the HDFS data files associated with the <code>sales_info</code> (text format) and <code>sales_info_rcfile</code> (RC format) Hive tables you created in previous exercises. You will partition the data by year, assigning the data from <code>sales_info</code> to the year 2013, and the data from <code>sales_info_rcfile</code> to the year 2016. (Ignore at the moment the fact that the tables contain the same data.)</p>
+
+<ol>
+<li><p>Create a Hive external table named <code>hive_multiformpart</code> that is partitioned by a string field named <code>year</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nv">HADOOP_USER_NAME</span><span class="o">=</span>hdfs hive
+</code></pre>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">hive_multiformpart</span><span class="p">(</span> <span class="k">location</span> <span class="n">string</span><span class="p">,</span> <span class="k">month</span> <span class="n">string</span><span class="p">,</span> <span class="n">number_of_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">double</span><span class="p">)</span>
+        <span class="n">PARTITIONED</span> <span class="k">BY</span><span class="p">(</span> <span class="k">year</span> <span class="n">string</span> <span class="p">)</span>
+        <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Describe the <code>sales_info</code> and <code>sales_info_rcfile</code> tables, making note of the HDFS file <code>location</code>s:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">DESCRIBE</span> <span class="n">EXTENDED</span> <span class="n">sales_info</span><span class="p">;</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">DESCRIBE</span> <span class="n">EXTENDED</span> <span class="n">sales_info_rcfile</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Create partitions in the <code>hive_multiformpart</code> table for the HDFS locations associated with each of the <code>sales_info</code> and <code>sales_info_rcfile</code> tables:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">hive_multiformpart</span> <span class="k">ADD</span> <span class="n">PARTITION</span> <span class="p">(</span><span class="k">year</span> <span class="o">=</span> <span class="s1">'2013'</span><span class="p">)</span> <span class="k">LOCATION</span> <span class="s1">'hdfs://namenode:8020/apps/hive/warehouse/sales_info'</span><span class="p">;</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">hive_multiformpart</span> <span class="k">ADD</span> <span class="n">PARTITION</span> <span class="p">(</span><span class="k">year</span> <span class="o">=</span> <span class="s1">'2016'</span><span class="p">)</span> <span class="k">LOCATION</span> <span class="s1">'hdfs://namenode:8020/apps/hive/warehouse/sales_info_rcfile'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Explicitly identify the file format of the partition associated with the  <code>sales_info_rcfile</code> table:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">hive_multiformpart</span> <span class="n">PARTITION</span> <span class="p">(</span><span class="k">year</span><span class="o">=</span><span class="s1">'2016'</span><span class="p">)</span> <span class="k">SET</span> <span class="n">FILEFORMAT</span> <span class="n">RCFILE</span><span class="p">;</span>
+</code></pre>
+
+<p>You need not specify the file format of the partition associated with the <code>sales_info</code> table, as <code>TEXTFILE</code> format is the default.</p></li>
+<li><p>Query the <code>hive_multiformpart</code> table:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">from</span> <span class="n">hive_multiformpart</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="n">Bangalore</span>   <span class="n">Jul</span> <span class="mi">271</span> <span class="mi">8320</span><span class="p">.</span><span class="mi">55</span> <span class="mi">2016</span>
+<span class="n">Beijing</span> <span class="n">Dec</span> <span class="mi">100</span> <span class="mi">4248</span><span class="p">.</span><span class="mi">41</span> <span class="mi">2016</span>
+<span class="n">Prague</span>  <span class="n">Jan</span> <span class="mi">101</span> <span class="mi">4875</span><span class="p">.</span><span class="mi">33</span> <span class="mi">2013</span>
+<span class="n">Rome</span>    <span class="n">Mar</span> <span class="mi">87</span>  <span class="mi">1557</span><span class="p">.</span><span class="mi">39</span> <span class="mi">2013</span>
+<span class="p">...</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">from</span> <span class="n">hive_multiformpart</span> <span class="k">WHERE</span> <span class="k">year</span><span class="o">=</span><span class="s1">'2013'</span><span class="p">;</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">from</span> <span class="n">hive_multiformpart</span> <span class="k">WHERE</span> <span class="k">year</span><span class="o">=</span><span class="s1">'2016'</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Show the partitions defined for the <code>hive_multiformpart</code> table and exit <code>hive</code>:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SHOW</span> <span class="n">PARTITIONS</span> <span class="n">hive_multiformpart</span><span class="p">;</span>
+<span class="k">year</span><span class="o">=</span><span class="mi">2013</span>
+<span class="k">year</span><span class="o">=</span><span class="mi">2016</span>
+<span class="n">hive</span><span class="o">&gt;</span> <span class="n">quit</span><span class="p">;</span>
+</code></pre></li>
+<li><p>Start the <code>psql</code> subsystem:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>psql -d postgres
+</code></pre></li>
+<li><p>Use PXF HCatalog integration to query the Hive <code>hive_multiformpart</code> external table you created in the previous steps:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">hcatalog</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">hive_multiformpart</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code>   location    | month | number_of_orders | total_sales | year 
+---------------+-------+------------------+-------------+------
+ ...
+ Prague        | Dec   |              333 |     9894.77 | 2013
+ Bangalore     | Jul   |              271 |     8320.55 | 2013
+ Beijing       | Dec   |              100 |     4248.41 | 2013
+ Prague        | Jan   |              101 |     4875.33 | 2016
+ Rome          | Mar   |               87 |     1557.39 | 2016
+ Bangalore     | May   |              317 |     8936.99 | 2016
+ ...
+</code></pre></li>
+<li><p>Use the PXF <code>Hive</code> profile to create a readable HAWQ external table derived from the Hive <code>hive_multiformpart</code> external table you created in the previous steps:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">pxf_multiformpart</span><span class="p">(</span><span class="k">location</span> <span class="n">text</span><span class="p">,</span> <span class="k">month</span> <span class="n">text</span><span class="p">,</span> <span class="n">num_orders</span> <span class="n">int</span><span class="p">,</span> <span class="n">total_sales</span> <span class="n">float8</span><span class="p">,</span> <span class="k">year</span> <span class="n">text</span><span class="p">)</span>
+             <span class="k">LOCATION</span> <span class="p">(</span><span class="s1">'pxf://namenode:51200/default.hive_multiformpart?PROFILE=Hive'</span><span class="p">)</span>
+           <span class="n">FORMAT</span> <span class="s1">'CUSTOM'</span> <span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s1">'pxfwritable_import'</span><span class="p">);</span>
+</code></pre></li>
+<li><p>Query the PXF external table:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pxf_multiformpart</span><span class="p">;</span>
+</code></pre>
+<pre class="highlight shell"><code>   location    | month | num_orders | total_sales | year 
+---------------+-------+------------+-------------+--------
+ ....
+ Prague        | Dec   |        333 |     9894.77 | 2013
+ Bangalore     | Jul   |        271 |     8320.55 | 2013
+ Beijing       | Dec   |        100 |     4248.41 | 2013
+ Prague        | Jan   |        101 |     4875.33 | 2016
+ Rome          | Mar   |         87 |     1557.39 | 2016
+ Bangalore     | May   |        317 |     8936.99 | 2016
+ ....
+</code></pre></li>
+<li><p>Perform a second query to calculate the total number of orders for the year 2013:</p>
+<pre class="highlight sql"><code><span class="n">postgres</span><span class="o">=#</span> <span class="k">SELECT</span> <span class="k">sum</span><span class="p">(</span><span class="n">num_orders</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">pxf_multiformpart</span> <span class="k">WHERE</span> <span class="k">month</span><span class="o">=</span><span class="s1">'Dec'</span> <span class="k">AND</span> <span class="k">year</span><span class="o">=</span><span class="s1">'2013'</span><span class="p">;</span>
+ <span class="k">sum</span> 
+<span class="c1">-----</span>
+ <span class="mi">433</span>
+</code></pre></li>
+</ol>
+
+<h2><a id="topic_fdm_zrh_1s"></a>Using PXF with Hive Default Partitions</h2>
+
+<p>This topic describes a difference in query results between Hive and PXF queries when Hive tables use a default partition. When dynamic partitioning is enabled in Hive, a partitioned table may store data in a default partition. Hive creates a default partition when the value of a partitioning column does not match the defined type of the column (for example, when a NULL value is used for any partitioning column). In Hive, any query that includes a filter on a partition column <em>excludes</em> any data that is stored in the table&rsquo;s default partition.</p>
+
+<p>Similar to Hive, PXF represents a table&rsquo;s partitioning columns as columns that are appended to the end of the table. However, PXF translates any column value in a default partition to a NULL value. This means that a HAWQ query that includes an IS NULL filter on a partitioning column can return different results than the same Hive query.</p>
+
+<p>Consider a Hive partitioned table that is created with the statement:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">sales</span> <span class="p">(</span><span class="n">order_id</span> <span class="n">bigint</span><span class="p">,</span> <span class="n">order_amount</span> <span class="n">float</span><span class="p">)</span> <span class="n">PARTITIONED</span> <span class="k">BY</span> <span class="p">(</span><span class="n">xdate</span> <span class="n">date</span><span class="p">);</span>
+</code></pre>
+
+<p>The table is loaded with five rows that contain the following data:</p>
+<pre class="highlight plaintext"><code>1.0    1900-01-01
+2.2    1994-04-14
+3.3    2011-03-31
+4.5    NULL
+5.0    2013-12-06
+</code></pre>
+
+<p>The insertion of row 4 creates a Hive default partition, because the partition column <code>xdate</code> contains a null value.</p>
+
+<p>In Hive, any query that filters on the partition column omits data in the default partition. For example, the following query returns no rows:</p>
+<pre class="highlight sql"><code><span class="n">hive</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sales</span> <span class="k">WHERE</span> <span class="n">xdate</span> <span class="k">IS</span> <span class="k">null</span><span class="p">;</span>
+</code></pre>
+
+<p>However, if you map this table as a PXF external table in HAWQ, all default partition values are translated into actual NULL values. In HAWQ, executing the same query against the PXF table returns row 4 as the result, because the filter matches the NULL value.</p>
+
+<p>Keep this behavior in mind when executing IS NULL queries on Hive partitioned tables.</p>
+
+        
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<div id="scrim"></div>
+
+<div class="container">
+  <footer class="site-footer-links">
+    
+  </footer>
+</div><!--end of container-->
+
+</body>
+</html>

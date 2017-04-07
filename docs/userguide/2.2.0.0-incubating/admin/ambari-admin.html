@@ -1,0 +1,1612 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Always force latest IE rendering engine or request Chrome Frame -->
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400italic,400,600' rel='stylesheet' type='text/css'>
+  <!-- Use title if it's in the page YAML frontmatter -->
+  <title>
+      Managing HAWQ Using Ambari |
+    Apache HAWQ (Incubating) Docs
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/stylesheets/all.css" rel="stylesheet" media="screen, print" />
+  <link href="/stylesheets/print.css" rel="stylesheet" media="print" />
+  <link href='/images/favicon.ico' rel='shortcut icon'>
+
+  <script src="/javascripts/all.js"></script>
+  
+</head>
+
+<body class="docs docs_userguide docs_userguide_2_2_0_0-incubating docs_userguide_2_2_0_0-incubating_admin docs_userguide_2_2_0_0-incubating_admin_ambari-admin has-subnav">
+
+<div class="viewport">
+  <div class='wrap'>
+    <script type="text/javascript">
+      document.domain = "";
+    </script>
+
+     
+  <header class="header header-layout">
+    <h1 class="logo">
+      <a href="/">Apache HAWQ (incubating) Documentation</a>
+    </h1>
+    
+    <div class="header-links js-bar-links">
+      <div class="btn-menu" data-behavior="MenuMobile"></div>
+      <div class="header-item"><a href="http://hawq.incubator.apache.org/">Back to Apache HAWQ Page</a></div>
+      <div class="header-item">
+        <a href="https://issues.apache.org/jira/browse/HAWQ" target="_blank">Issues</a>
+      </div>
+      
+    </div>
+  </header>
+
+
+    <div class="container">
+
+      <!--googleoff: index-->
+      <div id="sub-nav" class="js-sidenav nav-container" role="navigation">
+  <a class="sidenav-title" data-behavior="SubMenuMobile">  Doc Index</a>
+  <div class="nav-content">
+    <ul>
+      <li>
+        Apache HAWQ (incubating)
+      </li>
+      <li><a href="/docs/userguide/2.2.0.0-incubating/requirements/system-requirements.html">System Requirements</a>
+      </li>
+      <li class="has_submenu">
+        <span>
+          HAWQ System Overview
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/HAWQOverview.html">What is HAWQ?</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/HAWQArchitecture.html">HAWQ Architecture</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/TableDistributionStorage.html">Table Distribution and Storage</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/ElasticSegments.html">Elastic Query Execution Runtime</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/ResourceManagement.html">Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/HDFSCatalogCache.html">HDFS Catalog Cache</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/ManagementTools.html">Management Tools</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/overview/RedundancyFailover.html">High Availability, Redundancy and Fault Tolerance</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Running a HAWQ Cluster
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/RunningHAWQ.html">Overview</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/setuphawqopenv.html">Introducing the HAWQ Operating Environment</a>
+          </li>
+          <li class="has_submenu">
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/ambari-admin.html">Managing HAWQ Using Ambari</a>
+           <ul>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+            </li>
+           </ul>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/startstop.html">Starting and Stopping HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/ClusterExpansion.html">Expanding a Cluster</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/ClusterShrink.html">Removing a Node</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/BackingUpandRestoringHAWQDatabases.html">Backing Up and Restoring HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/HighAvailability.html">High Availability in HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/MasterMirroring.html">Master Mirroring</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/HAWQFilespacesandHighAvailabilityEnabledHDFS.html">HAWQ Filespaces and High Availability Enabled HDFS</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/FaultTolerance.html">Understanding the Fault Tolerance Service</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/RecommendedMonitoringTasks.html">Recommended Monitoring and Maintenance Tasks</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/maintain.html">Routine System Maintenance Tasks</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Managing Resources
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/HAWQResourceManagement.html">How HAWQ Manages Resources</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/best-practices.html">Best Practices for Configuring Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/ConfigureResourceManagement.html">Configuring Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/YARNIntegration.html">Integrating YARN with HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/ResourceQueues.html">Working with Hierarchical Resource Queues</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/ResourceManagerStatus.html">Analyzing Resource Manager Status</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Managing Client Access
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/client_auth.html">Configuring Client Authentication</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/ldap.html">Using LDAP Authentication with TLS/SSL</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/kerberos.html">Using Kerberos Authentication</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/disable-kerberos.html">Disabling Kerberos Security</a>
+          </li>
+          <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/hawq-access-checks.html">Overview of HAWQ Authorization</a>
+          </li>
+          <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/roles_privs.html">Using HAWQ Native Authorization</a>
+          </li>
+          <li class="has_submenu">
+                     <span>
+                        Using Ranger for Authorization
+                     </span>
+               <ul>
+                  <li>
+                     <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-overview.html">Overview of Ranger Policy Management</a>
+                  </li>
+                  <li>
+                     <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-integration-config.html">Configuring HAWQ to use Ranger Policy Management</a>
+                  </li>
+                  <li class="has_submenu">
+                     <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-policy-creation.html">Creating HAWQ Authorization Policies in Ranger</a>
+                    <ul>
+                      <li>
+                         <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-resource-perms.html">HAWQ Resources and Permissions</a>
+                      </li>
+                      <li>
+                         <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-sqlcmd-summary.html">SQL Command Permissions Summary</a>
+                      </li>
+                      <li>
+                         <a href="/docs/userguide/2.2.0.0-incubating/ranger/madlib-ranger.html">Using MADLib with Ranger Authorization</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                     <a href="/docs/userguide/2.2.0.0-incubating/ranger/ranger-auditing.html">Auditing Authorization Events</a>
+                  </li>
+               </ul>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-establishing-a-database-session.html">Establishing a Database Session</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-supported-client-applications.html">Supported Client Applications</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-hawq-database-client-applications.html">HAWQ Client Applications</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-connecting-with-psql.html">Connecting with psql</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-database-application-interfaces.html">HAWQ Database Drivers and APIs</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/clientaccess/g-troubleshooting-connection-problems.html">Troubleshooting Connection Problems</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Defining Database Objects
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl.html">Overview</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-database.html">Creating and Managing Databases</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-tablespace.html">Creating and Managing Tablespaces</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-schema.html">Creating and Managing Schemas</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-table.html">Creating and Managing Tables</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-storage.html">Choosing the Table Storage Model</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-partition.html">Partitioning Large Tables</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-view.html">Creating and Managing Views</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Using Procedural Languages
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/UsingProceduralLanguages.html">Using Languages in HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/builtin_langs.html">Using HAWQ Built-In Languages</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/using_pljava.html">Using PL/Java</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/using_plpgsql.html">Using PL/pgSQL</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/using_plpython.html">Using PL/Python</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/plext/using_plr.html">Using PL/R</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/dml.html">Managing Data with HAWQ</a>
+        <ul>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/BasicDataOperations.html">Basic Data Operations</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/about_statistics.html">About Database Statistics</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/ConcurrencyControl.html">Concurrency Control</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/Transactions.html">Working with Transactions</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-loading-and-unloading-data.html">Loading and Unloading Data</a>
+            <ul>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-working-with-file-based-ext-tables.html">Working with File-Based External Tables</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-external-tables.html">Accessing File-Based External Tables</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-gpfdist-protocol.html">gpfdist Protocol</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-gpfdists-protocol.html">gpfdists Protocol</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-handling-errors-ext-table-data.html">Handling Errors in External Table Data</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-using-the-hawq-file-server--gpfdist-.html">Using the HAWQ File Server (gpfdist)</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-about-gpfdist-setup-and-performance.html">About gpfdist Setup and Performance</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-controlling-segment-parallelism.html">Controlling Segment Parallelism</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-installing-gpfdist.html">Installing gpfdist</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-starting-and-stopping-gpfdist.html">Starting and Stopping gpfdist</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-troubleshooting-gpfdist.html">Troubleshooting gpfdist</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-creating-and-using-web-external-tables.html">Creating and Using Web External Tables</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-command-based-web-external-tables.html">Command-based Web External Tables</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-url-based-web-external-tables.html">URL-based Web External Tables</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-loading-data-using-an-external-table.html">Loading Data Using an External Table</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-loading-and-writing-non-hdfs-custom-data.html">Loading and Writing Non-HDFS Custom Data</a>
+                <ul>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-using-a-custom-format.html">Using a Custom Format</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-importing-and-exporting-fixed-width-data.html">Importing and Exporting Fixed Width Data</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-examples-read-fixed-width-data.html">Examples - Read Fixed-Width Data</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/creating-external-tables-examples.html">Creating External Tables - Examples</a>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-handling-load-errors.html">Handling Load Errors</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-define-an-external-table-with-single-row-error-isolation.html">Define an External Table with Single Row Error Isolation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-create-an-error-table-and-declare-a-reject-limit.html">Capture Row Formatting Errors and Declare a Reject Limit </a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-identifying-invalid-csv-files-in-error-table-data.html">Identifying Invalid CSV Files in Error Table Data</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-moving-data-between-tables.html">Moving Data between Tables</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-register_files.html">Registering Files into HAWQ Internal Tables</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-loading-data-with-hawqload.html">Loading Data with hawq load</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-loading-data-with-copy.html">Loading Data with COPY</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-running-copy-in-single-row-error-isolation-mode.html">Running COPY in Single Row Error Isolation Mode</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-optimizing-data-load-and-query-performance.html">Optimizing Data Load and Query Performance</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-unloading-data-from-hawq-database.html">Unloading Data from HAWQ</a>
+                <ul>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-defining-a-file-based-writable-external-table.html">Defining a File-Based Writable External Table</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-example-hawq-file-server-gpfdist.html">Example - HAWQ file server (gpfdist)</a></li>
+                    </ul>
+                  </li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-defining-a-command-based-writable-external-web-table.html">Defining a Command-Based Writable External Web Table</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-disabling-execute-for-web-or-writable-external-tables.html">Disabling EXECUTE for Web or Writable External Tables</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-unloading-data-using-a-writable-external-table.html">Unloading Data Using a Writable External Table</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-unloading-data-using-copy.html">Unloading Data Using COPY</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-transforming-xml-data.html">Transforming XML Data</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-determine-the-transformation-schema.html">Determine the Transformation Schema</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-write-a-transform.html">Write a Transform</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-write-the-gpfdist-configuration.html">Write the gpfdist Configuration</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-load-the-data.html">Load the Data</a></li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-transfer-and-store-the-data.html">Transfer and Store the Data</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-transforming-with-gpload.html">Transforming with GPLOAD</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-transforming-with-insert-into-select-from.html">Transforming with INSERT INTO SELECT FROM</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-configuration-file-format.html">Configuration File Format</a></li>
+                    </ul>
+                  </li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-xml-transformation-examples.html">XML Transformation Examples</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-example-1-dblp-database-publications-in-demo-directory.html">Command-based Web External Tables</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-example-irs-mef-xml-files-in-demo-directory.html">Example using IRS MeF XML Files (In demo Directory)</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-example-witsml-files-in-demo-directory.html">Example using WITSML™ Files (In demo Directory)</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-formatting-data-files.html">Formatting Data Files</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-formatting-rows.html">Formatting Rows</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-formatting-columns.html">Formatting Columns</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-representing-null-values.html">Representing NULL Values</a></li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-escaping.html">Escaping</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-escaping-in-text-formatted-files.html">Escaping in Text Formatted Files</a></li>
+                      <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-escaping-in-csv-formatted-files.html">Escaping in CSV Formatted Files</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/load/g-character-encoding.html">Character Encoding</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/datamgmt/HAWQInputFormatforMapReduce.html">HAWQ InputFormat for MapReduce</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/pxf/HawqExtensionFrameworkPXF.html">Using PXF with Unmanaged Data</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/InstallPXFPlugins.html">Installing PXF Plugins</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/ConfigurePXF.html">Configuring PXF</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/HDFSFileDataPXF.html">Accessing HDFS File Data</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/HivePXF.html">Accessing Hive Data</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/HBasePXF.html">Accessing HBase Data</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/JsonPXF.html">Accessing JSON Data</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/HDFSWritablePXF.html">Writing Data to HDFS</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/ReadWritePXF.html">Using Profiles to Read and Write Data</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/PXFExternalTableandAPIReference.html">PXF External Tables and API</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/pxf/TroubleshootingPXF.html">Troubleshooting PXF</a></li>
+            </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/query/query.html">Querying Data</a>
+        <ul>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/query/HAWQQueryProcessing.html">About HAWQ Query Processing</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-optimizer.html">About GPORCA</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-overview.html">Overview of GPORCA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-features.html">GPORCA Features and Enhancements</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-enable.html">Enabling GPORCA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-notes.html">Considerations when Using GPORCA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-fallback.html">Determining The Query Optimizer In Use</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-changed.html">Changed Behavior with GPORCA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/query/gporca/query-gporca-limitations.html">GPORCA Limitations</a></li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/query/defining-queries.html">Defining Queries</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/query/functions-operators.html">Using Functions and Operators</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/query/query-performance.html">Query Performance</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/query/query-profiling.html">Query Profiling</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
+        <ul>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/managing_data_bestpractices.html">Managing Data</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/bestpractices/querying_data_bestpractices.html">Querying Data</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html">Troubleshooting</a>
+        <ul>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html#topic_dwd_rnx_15">Query Performance Issues</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html#topic_vm5_znx_15">Rejection of Query Resource Requests</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html#topic_qq4_rkl_wv">Queries Cancelled Due to High VMEM Usage</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html#topic_hlj_zxx_15">Segments Do Not Appear in gp_segment_configuration</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/troubleshooting/Troubleshooting.html#topic_mdz_q2y_15">Handling Segment Resource Fragmentation</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/hawq-reference.html">HAWQ Reference</a>
+        <ul>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/SQLCommandReference.html">SQL Commands</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ABORT.html">ABORT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-AGGREGATE.html">ALTER AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-CONVERSION.html">ALTER CONVERSION</a></li>  
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-DATABASE.html">ALTER DATABASE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-FUNCTION.html">ALTER FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-OPERATOR.html">ALTER OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-OPERATOR-CLASS.html">ALTER OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-RESOURCE-QUEUE.html">ALTER RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-ROLE.html">ALTER ROLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-SEQUENCE.html">ALTER SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-TABLE.html">ALTER TABLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-TABLESPACE.html">ALTER TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-TYPE.html">ALTER TYPE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-USER.html">ALTER USER</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ANALYZE.html">ANALYZE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/BEGIN.html">BEGIN</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CHECKPOINT.html">CHECKPOINT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CLOSE.html">CLOSE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/COMMIT.html">COMMIT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/COPY.html">COPY</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-AGGREGATE.html">CREATE AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-CAST.html">CREATE CAST</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-CONVERSION.html">CREATE CONVERSION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-DATABASE.html">CREATE DATABASE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html">CREATE EXTERNAL TABLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-FUNCTION.html">CREATE FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-GROUP.html">CREATE GROUP</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-LANGUAGE.html">CREATE LANGUAGE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-OPERATOR.html">CREATE OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-OPERATOR-CLASS.html">CREATE OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-RESOURCE-QUEUE.html">CREATE RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-ROLE.html">CREATE ROLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-SCHEMA.html">CREATE SCHEMA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-SEQUENCE.html">CREATE SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-TABLE.html">CREATE TABLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-TABLE-AS.html">CREATE TABLE AS</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-TABLESPACE.html">CREATE TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-TYPE.html">CREATE TYPE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-USER.html">CREATE USER</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-VIEW.html">CREATE VIEW</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DEALLOCATE.html">DEALLOCATE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DECLARE.html">DECLARE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-AGGREGATE.html">DROP AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-CAST.html">DROP CAST</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-CONVERSION.html">DROP CONVERSION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-DATABASE.html">DROP DATABASE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-EXTERNAL-TABLE.html">DROP EXTERNAL TABLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-FILESPACE.html">DROP FILESPACE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-FUNCTION.html">DROP FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-GROUP.html">DROP GROUP</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-LANGUAGE.html">DROP LANGUAGE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-OPERATOR.html">DROP OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-OPERATOR-CLASS.html">DROP OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-OWNED.html">DROP OWNED</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-RESOURCE-QUEUE.html">DROP RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-ROLE.html">DROP ROLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-SCHEMA.html">DROP SCHEMA</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-SEQUENCE.html">DROP SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-TABLE.html">DROP TABLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-TABLESPACE.html">DROP TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-TYPE.html">DROP TYPE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-USER.html">DROP USER</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/DROP-VIEW.html">DROP VIEW</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/END.html">END</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/EXECUTE.html">EXECUTE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/EXPLAIN.html">EXPLAIN</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/FETCH.html">FETCH</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/GRANT.html">GRANT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/INSERT.html">INSERT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/PREPARE.html">PREPARE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/REASSIGN-OWNED.html">REASSIGN OWNED</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/RELEASE-SAVEPOINT.html">RELEASE SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/RESET.html">RESET</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/REVOKE.html">REVOKE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ROLLBACK.html">ROLLBACK</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ROLLBACK-TO-SAVEPOINT.html">ROLLBACK TO SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SAVEPOINT.html">SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SELECT.html">SELECT</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SELECT-INTO.html">SELECT INTO</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SET.html">SET</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SET-ROLE.html">SET ROLE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SET-SESSION-AUTHORIZATION.html">SET SESSION AUTHORIZATION</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/SHOW.html">SHOW</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/TRUNCATE.html">TRUNCATE</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/sql/VACUUM.html">VACUUM</a></li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/HAWQSiteConfig.html">Server Configuration Parameter Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_config.html">About Server Configuration Parameters</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html">Configuration Parameter Categories</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic_hfd_1tl_zp">Append-Only Table Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic39">Client Connection Default Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic12">Connection and Authentication Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic47">Database and Tablespace/Filespace Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic29">Error Reporting and Logging Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic45">External Table Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic57">GPORCA Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic49">HAWQ Array Configuration Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic_pxfparam">HAWQ Extension Framework (PXF) Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic56">HAWQ PL/Java Extension Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#hawq_resource_management">HAWQ Resource Management Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic43">Lock Management Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic48">Past PostgreSQL Version Compatibility Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic21">Query Tuning Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#ranger_related">Ranger Configuration Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#statistics_collection">Statistics Collection Parameters</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/guc_category-list.html#topic15">System Resource Consumption Parameters</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html">Configuration Parameters</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#add_missing_from">add_missing_from</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#application_name">application_name</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#array_nulls">array_nulls</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#authentication_timeout">authentication_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#backslash_quote">backslash_quote</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#block_size">block_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#bonjour_name">bonjour_name</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#check_function_bodies">check_function_bodies</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#client_encoding">client_encoding</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#client_min_messages">client_min_messages</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#cpu_index_tuple_cost">cpu_index_tuple_cost</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#cpu_operator_cost">cpu_operator_cost</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#cpu_tuple_cost">cpu_tuple_cost</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#cursor_tuple_fraction">cursor_tuple_fraction</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#custom_variable_classes">custom_variable_classes</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#DateStyle">DateStyle</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#db_user_namespace">db_user_namespace</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#deadlock_timeout">deadlock_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_assertions">debug_assertions</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_pretty_print">debug_pretty_print</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_parse">debug_print_parse</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_plan">debug_print_plan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_prelim_plan">debug_print_prelim_plan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_rewritten">debug_print_rewritten</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_slice_table">debug_print_slice_table</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#topic_fqj_4fd_kv">default_hash_table_bucket_number</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#default_statistics_target">default_statistics_target</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#default_tablespace">default_tablespace</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#default_transaction_isolation">default_transaction_isolation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#default_transaction_read_only">default_transaction_read_only</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#dynamic_library_path">dynamic_library_path</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#effective_cache_size">effective_cache_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_bitmapscan">enable_bitmapscan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_groupagg">enable_groupagg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_hashagg">enable_hashagg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_hashjoin">enable_hashjoin</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_indexscan">enable_indexscan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_mergejoin">enable_mergejoin</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_nestloop">enable_nestloop</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_seqscan">enable_seqscan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_sort">enable_sort</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#enable_tidscan">enable_tidscan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#escape_string_warning">escape_string_warning</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#explain_pretty_print">explain_pretty_print</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#extra_float_digits">extra_float_digits</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#from_collapse_limit">from_collapse_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_adjust_selectivity_for_outerjoins">gp_adjust_selectivity_for_outerjoins</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_analyze_relative_error">gp_analyze_relative_error</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_autostats_mode">gp_autostats_mode</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#topic_imj_zhf_gw">gp_autostats_on_change_threshhold</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_backup_directIO">gp_backup_directIO</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_backup_directIO_read_chunk_mb">gp_backup_directIO_read_chunk_mb</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_cached_segworkers_threshold">gp_cached_segworkers_threshold</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_command_count">gp_command_count</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_connections_per_thread">gp_connections_per_thread</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_debug_linger">gp_debug_linger</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_dynamic_partition_pruning">gp_dynamic_partition_pruning</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_agg_distinct">gp_enable_agg_distinct</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_agg_distinct_pruning">gp_enable_agg_distinct_pruning</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_direct_dispatch">gp_enable_direct_dispatch</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_fallback_plan">gp_enable_fallback_plan</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_fast_sri">gp_enable_fast_sri</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_groupext_distinct_gather">gp_enable_groupext_distinct_gather</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_groupext_distinct_pruning">gp_enable_groupext_distinct_pruning</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_multiphase_agg">gp_enable_multiphase_agg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_predicate_propagation">gp_enable_predicate_propagation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_preunique">gp_enable_preunique</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sequential_window_plans">gp_enable_sequential_window_plans</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sort_distinct">gp_enable_sort_distinct</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sort_limit">gp_enable_sort_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_enable_exec">gp_external_enable_exec</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_grant_privileges">gp_external_grant_privileges</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_max_segs">gp_external_max_segs</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_count">gp_filerep_tcp_keepalives_count</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_idle">gp_filerep_tcp_keepalives_idle</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_databases">gp_max_databases</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_filespaces">gp_max_filespaces</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_packet_size">gp_max_packet_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_plan_size">gp_max_plan_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_tablespaces">gp_max_tablespaces</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_motion_cost_per_row">gp_motion_cost_per_row</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_reject_percent_threshold">gp_reject_percent_threshold</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_reraise_signal">gp_reraise_signal</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_role">gp_role</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_safefswritesize">gp_safefswritesize</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_segment_connect_timeout">gp_segment_connect_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_segments_for_planner">gp_segments_for_planner</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_session_id">gp_session_id</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_set_proc_affinity">gp_set_proc_affinity</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_set_read_only">gp_set_read_only</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_statistics_pullup_from_child_partition">gp_statistics_pullup_from_child_partition</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_statistics_use_fkeys">gp_statistics_use_fkeys</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_vmem_idle_resource_timeout">gp_vmem_idle_resource_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_vmem_protect_segworker_cache_limit">gp_vmem_protect_segworker_cache_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_checksumming">gp_workfile_checksumming</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_compress_algorithm">gp_workfile_compress_algorithm</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_files_per_query">gp_workfile_limit_files_per_query</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_per_query">gp_workfile_limit_per_query</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_per_segment">gp_workfile_limit_per_segment</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_acl_type">hawq_acl_type</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_dfs_url">hawq_dfs_url</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_global_rm_type">hawq_global_rm_type</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_address_host">hawq_master_address_host</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_address_port">hawq_master_address_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_directory">hawq_master_directory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_temp_directory">hawq_master_temp_directory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_re_memory_overcommit_max">hawq_re_memory_overcommit_max</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_cluster_report">hawq_rm_cluster_report_period</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_force_alterqueue_cancel_queued_request">hawq_rm_force_alterqueue_cancel_queued_request</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_master_port">hawq_rm_master_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_memory_limit_perseg">hawq_rm_memory_limit_perseg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_min_resource_perseg">hawq_rm_min_resource_perseg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nresqueue_limit">hawq_rm_nresqueue_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nslice_perseg_limit">hawq_rm_nslice_perseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvcore_limit_perseg">hawq_rm_nvcore_limit_perseg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_perquery_limit">hawq_rm_nvseg_perquery_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_perquery_perseg_limit">hawq_rm_nvseg_perquery_perseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_variance_amon_seg_limit">hawq_rm_nvseg_variance_amon_seg_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_rejectrequest_nseg_limit">hawq_rm_rejectrequest_nseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_resource_idle_timeout">hawq_rm_resource_idle_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_return_percent_on_overcommit">hawq_rm_return_percent_on_overcommit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_segment_heartbeat_interval">hawq_rm_segment_heartbeat_interval</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_segment_port">hawq_rm_segment_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_stmt_nvseg">hawq_rm_stmt_nvseg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_stmt_vseg_memory">hawq_rm_stmt_vseg_memory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_tolerate_nseg_limit">hawq_rm_tolerate_nseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_address">hawq_rm_yarn_address</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_app_name">hawq_rm_yarn_app_name</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_queue_name">hawq_rm_yarn_queue_name</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_scheduler_address">hawq_rm_yarn_scheduler_address</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rps_address_port">hawq_rps_address_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_address_port">hawq_segment_address_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_directory">hawq_segment_directory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_temp_directory">hawq_segment_temp_directory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#integer_datetimes">integer_datetimes</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#IntervalStyle">IntervalStyle</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#join_collapse_limit">join_collapse_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#krb_caseins_users">krb_caseins_users</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#krb_server_keyfile">krb_server_keyfile</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#krb_srvname">krb_srvname</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_collate">lc_collate</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_ctype">lc_ctype</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_messages">lc_messages</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_monetary">lc_monetary</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_numeric">lc_numeric</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#lc_time">lc_time</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#listen_addresses">listen_addresses</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#local_preload_libraries">local_preload_libraries</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_autostats">log_autostats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_connections">log_connections</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_disconnections">log_disconnections</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_dispatch_stats">log_dispatch_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_duration">log_duration</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_error_verbosity">log_error_verbosity</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_executor_stats">log_executor_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_hostname">log_hostname</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_min_duration_statement">log_min_duration_statement</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_min_error_statement">log_min_error_statement</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_min_messages">log_min_messages</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_parser_stats">log_parser_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_planner_stats">log_planner_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_rotation_age">log_rotation_age</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_rotation_size">log_rotation_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_statement">log_statement</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_statement_stats">log_statement_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_timezone">log_timezone</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#log_truncate_on_rotation">log_truncate_on_rotation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_appendonly_tables">max_appendonly_tables</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_connections">max_connections</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_files_per_process">max_files_per_process</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_fsm_pages">max_fsm_pages</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_fsm_relations">max_fsm_relations</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_function_args">max_function_args</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_identifier_length">max_identifier_length</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_index_keys">max_index_keys</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_locks_per_transaction">max_locks_per_transaction</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_prepared_transactions">max_prepared_transactions</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#max_stack_depth">max_stack_depth</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#optimizer">optimizer</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_analyze_root_partition">optimizer_analyze_root_partition</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_minidump">optimizer_minidump</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_parts_to_force_sort_on_insert">optimizer_parts_to_force_sort_on_insert</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_prefer_scalar_dqa_multistage_agg">optimizer_prefer_scalar_dqa_multistage_agg</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#password_encryption">password_encryption</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pgstat_track_activity_query_size">pgstat_track_activity_query_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pljava_classpath">pljava_classpath</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pljava_statement_cache_size">pljava_statement_cache_size</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pljava_release_lingering_savepoints">pljava_release_lingering_savepoints</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pljava_vmoptions">pljava_vmoptions</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#port">port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_enable_filter_pushdown">pxf_enable_filter_pushdown</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_enable_stat_collection">pxf_enable_stat_collection</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_remote_service_login">pxf_remote_service_login</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_remote_service_secret">pxf_remote_service_secret</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_service_address">pxf_service_address</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_service_port">pxf_service_port</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#pxf_stat_max_fragments">pxf_stat_max_fragments</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#random_page_cost">random_page_cost</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#regex_flavor">regex_flavor</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#runaway_detector_activation_percent">runaway_detector_activation_percent</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#search_path">search_path</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#seg_max_connections">seg_max_connections</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#seq_page_cost">seq_page_cost</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#server_encoding">server_encoding</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#server_version">server_version</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#server_version_num">server_version_num</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#shared_buffers">shared_buffers</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#shared_preload_libraries">shared_preload_libraries</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#ssl">ssl</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#ssl_ciphers">ssl_ciphers</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#standard_conforming_strings">standard_conforming_strings</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#statement_timeout">statement_timeout</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#superuser_reserved_connections">superuser_reserved_connections</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_count">tcp_keepalives_count</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_idle">tcp_keepalives_idle</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_interval">tcp_keepalives_interval</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#temp_buffers">temp_buffers</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#TimeZone">TimeZone</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#timezone_abbreviations">timezone_abbreviations</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#track_activities">track_activities</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#track_counts">track_counts</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#transaction_isolation">transaction_isolation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#transaction_read_only">transaction_read_only</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#transform_null_equals">transform_null_equals</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_directory">unix_socket_directory</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_group">unix_socket_group</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_permissions">unix_socket_permissions</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#update_process_title">update_process_title</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_delay">vacuum_cost_delay</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_limit">vacuum_cost_limit</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_page_dirty">vacuum_cost_page_dirty</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_page_miss">vacuum_cost_page_miss</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_freeze_min_age">vacuum_freeze_min_age</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/guc/parameter_definitions.html#xid_stop_limit">xid_stop_limit</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/HAWQSampleSiteConfig.html">Sample hawq-site.xml Configuration File</a></li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/reference/HDFSConfigurationParameterReference.html">HDFS Configuration Reference</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/reference/HAWQEnvironmentVariables.html">Environment Variables</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/reference/CharacterSetSupportReference.html">Character Set Support Reference</a></li>
+          <li><a href="/docs/userguide/2.2.0.0-incubating/reference/HAWQDataTypes.html">Data Types</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/catalog_ref.html">System Catalog Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/catalog_ref-tables.html">System Tables</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/catalog_ref-views.html">System Views</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/catalog_ref-html.html">System Catalogs Definitions</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_configuration_history.html">gp_configuration_history</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_distribution_policy.html">gp_distribution_policy</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_global_sequence.html">gp_global_sequence</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_master_mirroring.html">gp_master_mirroring</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_persistent_database_node.html">gp_persistent_database_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_persistent_filespace_node.html">gp_persistent_filespace_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_persistent_relation_node.html">gp_persistent_relation_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_persistent_relfile_node.html">gp_persistent_relfile_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_persistent_tablespace_node.html">gp_persistent_tablespace_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_relfile_node.html">gp_relfile_node</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_segment_configuration.html">gp_segment_configuration</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/gp_version_at_initdb.html">gp_version_at_initdb</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_aggregate.html">pg_aggregate</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_am.html">pg_am</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_amop.html">pg_amop</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_amproc.html">pg_amproc</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_appendonly.html">pg_appendonly</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_attrdef.html">pg_attrdef</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_attribute.html">pg_attribute</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_attribute_encoding.html">pg_attribute_encoding</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_auth_members.html">pg_auth_members</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_authid.html">pg_authid</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_cast.html">pg_cast</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_class.html">pg_class</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_compression.html">pg_compression</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_constraint.html">pg_constraint</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_conversion.html">pg_conversion</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_database.html">pg_database</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_depend.html">pg_depend</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_description.html">pg_description</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_exttable.html">pg_exttable</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_filespace.html">pg_filespace</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_filespace_entry.html">pg_filespace_entry</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_index.html">pg_index</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_inherits.html">pg_inherits</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_language.html">pg_language</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_largeobject.html">pg_largeobject</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_listener.html">pg_listener</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_locks.html">pg_locks</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_namespace.html">pg_namespace</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_opclass.html">pg_opclass</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_operator.html">pg_operator</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partition.html">pg_partition</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partition_columns.html">pg_partition_columns</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partition_encoding.html">pg_partition_encoding</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partition_rule.html">pg_partition_rule</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partition_templates.html">pg_partition_templates</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_partitions.html">pg_partitions</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_pltemplate.html">pg_pltemplate</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_proc.html">pg_proc</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_resqueue.html">pg_resqueue</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_resqueue_status.html">pg_resqueue_status</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_rewrite.html">pg_rewrite</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_roles.html">pg_roles</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_shdepend.html">pg_shdepend</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_shdescription.html">pg_shdescription</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stat_activity.html">pg_stat_activity</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stat_last_operation.html">pg_stat_last_operation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stat_last_shoperation.html">pg_stat_last_shoperation</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stat_operations.html">pg_stat_operations</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stat_partition_operations.html">pg_stat_partition_operations</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_statistic.html">pg_statistic</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_stats.html">pg_stats</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_tablespace.html">pg_tablespace</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_trigger.html">pg_trigger</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_type.html">pg_type</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_type_encoding.html">pg_type_encoding</a></li>
+                  <li><a href="/docs/userguide/2.2.0.0-incubating/reference/catalog/pg_window.html">pg_window</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/toolkit/hawq_toolkit.html">The hawq_toolkit Administrative Schema</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic2">Checking for Tables that Need Routine Maintenance</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic16">Viewing HAWQ Server Log Files</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic38">Checking Database Object Sizes and Disk Space</a></li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/management_tools.html">HAWQ Management Tools Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/analyzedb.html">analyzedb</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/createdb.html">createdb</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/createuser.html">createuser</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/dropdb.html">dropdb</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/dropuser.html">dropuser</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/gpfdist.html">gpfdist</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/gplogfilter.html">gplogfilter</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqactivate.html">hawq activate</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqcheck.html">hawq check</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqcheckperf.html">hawq checkperf</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqconfig.html">hawq config</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqextract.html">hawq extract</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqfilespace.html">hawq filespace</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqinit.html">hawq init</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqload.html">hawq load</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqregister.html">hawq register</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqrestart.html">hawq restart</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqscp.html">hawq scp</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqssh.html">hawq ssh</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqssh-exkeys.html">hawq ssh-exkeys</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqstart.html">hawq start</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqstate.html">hawq state</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/admin_utilities/hawqstop.html">hawq stop</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/pg_dump.html">pg_dump</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/pg_dumpall.html">pg_dumpall</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/pg_restore.html">pg_restore</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/psql.html">psql</a></li>
+              <li><a href="/docs/userguide/2.2.0.0-incubating/reference/cli/client_utilities/vacuumdb.html">vacuumdb</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--end of sub-nav-->
+
+      <!--googleon: index-->
+
+      <main class="content content-layout" id="js-content" role="main">
+        <a id="top"></a>
+        
+          <h1 class="title-container" >
+    Managing HAWQ Using Ambari
+  </h1>
+
+
+          <div id="js-quick-links" >
+            <div class="quick-links"><ul>
+<li><a href="#amb-yarn">Integrating YARN for Resource Management</a></li>
+<li><a href="#move_yarn_rm">Moving a YARN Resource Manager</a></li>
+<li><a href="#amb-service-check">Performing a HAWQ Service Check</a></li>
+<li><a href="#amb-config-check">Performing a Configuration Check</a></li>
+<li><a href="#amb-restart">Performing a Rolling Restart</a></li>
+<li><a href="#bulk-lifecycle">Performing Host-Level Actions on HAWQ Segment and PXF Hosts</a></li>
+<li><a href="#amb-expand">Expanding the HAWQ Cluster</a></li>
+<li><a href="#amb-activate-standby">Activating the HAWQ Standby Master</a></li>
+<li><a href="#amb-add-standby">Adding a HAWQ Standby Master</a></li>
+<li><a href="#amb-remove-standby">Removing the HAWQ Standby Master</a></li>
+<li><a href="#hdp-upgrade">Upgrading the HDP Stack</a></li>
+<li><a href="#gpadmin-password-change">Changing the HAWQ gpadmin Password</a></li>
+<li><a href="#manual-cfg-norestart">Updating HAWQ Configuration Without Cluster Restart</a></li>
+<li><a href="#gpadmin-setup-alert">Setting Up Alerts</a></li>
+<li><a href="#ambari-rest-api">Using the Ambari REST API</a></li>
+</ul></div>
+          </div>
+        <div class="to-top" id="js-to-top">
+          <a href="#top" title="back to top"></a>
+        </div>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<p>Ambari provides an easy interface to perform some of the most common HAWQ and PXF Administration Tasks.</p>
+
+<h2><a id="amb-yarn"></a>Integrating YARN for Resource Management</h2>
+
+<p>HAWQ supports integration with YARN for global resource management. In a YARN managed environment, HAWQ can request resources (containers) dynamically from YARN, and return resources when HAWQ’s workload is not heavy.</p>
+
+<p>See also <a href="/docs/userguide/2.2.0.0-incubating/resourcemgmt/YARNIntegration.html">Integrating YARN with HAWQ</a> for command-line instructions and additional details about using HAWQ with YARN.</p>
+
+<h3>When to Perform</h3>
+
+<p>Follow this procedure if you have already installed YARN and HAWQ, but you are currently using the HAWQ Standalone mode (not YARN) for resource management. This procedure helps you configure YARN and HAWQ so that HAWQ uses YARN for resource management. This procedure assumes that you will use the default YARN queue for managing HAWQ.</p>
+
+<h3>Procedure</h3>
+
+<ol>
+<li> Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li> Select <strong>HAWQ</strong> from the list of installed services.</li>
+<li> Select the <strong>Configs</strong> tab, then the <strong>Settings</strong> tab.</li>
+<li> Use the <strong>Resource Manager</strong> menu to change select the <strong>YARN</strong> option.</li>
+<li> Click <strong>Save</strong>.<br/><br/>HAWQ will use the default YARN queue, and Ambari automatically configures settings for <code>hawq_rm_yarn_address</code>, <code>hawq_rm_yarn_app_name</code>, and <code>hawq_rm_yarn_scheduler_address</code> in the <code>hawq-site.xml</code> file.<br/><br/>If YARN HA was enabled, Ambari also automatically configures the <code>yarn.resourcemanager.ha</code> and <code>yarn.resourcemanager.scheduler.ha</code> properties in <code>yarn-site.xml</code>.</li>
+<li> If you are using HDP 2.3, follow these additional instructions:
+
+<ol>
+<li>Select <strong>YARN</strong> from the list of installed services.</li>
+<li>Select the <strong>Configs</strong> tab, then the <strong>Advanced</strong> tab.</li>
+<li>Expand the <strong>Advanced yarn-site</strong> section.</li>
+<li>Locate the <code>yarn.resourcemanager.system-metrics-publisher.enabled</code> property and change its value to <code>false</code>.</li>
+<li>Click <strong>Save</strong>.</li>
+</ol></li>
+<li> (Optional.)  When HAWQ is integrated with YARN and has no workload, HAWQ does not acquire any resources right away. HAWQ’s resource manager only requests resources from YARN when HAWQ receives its first query request. In order to guarantee optimal resource allocation for subsequent queries and to avoid frequent YARN resource negotiation, you can adjust <code>hawq_rm_min_resource_perseg</code> so HAWQ receives at least some number of YARN containers per segment regardless of the size of the initial query. The default value is 2, which means HAWQ’s resource manager acquires at least 2 YARN containers for each segment even if the first query’s resource request is small.<br/><br/>This configuration property cannot exceed the capacity of HAWQ’s YARN queue. For example, if HAWQ’s queue capacity in YARN is no more than 50% of the whole cluster, and each YARN node has a maximum of 64GB memory and 16 vcores, then <code>hawq_rm_min_resource_perseg</code> in HAWQ cannot be set to more than 8 since HAWQ’s resource manager acquires YARN containers by vcore. In the case above, the HAWQ resource manager acquires a YARN container quota of 4GB memory and 1 vcore.<br/><br/>To change this parameter, expand <strong>Custom hawq-site</strong> and click <strong>Add Property &hellip;</strong> Then specify <code>hawq_rm_min_resource_perseg</code> as the key and enter the desired Value. Click <strong>Add</strong> to add the property definition.</li>
+<li> (Optional.)  If the level of HAWQ’s workload is lowered, then HAWQ&rsquo;s resource manager may have some idle YARN resources. You can adjust <code>hawq_rm_resource_idle_timeout</code> to let the HAWQ resource manager return idle resources more quickly or more slowly.<br/><br/>For example, when HAWQ&rsquo;s resource manager has to reacquire resources, it can cause latency for query resource requests. To let HAWQ resource manager retain resources longer in anticipation of an upcoming workload, increase the value of <code>hawq_rm_resource_idle_timeout</code>. The default value of <code>hawq_rm_resource_idle_timeout</code> is 300 seconds.<br/><br/>To change this parameter, expand <strong>Custom hawq-site</strong> and click <strong>Add Property &hellip;</strong> Then specify <code>hawq_rm_resource_idle_timeout</code> as the key and enter the desired Value. Click <strong>Add</strong> to add the property definition.</li>
+<li> Click <strong>Save</strong> to save your configuration changes.</li>
+</ol>
+
+<h2><a id="move_yarn_rm"></a>Moving a YARN Resource Manager</h2>
+
+<p>If you are using YARN to manage HAWQ resources and need to move a YARN resource manager, then you must update your HAWQ configuration.</p>
+
+<h3>When to Perform</h3>
+
+<p>Use one of the following procedures to move YARN resource manager component from one node to another when HAWQ is configured to use YARN as the global resource manager (<code>hawq_global_rm_type</code> is <code>yarn</code>). The exact procedure you should use depends on whether you have enabled high availability in YARN.</p>
+
+<p><strong>Note:</strong> In a Kerberos-secured environment, you must update <code>hadoop.proxyuser.yarn.hosts</code> property in HDFS <code>core-site.xml</code> before running a service check. The values should be set to the current YARN Resource Managers.</p></p>
+
+<h3>Procedure (Single YARN Resource Manager)</h3>
+
+<ol>
+<li>Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li>Click <strong>YARN</strong> in the list of installed services.</li>
+<li>Select <strong>Move ResourceManager</strong>, and complete the steps in the Ambari wizard to move the Resource Manager to a new host.</li>
+<li>After moving the Resource Manager successfully in YARN, click <strong>HAWQ</strong> in the list of installed services.</li>
+<li>On the HAWQ <strong>Configs</strong> page, select the <strong>Advanced</strong> tab.</li>
+<li>Under Advanced hawq-site section, update the following HAWQ properties:
+
+<ul>
+<li><code>hawq_rm_yarn_address</code>. Enter the same value defined in the <code>yarn.resourcemanager.address</code> property of <code>yarn-site.xml</code>.</li>
+<li><code>hawq_rm_yarn_scheduler_address</code>. Enter the same value in the <code>yarn.resourcemanager.scheduler.address</code> property of <code>yarn-site.xml</code>.</li>
+</ul></li>
+<li>Restart all HAWQ components so that the configurations get updated on all HAWQ hosts.</li>
+<li>Run HAWQ Service Check, as described in <a href="#amb-service-check">Performing a HAWQ Service Check</a>, to ensure that HAWQ is operating properly.</li>
+</ol>
+
+<h3>Procedure (Highly Available YARN Resource Managers)</h3>
+
+<ol>
+<li>Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li>Click <strong>YARN</strong> in the list of installed services.</li>
+<li>Select <strong>Move ResourceManager</strong>, and complete the steps in the Ambari wizard to move the Resource Manager to a new host.</li>
+<li>After moving the Resource Manager successfully in YARN, click <strong>HAWQ</strong> in the list of installed services.</li>
+<li>On the HAWQ <strong>Configs</strong> page, select the <strong>Advanced</strong> tab.</li>
+<li>Under <code>Custom yarn-client</code> section, update the HAWQ properties <code>yarn.resourcemanager.ha</code> and <code>yarn.resourcemanager.scheduler.ha</code>. These parameter values should be updated to match the corresponding parameters for the YARN service. Check the values under <strong>ResourceManager hosts</strong> in the <strong>Resource Manager</strong> section of the <strong>Advanced</strong> configurations for the YARN service.</li>
+<li>Restart all HAWQ components so that the configuration change is updated on all HAWQ hosts. You can ignore the warning about the values of <code>hawq_rm_yarn_address</code> and <code>hawq_rm_yarn_scheduler_address</code> in <code>hawq-site.xml</code> not matching the values in <code>yarn-site.xml</code>, and click <strong>Proceed Anyway</strong>.</li>
+<li>Run HAWQ Service Check, as described in <a href="#amb-service-check">Performing a HAWQ Service Check</a>, to ensure that HAWQ is operating properly.</li>
+</ol>
+
+<h2><a id="amb-service-check"></a>Performing a HAWQ Service Check</h2>
+
+<p>A HAWQ Service check uses the <code>hawq state</code> command to display the configuration and status of segment hosts in a HAWQ Cluster. It also performs tests to ensure that HAWQ can write to and read from tables, and to ensure that HAWQ can write to and read from HDFS external tables using PXF.</p>
+
+<h3>When to Perform</h3>
+
+<ul>
+<li>Execute this procedure immediately after any common maintenance operations, such as adding, activating, or removing the HAWQ Master Standby.</li>
+<li>Execute this procedure as a first step in troubleshooting problems in accessing HDFS data.</li>
+</ul>
+
+<h3>Procedure</h3>
+
+<ol>
+<li> Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li> Click <strong>HAWQ</strong> in the list of installed services.</li>
+<li><p>Select <strong>Service Actions &gt; Run Service Check</strong>, then click <strong>OK</strong> to perform the service check.</p>
+
+<p>Ambari displays the <strong>HAWQ Service Check</strong> task in the list of background operations. If any test fails, then Ambari displays a red error icon next to the task.  </p></li>
+<li><p>Click the <strong>HAWQ Service Check</strong> task to view the actual log messages that are generated while performing the task. The log messages display the basic configuration and status of HAWQ segments, as well as the results of the HAWQ and PXF tests (if PXF is installed).</p></li>
+<li><p>Click <strong>OK</strong> to dismiss the log messages or list of background tasks.</p></li>
+</ol>
+
+<h2><a id="amb-config-check"></a>Performing a Configuration Check</h2>
+
+<p>A configuration check determines if operating system parameters on the HAWQ host machines match their recommended settings. You can also perform this procedure from the command line using the <code>hawq check</code> command. The <code>hawq check</code> command is run against all HAWQ hosts.</p>
+
+<h3>Procedure</h3>
+
+<ol>
+<li> Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li> Click <strong>HAWQ</strong> in the list of installed services.</li>
+<li><p>(Optional) Perform this step if you want to view or modify the host configuration parameters that are evaluated during the HAWQ config check:</p>
+
+<ol>
+<li>Select the <strong>Configs</strong> tab, then select the <strong>Advanced</strong> tab in the settings.</li>
+<li><p>Expand <strong>Advanced Hawq Check</strong> to view or change the list of parameters that are checked with a <code>hawq check</code> command or with the Ambari HAWQ Config check.</p>
+
+<p><strong>Note:</strong> All parameter entries are stored in the <code>/usr/local/hawq/etc/hawq_check.cnf</code> file. Click the <strong>Set Recommended</strong> button if you want to restore the file to its original contents.</p></li>
+</ol></li>
+<li><p>Select <strong>Service Actions &gt; Run HAWQ Config Check</strong>, then click <strong>OK</strong> to perform the configuration check.</p>
+
+<p>Ambari displays the <strong>Run HAWQ Config Check</strong> task in the list of background operations. If any parameter does not meet the specification defined in <code>/usr/local/hawq/etc/hawq_check.cnf</code>, then Ambari displays a red error icon next to the task.  </p></li>
+<li><p>Click the <strong>Run HAWQ Config Check</strong> task to view the actual log messages that are generated while performing the task. Address any configuration errors on the indicated host machines.</p></li>
+<li><p>Click <strong>OK</strong> to dismiss the log messages or list of background tasks.</p></li>
+</ol>
+
+<h2><a id="amb-restart"></a>Performing a Rolling Restart</h2>
+
+<p>Ambari provides the ability to restart a HAWQ cluster by restarting one or more segments at a time until all segments (or all segments with stale configurations) restart. You can specify a delay between restarting segments, and Ambari can stop the process if a specified number of segments fail to restart. Performing a rolling restart in this manner can help ensure that some HAWQ segments are available to service client requests.</p>
+
+<p><strong>Note:</strong> If you do not need to preserve client connections, you can instead perform an full restart of the entire HAWQ cluster using <strong>Service Actions &gt; Restart All</strong>.</p>
+
+<h3>Procedure</h3>
+
+<ol>
+<li> Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li> Click <strong>HAWQ</strong> in the list of installed services.</li>
+<li> Select <strong>Service Actions &gt; Restart HAWQ Segments</strong>.</li>
+<li>In the Restart HAWQ Segments page:
+
+<ul>
+<li>Specify the number of segments that you want Ambari to restart at a time.</li>
+<li>Specify the number of seconds Ambari should wait before restarting the next batch of HAWQ segments.</li>
+<li>Specify the number of restart failures that may occur before Ambari stops the rolling restart process.</li>
+<li>Select <strong>Only restart HAWQ Segments with stale configs</strong> if you want to limit the restart process to those hosts.</li>
+<li>Select <strong>Turn On Maintenance Mode for HAWQ</strong> to enable maintenance mode before starting the rolling restart process. This suppresses alerts that are normally generated when a segment goes offline.</li>
+</ul></li>
+<li>Click <strong>Trigger Rolling Restart</strong> to begin the restart process.</li>
+</ol>
+
+<p>Ambari displays the <strong>Rolling Restart of HAWQ segments</strong> task in the list of background operations, and indicates the current batch of segments that it is restarting. Click the name of the task to view the log messages generated during the restart. If any segment fails to restart, Ambari displays a red warning icon next to the task.</p>
+
+<h2><a id="bulk-lifecycle"></a>Performing Host-Level Actions on HAWQ Segment and PXF Hosts</h2>
+
+<p>Ambari host-level actions enable you to perform actions on one or more hosts in the cluster at once. With HAWQ clusters, you can apply the <strong>Start</strong>, <strong>Stop</strong>, or <strong>Restart</strong> actions to one or more HAWQ segment hosts or PXF hosts. Using the host-level actions saves you the trouble of accessing individual hosts in Ambari and applying service actions one-by-one.</p>
+
+<h3>When to Perform</h3>
+
+<ul>
+<li> Use the Ambari host-level actions when you have a large number of hosts in your cluster and you want to start, stop, or restart all HAWQ segment hosts or all PXF hosts as part of regularly-scheduled maintenance.</li>
+</ul>
+
+<h3>Procedure</h3>
+
+<ol>
+<li> Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li> Select the <strong>Hosts</strong> tab at the top of the screen to display a list of all hosts in the cluster.</li>
+<li> To apply a host-level action to all HAWQ segment hosts or PXF hosts, select an action using the applicable menu:
+
+<ul>
+<li> <strong>Actions &gt; Filtered Hosts &gt; HAWQ Segments &gt;</strong> [ <strong>Start</strong> | <strong>Stop</strong> |  <strong>Restart</strong> ]</li>
+<li> <strong>Actions &gt; Filtered Hosts &gt; PXF Hosts &gt;</strong> [ <strong>Start</strong> | <strong>Stop</strong> |  <strong>Restart</strong> ]</li>
+</ul></li>
+<li> To apply a host level action to a subset of HAWQ segments or PXF hosts:
+
+<ol>
+<li> Filter the list of available hosts using one of the filter options:
+
+<ul>
+<li> <strong>Filter &gt; HAWQ Segments</strong></li>
+<li> <strong>Filter &gt; PXF Hosts</strong></li>
+</ul></li>
+<li> Use the check boxes to select the hosts to which you want to apply the action.</li>
+<li> Select <strong>Actions &gt; Selected Hosts &gt;</strong> [ <strong>Start</strong> | <strong>Stop</strong> |  <strong>Restart</strong> ] to apply the action to your selected hosts.</li>
+</ol></li>
+</ol>
+
+<h2><a id="amb-expand"></a>Expanding the HAWQ Cluster</h2>
+
+<p>Apache HAWQ supports dynamic node expansion. You can add segment nodes while HAWQ is running without having to suspend or terminate cluster operations.</p>
+
+<h3>Guidelines for Cluster Expansion</h3>
+
+<p>This topic provides some guidelines around expanding your HAWQ cluster.</p>
+
+<p>There are several recommendations to keep in mind when modifying the size of your running HAWQ cluster:</p>
+
+<ul>
+<li> When you add a new node, install both a DataNode and a HAWQ segment on the new node.  If you are using YARN to manage HAWQ resources, you must also configure a YARN NodeManager on the new node.</li>
+<li> After adding a new node, you should always rebalance HDFS data to maintain cluster performance.</li>
+<li> Adding or removing a node also necessitates an update to the HDFS metadata cache. This update will happen eventually, but can take some time. To speed the update of the metadata cache, select the <strong>Service Actions &gt; Clear HAWQ&rsquo;s HDFS Metadata Cache</strong> option in Ambari.</li>
+<li> Note that for hash distributed tables, expanding the cluster will not immediately improve performance since hash distributed tables use a fixed number of virtual segments. In order to obtain better performance with hash distributed tables, you must redistribute the table to the updated cluster by either the <a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-TABLE.html">ALTER TABLE</a> or <a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-TABLE-AS.html">CREATE TABLE AS</a> command.</li>
+<li> If you are using hash tables, consider updating the <code>default_hash_table_bucket_number</code> server configuration parameter to a larger value after expanding the cluster but before redistributing the hash tables.</li>
+</ul>
+
+<h3>Procedure</h3>
+
+<p>First ensure that the new node(s) has been configured per the instructions found in <a href="/docs/userguide/2.2.0.0-incubating/requirements/system-requirements.html">Apache HAWQ System Requirements</a> and <a href="/docs/userguide/2.2.0.0-incubating/install/select-hosts.html">Select HAWQ Host Machines</a>.</p>
+
+<ol>
+<li> If you have any user-defined function (UDF) libraries installed in your existing HAWQ cluster, install them on the new node(s) that you want to add to the HAWQ cluster.</li>
+<li> Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li> Click <strong>HAWQ</strong> in the list of installed services.</li>
+<li> Select the <strong>Configs</strong> tab, then select the <strong>Advanced</strong> tab in the settings.</li>
+<li> Expand the <strong>General</strong> section, and ensure that the <strong>Exchange SSH Keys</strong> property (<code>hawq_ssh_keys</code>) is set to <code>true</code>.  Change this property to <code>true</code> if needed, and click <strong>Save</strong> to continue. Ambari must be able to exchange SSH keys with any hosts that you add to the cluster in the following steps.</li>
+<li> Select the <strong>Hosts</strong> tab at the top of the screen to display the Hosts summary.</li>
+<li><p>If the host(s) that you want to add are not currently listed in the Hosts summary page, follow these steps:</p>
+
+<ol>
+<li>Select <strong>Actions &gt; Add New Hosts</strong> to start the Add Host Wizard.</li>
+<li><p>Follow the initial steps of the Add Host Wizard to identify the new host, specify SSH keys or manually register the host, and confirm the new host(s) to add.</p>
+
+<p>See <a href="http://docs.hortonworks.com/HDPDocuments/Ambari-2.2.1.1/bk_Installing_HDP_AMB/content/_set_up_password-less_ssh.html">Set Up Password-less SSH</a> in the HDP documentation if you need more information about performing these tasks.</p></li>
+<li><p>When you reach the Assign Slaves and Clients page, ensure that the <strong>DataNode</strong>, <strong>HAWQ Segment</strong>, and <strong>PXF</strong> (if the PXF service is installed) components are selected. Select additional components as necessary for your cluster.</p></li>
+<li><p>Complete the wizard to add the new host and install the selected components.</p></li>
+</ol></li>
+<li><p>If the host(s) that you want to add already appear in the Hosts summary, follow these steps:</p>
+
+<ol>
+<li>Click the hostname that you want to add to the HAWQ cluster from the list of hosts.</li>
+<li>In the Components summary, ensure that the host already runs the DataNode component. If it does not, select <strong>Add &gt; DataNode</strong> and then click <strong>Confirm Add</strong>.  Click <strong>OK</strong> when the task completes.</li>
+<li>In the Components summary, select <strong>Add &gt; HAWQ Segment</strong>.</li>
+<li>Click <strong>Confirm Add</strong> to acknowledge the component to add. Click <strong>OK</strong> when the task completes.</li>
+<li>In the Components summary, select <strong>Add &gt; PXF</strong>.</li>
+<li>Click <strong>Confirm Add</strong> to acknowledge the component to add. Click <strong>OK</strong> when the task completes.</li>
+</ol></li>
+<li><p>(Optional) If you are using hash tables, adjust the <strong>Default buckets for Hash Distributed tables</strong> setting (<code>default_hash_table_bucket_number</code>).</p>
+
+<ol>
+<li><p>Open the HAWQ service&rsquo;s <strong>Configs &gt; Settings</strong> tab. Update the <code>default_hash_table_bucket_number</code> property&rsquo;s value by multiplying the new number of nodes in the cluster by the appropriate number indicated below.</p>
+
+<table><thead>
+<tr>
+<th>Number of Nodes After Expansion</th>
+<th>Suggested default_hash_table_bucket_number value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>&lt;= 85</td>
+<td>6 * #nodes</td>
+</tr>
+<tr>
+<td>&gt; 85 and &lt;= 102</td>
+<td>5 * #nodes</td>
+</tr>
+<tr>
+<td>&gt; 102 and &lt;= 128</td>
+<td>4 * #nodes</td>
+</tr>
+<tr>
+<td>&gt; 128 and &lt;= 170</td>
+<td>3 * #nodes</td>
+</tr>
+<tr>
+<td>&gt; 170 and &lt;= 256</td>
+<td>2 * #nodes</td>
+</tr>
+<tr>
+<td>&gt; 256 and &lt;= 512</td>
+<td>1 * #nodes</td>
+</tr>
+<tr>
+<td>&gt; 512</td>
+<td>512</td>
+</tr>
+</tbody></table></li>
+<li><p>Ambari requires you to restart the HAWQ service in order to apply the configuration changes. If you need to apply the configuration <em>without</em> restarting HAWQ (for dynamic cluster expansion), then use the procedure described in <a href="#manual-config-steps">Workaround for Dynamic Cluster Expansion</a> <em>instead</em> of following this step.
+<br/><br/>Stop and then start the HAWQ service to apply your configuration changes via Ambari. Select <strong>Service Actions &gt; Stop</strong>, followed by <strong>Service Actions &gt; Start</strong> to ensure that the HAWQ Master starts before the newly-added segment. During the HAWQ startup, Ambari exchanges ssh keys for the <code>gpadmin</code> user, and applies the new configuration.
+<strong>Note:</strong> Do <em>not</em> use the <strong>Restart All</strong> service action to complete this step.
+<a id="step-10"></a></p></li>
+</ol></li>
+<li><p>Consider the impact of rebalancing HDFS to other components, such as HBase, before you complete this step.
+<br/><br/>Rebalance your HDFS data by selecting the <strong>HDFS</strong> service and then choosing <strong>Service Actions &gt; Rebalance HDFS</strong>. Follow the Ambari instructions to complete the rebalance action.</p></li>
+<li><p>Speed up the clearing of the metadata cache by first selecting the <strong>HAWQ</strong> service and then selecting <strong>Service Actions &gt; Clear HAWQ&rsquo;s HDFS Metadata Cache</strong>.</p></li>
+<li><p>If you are using hash distributed tables and wish to take advantage of the performance benefits of using a larger cluster, redistribute the data in all hash-distributed tables by using either the <a href="/docs/userguide/2.2.0.0-incubating/reference/sql/ALTER-TABLE.html">ALTER TABLE</a> or <a href="/docs/userguide/2.2.0.0-incubating/reference/sql/CREATE-TABLE-AS.html">CREATE TABLE AS</a> command. You should redistribute the table data if you modified the <code>default_hash_table_bucket_number</code> configuration parameter.</p>
+
+<p><strong>Note:</strong> The redistribution of table data can take a significant amount of time.</p></li>
+<li><p>(Optional.) If you changed the <strong>Exchange SSH Keys</strong> property value before adding the host(s), change the value back to <code>false</code> after Ambari exchanges keys with the new hosts. This prevents Ambari from exchanging keys with all hosts every time the HAWQ master is started or restarted.</p></li>
+<li><p>(Optional.) If you enabled temporary password-based authentication while preparing/configuring your HAWQ host systems, turn off password-based authentication as described in <a href="/docs/userguide/2.2.0.0-incubating/requirements/system-requirements.html#topic_pwdlessssh">Apache HAWQ System Requirements</a>.</p></li>
+</ol>
+
+<h4><a id="manual-config-steps"></a>Workaround for Dynamic Cluster Expansion</h4>
+
+<p>If you need to expand your HAWQ cluster without restarting the HAWQ service, follow this procedure to manually apply the HAWQ configuration changes required for this operation. (Perform these steps <em>instead of</em> following Step 9b in the above procedure.)</p>
+
+<ol>
+<li><p>Log in to the HAWQ master host as a HAWQ administrator and source greenplum_path.sh:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>ssh gpadmin@&lt;master&gt;
+<span class="gp">gpadmin@master$ </span><span class="nb">source</span> /usr/local/hawq/greenplum_path.sh
+</code></pre></li>
+<li><p>Set the configuration parameter to the new value:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq config -c default_hash_table_bucket_number -v &lt;new_value&gt;
+</code></pre></li>
+<li><p>Reload the HAWQ configuration; this operation does not restart the cluster:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq stop cluster --reload
+</code></pre></li>
+<li><p>Verify that the parameter was updated:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq config -s default_hash_table_bucket_number
+</code></pre></li>
+<li><p>Edit the <code>/usr/local/hawq/etc/slaves</code> file and add the new HAWQ hostname(s) to the end of the file. Identify each host on a separate line. For example, after adding host4 and host5 to a cluster already containing hosts 1-3, the <code>slaves</code> file would appear similar to the following:</p>
+<pre class="highlight plaintext"><code> host1
+ host2
+ host3
+ host4
+ host5
+</code></pre></li>
+<li><p>Continue with <a href="#step-10">Step 10</a> in the previous procedure, <a href="#amb-expand">Expanding the HAWQ Cluster</a>.  When the HAWQ service is ready to be restarted via Ambari, Ambari will refresh the new configurations.</p></li>
+</ol>
+
+<h2><a id="amb-activate-standby"></a>Activating the HAWQ Standby Master</h2>
+
+<p>Activating the HAWQ Standby Master promotes the standby host as the new HAWQ Master host. The previous HAWQ Master configuration is automatically removed from the cluster.</p>
+
+<h3>When to Perform</h3>
+
+<ul>
+<li>Execute this procedure immediately if the HAWQ Master fails or becomes unreachable.</li>
+<li>If you want to take the current HAWQ Master host offline for maintenance, execute this procedure during a scheduled maintenance period. This procedure requires a restart of the HAWQ service.</li>
+</ul>
+
+<h3>Procedure</h3>
+
+<ol>
+<li> Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li> Click <strong>HAWQ</strong> in the list of installed services.</li>
+<li> Select <strong>Service Actions &gt; Activate HAWQ Standby Master</strong> to start the Activate HAWQ Standby Master Wizard.</li>
+<li> Read the description of the Wizard and click <strong>Next</strong> to review the tasks that will be performed.</li>
+<li> Ambari displays the host name of the current HAWQ Master that will be removed from the cluster, as well as the HAWQ Standby Master host that will be activated. The information is provided only for review and cannot be edited on this page. Click <strong>Next</strong> to confirm the operation.</li>
+<li>Click <strong>OK</strong> to confirm that you want to perform the procedure, as it is not possible to roll back the operation using Ambari.</li>
+</ol>
+
+<p>Ambari displays a list of tasks that are performed to activate the standby server and remove the previous HAWQ Master host. Click on any of the tasks to view progress or to view the actual log messages that are generated while performing the task.
+7. Click <strong>Complete</strong> after the Wizard finishes all tasks.</p>
+
+<p><strong>Important:</strong> After the Wizard completes, your HAWQ cluster no longer includes a HAWQ Standby Master host. As a best practice, follow the instructions in <a href="#amb-add-standby">Adding a HAWQ Standby Master</a> to configure a new one.</p>
+
+<h2><a id="amb-add-standby"></a>Adding a HAWQ Standby Master</h2>
+
+<p>The HAWQ Standby Master serves as a backup of the HAWQ Master host, and is an important part of providing high availability for the HAWQ cluster. When your cluster uses a standby master, you can activate the standby if the active HAWQ Master host fails or becomes unreachable.</p>
+
+<h3>When to Perform</h3>
+
+<ul>
+<li>Execute this procedure during a scheduled maintenance period, because it requires a restart of the HAWQ service.</li>
+<li>Adding a HAWQ standby master is recommended as a best practice for all new clusters to provide high availability.</li>
+<li>Add a new standby master soon after you activate an existing standby master to ensure that the cluster has a backup master service.</li>
+</ul>
+
+<h3>Procedure</h3>
+
+<ol>
+<li> Select an existing host in the cluster to run the HAWQ standby master. You cannot run the standby master on the same host that runs the HAWQ master. Also, do not run a standby master on the node where you deployed the Ambari server; if the Ambari postgres instance is running on the same port as the HAWQ master posgres instance, initialization fails and will leave the cluster in an inconsistent state.</li>
+<li><p>Login to the HAWQ host that you chose to run the standby master and determine if there is an existing HAWQ master directory (for example, <code>/data/hawq/master</code>) on the machine. If the directory exists, rename the directory. For example:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>mv /data/hawq/master /data/hawq/master-old
+</code></pre></li>
+</ol>
+
+<p><strong>Note:</strong>  If a HAWQ master directory exists on the host when you configure the HAWQ standby master, then the standby master may be initialized with stale data. Rename any existing master directory before you proceed.</p>
+
+<ol>
+<li> Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li> Click <strong>HAWQ</strong> in the list of installed services.</li>
+<li> Select <strong>Service Actions &gt; Add HAWQ Standby Master</strong> to start the Add HAWQ Standby Master Wizard.</li>
+<li> Read the Get Started page for information about HAWQ the standby master and to acknowledge that the procedure requires a service restart. Click <strong>Next</strong> to display the Select Host page.</li>
+<li><p>Use the dropdown menu to select a host to use for the HAWQ Standby Master. Click <strong>Next</strong> to display the Review page.</p>
+
+<p><strong>Note:</strong></p>
+
+<ul>
+<li>The Current HAWQ Master host is shown only for reference. You cannot change the HAWQ Master host when you configure a standby master.</li>
+<li>You cannot place the standby master on the same host as the HAWQ master.</li>
+</ul></li>
+<li><p>Review the information to verify the host on which the HAWQ Standby Master will be installed. Click <strong>Back</strong> to change your selection or <strong>Next</strong> to continue.</p></li>
+<li><p>Confirm that you have renamed any existing HAWQ master data directory on the selected host machine, as described earlier in this procedure. If an existing master data directory exists, the new HAWQ Standby Master may be initialized with stale data and can place the cluster in an inconsistent state. Click <strong>Confirm</strong> to continue.</p>
+
+<p>Ambari displays a list of tasks that are performed to install the standby master server and reconfigure the cluster. Click on any of the tasks to view progress or to view the actual log messages that are generated while performing the task.</p></li>
+<li><p>Click <strong>Complete</strong> after the Wizard finishes all tasks.</p></li>
+</ol>
+
+<h2><a id="amb-remove-standby"></a>Removing the HAWQ Standby Master</h2>
+
+<p>This service action enables you to remove the HAWQ Standby Master component in situations where you may need to reinstall the component.</p>
+
+<h3>When to Perform</h3>
+
+<ul>
+<li>Execute this procedure if you need to decommission or replace theHAWQ Standby Master host.</li>
+<li>Execute this procedure as a first step when <a href="/docs/userguide/2.2.0.0-incubating/admin/MasterMirroring.html#resync_master">Resynchronizing the Standby with the Master</a>.</li>
+<li>Execute this procedure during a scheduled maintenance period, because it requires a restart of the HAWQ service.</li>
+</ul>
+
+<h3>Procedure</h3>
+
+<ol>
+<li> Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.)</li>
+<li> Click <strong>HAWQ</strong> in the list of installed services.</li>
+<li> Select <strong>Service Actions &gt; Remove HAWQ Standby Master</strong> to start the Remove HAWQ Standby Master Wizard.</li>
+<li> Read the Get Started page for information about the procedure and to acknowledge that the procedure requires a service restart. Click <strong>Next</strong> to display the Review page.</li>
+<li><p>Ambari displays the HAWQ Standby Master host that will be removed from the cluster configuration. Click <strong>Next</strong> to continue, then click <strong>OK</strong> to confirm.</p>
+
+<p>Ambari displays a list of tasks that are performed to remove the standby master from the cluster. Click on any of the tasks to view progress or to view the actual log messages that are generated while performing the task.</p></li>
+<li><p>Click <strong>Complete</strong> after the Wizard finishes all tasks.</p>
+
+<p><strong>Important:</strong> After the Wizard completes, your HAWQ cluster no longer includes a HAWQ Standby Master host. As a best practice, follow the instructions in <a href="#amb-add-standby">Adding a HAWQ Standby Master</a> to configure a new one.</p></li>
+</ol>
+
+<h2><a id="hdp-upgrade"></a>Upgrading the HDP Stack</h2>
+
+<p>If you install HAWQ using Ambari 2.2.2 with the HDP 2.3 stack, before you attempt to upgrade to HDP 2.4 you must use Ambari to change the <code>dfs.allow.truncate</code> property to <code>false</code>. Ambari will display a configuration warning with this setting, but it is required in order to complete the upgrade; choose <strong>Proceed Anyway</strong> when Ambari warns you about the configured value of <code>dfs.allow.truncate</code>.</p>
+
+<p>After you complete the upgrade to HDP 2.4, change the value of <code>dfs.allow.truncate</code> back to <code>true</code> to ensure that HAWQ can operate as intended.</p>
+
+<h2><a id="gpadmin-password-change"></a>Changing the HAWQ gpadmin Password</h2>
+
+<p>The password issued by the Ambari web console is used for the <code>hawq ssh-exkeys</code> utility, which is run during the start phase of the HAWQ Master.
+Ambari stores and uses its own copy of the gpadmin password, independently of the host system. Passwords on the master and slave nodes are not automatically updated and synchronized with Ambari. Not updating the Ambari system user password causes Ambari to behave as if the gpadmin password was never changed (it keeps using the old password).</p>
+
+<p>If passwordless ssh has not been set up, <code>hawq ssh-exkeys</code> attempts to exchange the key by using the password provided by the Ambari web console. If the password on the host machine differs from the HAWQ System User password recognized on Ambari, exchanging the key with the HAWQ Master fails. Components without passwordless ssh might not be registered with the HAWQ cluster.</p>
+
+<h3>When to Perform</h3>
+
+<p>You should change the gpadmin password when:</p>
+
+<ul>
+<li>The gpadmin password on the host machines has expired.</li>
+<li>You want to change passwords as part of normal system security procedures.
+When updating the gpadmin password, it must be kept in synch with the gpadmin user on the HAWQ hosts. This requires manually changing the password on the Master and Slave hosts, then updating the Ambari password.</li>
+</ul>
+
+<h3>Procedure</h3>
+
+<p>All of the listed steps are mandatory. This ensures that HAWQ service remains fully functional.</p>
+
+<ol>
+<li><p>Use a script to manually change the password for the gpadmin user on all HAWQ hosts (all Master and Slave component hosts). To manually update the password, you must have ssh access to all host machines as the gpadmin user. Generate a hosts file to use with the <code>hawq ssh</code> command to reset the password on all hosts. Use a text editor to create a file that lists the hostname of the master node, the standby master node, and each segment node used in the cluster. Specify one hostname per line, for example:</p>
+<pre class="highlight plaintext"><code>mdw
+smdw
+sdw1
+sdw2
+sdw3
+</code></pre>
+
+<p>You can then use a command similar to the following to change the password on all hosts that are listed in the file:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>hawq ssh -f hawq_hosts <span class="s1">'echo "gpadmin:newpassword" | /usr/sbin/chpasswd'</span>
+</code></pre>
+
+<p><strong>Note:</strong> Be sure to make appropriate user and password system administrative changes in order to prevent operational disruption. For example, you may need to disable the password expiration policy for the <code>gpadmin</code> account.</p></li>
+<li><p>Access the Ambari web console at <a href="http://ambari.server.hostname:8080">http://ambari.server.hostname:8080</a>, and login as the &ldquo;admin&rdquo; user. (The default password is also &ldquo;admin&rdquo;.) Then perform the following steps:</p>
+
+<ol>
+<li>Click <strong>HAWQ</strong> in the list of installed services.</li>
+<li>On the HAWQ Server Configs page, go to the <strong>Advanced</strong> tab and update the <strong>HAWQ System User Password</strong> to the new password specified in the script.</li>
+<li>Click <strong>Save</strong> to save the updated configuration.</li>
+<li>Restart HAWQ service to propagate the configuration change to all Ambari agents.</li>
+</ol>
+
+<p>This will synchronize the password on the host machines with the password that you specified in Ambari.</p></li>
+</ol>
+
+<h2><a id="manual-cfg-norestart"></a>Updating HAWQ Configuration Without Cluster Restart</h2>
+
+<p>There may be circumstances, such as during dynamic cluster expansion, when you must update HAWQ configuration parameters but cannot tolerate cluster downtime in your Ambari-managed cluster. In these situations, perform the following workaround to update and reload HAWQ configuration changes without a complete cluster restart.</p>
+
+<p><strong>Note</strong>: Use this procedure for setting or updating only those HAWQ server configuration parameters with a set classification of <code>reload</code>.</p>
+
+<ol>
+<li><p>Use the Ambari console UI to set and save the desired HAWQ configuration parameter(s) via the <strong>HAWQ</strong> service <strong>Settings</strong>, <strong>Configs &gt;Settings</strong>, and/or <strong>Configs &gt;Advanced</strong> tabs. Make sure to note the configuration parameter names and new values. You may need to hover the mouse over the configuration field to identify the HAWQ parameter name.</p>
+
+<p><strong>Note</strong>: After updating the configuration parameters, do <em>not</em> restart the HAWQ service. </p></li>
+<li><p>Use HAWQ command line utilities to update the same HAWQ configuration parameters:</p>
+
+<ol>
+<li><p>Log in to the HAWQ master host as a HAWQ administrator and source greenplum_path.sh:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>ssh gpadmin@&lt;master&gt;
+<span class="gp">gpadmin@master$ </span><span class="nb">source</span> /usr/local/hawq/greenplum_path.sh
+</code></pre></li>
+<li><p>Identify the current value of the HAWQ configuration parameter:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq config -s &lt;parameter_name&gt;
+</code></pre></li>
+<li><p>Set the configuration parameter to the new value:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq config -c &lt;parameter_name&gt; -v &lt;new_value&gt;
+</code></pre>
+
+<p>Perform Steps b and c for each configuration parameter you set or updated via Ambari.</p></li>
+</ol></li>
+<li><p>Reload the HAWQ configuration; this operation does not restart the cluster:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq stop cluster --reload
+</code></pre></li>
+<li><p>Verify that each parameter was updated:</p>
+<pre class="highlight shell"><code><span class="gp">gpadmin@master$ </span>hawq config -s &lt;parameter_name&gt;
+</code></pre></li>
+</ol>
+
+<h2><a id="gpadmin-setup-alert"></a>Setting Up Alerts</h2>
+
+<p>Alerts advise you of when a HAWQ process is down or not responding, or when certain conditions requiring attention occur.
+Alerts can be created for the Master, Standby Master, Segments, and PXF components. You can also set up custom alert groups to monitor these conditions and send email notifications when they occur.</p>
+
+<h3>When to Perform</h3>
+
+<p>Alerts are enabled by default. You might want to disable alert functions when performing system operations in maintenance mode and then re-enable them after returning to normal operation.</p>
+
+<p>You can configure alerts to display messages for all system status changes or only for conditions of interest, such as warnings or critical conditions. Alerts can advise you if there are communication issues between the HAWQ Master and HAWQ segments, or if the HAWQ Master, Standby Master, a segment, or the PXF service is down or not responding. </p>
+
+<p>You can configure Ambari to check for alerts at specified intervals, on a particular service or host, and what level of criticality you want to trigger an alert (OK, WARNING, or CRITICAL).</p>
+
+<h3>Procedure</h3>
+
+<p>Ambari can show Alerts and also configure certain status conditions. </p>
+
+<h4>Viewing Alerts</h4>
+
+<p>To view the current alert information for HAWQ, click the <strong>Groups</strong> button at the top left of the Alerts page, then select <strong>HAWQ Default</strong> in the drop-down menu, then click on the <strong>Alert</strong> button at the top of the Ambari console. Ambari will display a list of all available alert functions and their current status. </p>
+
+<p>To check PXF alerts, click the <strong>Groups</strong> dropdown button at the top left of the Alerts page. Select <strong>PXF Default</strong> in the dropdown menu. Alerts are displayed on the PXF Status page.</p>
+
+<p>To view the current Alert settings, click on the name of the alert.</p>
+
+<p>The Alerts you can view are as follows:</p>
+
+<ul>
+<li><p>HAWQ Master Process:
+This alert is triggered when the HAWQ Master process is down or not responding. </p></li>
+<li><p>HAWQ Segment Process:
+This alert is triggered when a HAWQ Segment on a node is down or not responding.  </p></li>
+<li><p>HAWQ Standby Master Process:
+This alert is triggered when the HAWQ Standby Master process is down or not responding. If no standby is present, the Alert shows as <strong>NONE</strong>. </p></li>
+<li><p>HAWQ Standby Master Sync Status:
+This alert is triggered when the HAWQ Standby Master is not synchronized with the HAWQ Master. Using this Alert eliminates the need to check the gp_master_mirroring catalog table to determine if the Standby Master is fully synchronized. 
+If no standby Master is present, the status will show as <strong>UNKNOWN</strong>.
+If this Alert is triggered, go to the HAWQ <strong>Services</strong> tab and click on the <strong>Service Action</strong> button to re-sync the HAWQ Standby Master with the HAWQ Master.</p></li>
+<li><p>HAWQ Segment Registration Status:
+This alert is triggered when any of the HAWQ Segments fail to register with the HAWQ Master. This indicates that the HAWQ segments having an up status in the gp_segment_configuration table do not match the HAWQ Segments listed in the /usr/local/hawq/etc/slaves file on the HAWQ Master. </p></li>
+<li><p>Percent HAWQ Segment Status Available:
+This Alert monitors the percentage of HAWQ segments available versus total segments. 
+Alerts for <strong>WARN</strong>, and <strong>CRITICAL</strong> are displayed when the number of unresponsive HAWQ segments in the cluster is greater than the specified threshold. Otherwise, the status will show as <strong>OK</strong>.</p></li>
+<li><p>PXF Process Alerts:
+PXF Process alerts are triggered when a PXF process on a node is down or not responding on the network. If PXF Alerts are enabled, the Alert status is shown on the PXF Status page.</p></li>
+</ul>
+
+<h4>Setting the Monitoring Inteval</h4>
+
+<p>You can customize how often you wish the system to check for certain conditions. The default interval for checking the HAWQ system is 1 minute. </p>
+
+<p>To customize the interval, perform the following steps:</p>
+
+<ol>
+<li> Click on the name of the Alert you want to edit. </li>
+<li> When the Configuration screen appears, click <strong>Edit</strong>. </li>
+<li> Enter a number for how often to check status for the selected Alert, then click <strong>Save</strong>. The interval must be specified in whole minutes.</li>
+</ol>
+
+<h4>Setting the Available HAWQ Segment Threshold</h4>
+
+<p>HAWQ monitors the percentage of available HAWQ segments and can send an alert when a specified percent of unresponsive segments is reached. </p>
+
+<p>To set the threshold for the unresponsive segments that will trigger an alert:</p>
+
+<ol>
+<li> Click on <strong>Percent HAWQ Segments Available</strong>. </li>
+<li> Click <strong>Edit</strong>. Enter the percentage of total segments to create a <strong>Warning</strong> alert (default is 10 percent of the total segments) or <strong>Critical</strong> alert (default is 25 percent of total segments).</li>
+<li> Click <strong>Save</strong> when done.
+Alerts for <strong>WARN</strong>, and <strong>CRITICAL</strong> will be displayed when the number of unresponsive HAWQ segments in the cluster is greater than the specified percentage. </li>
+</ol>
+
+<h2><a id="ambari-rest-api"></a>Using the Ambari REST API</h2>
+
+<p>You can perform certain HAWQ cluster management activities from the command line using Ambari REST APIs. Refer to <a href="/docs/userguide/2.2.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a> for additional information.</p>
+
+        
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<div id="scrim"></div>
+
+<div class="container">
+  <footer class="site-footer-links">
+    
+  </footer>
+</div><!--end of container-->
+
+</body>
+</html>
