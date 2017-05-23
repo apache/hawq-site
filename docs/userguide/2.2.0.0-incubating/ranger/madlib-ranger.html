@@ -89,6 +89,30 @@
         </ul>
       </li>
       <li class="has_submenu">
+        <a href="/docs/userguide/2.2.0.0-incubating/tutorial/overview.html">Getting Started with HAWQ Tutorial</a>
+          <ul>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/introhawqenv.html">Lesson 1 - Runtime Environment</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/basichawqadmin.html">Lesson 2 - Cluster Administration</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/basicdbadmin.html">Lesson 3 - Database Administration</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/dataandscripts.html">Lesson 4 - Sample Data Set and HAWQ Schemas</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/introhawqtbls.html">Lesson 5 - HAWQ Tables</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/intropxfhdfs.html">Lesson 6 - HAWQ Extension Framework (PXF)</a>
+            </li>
+          </ul>
+        </li>
+
+      <li class="has_submenu">
         <span>
           Running a HAWQ Cluster
         </span>
@@ -262,6 +286,9 @@
           </li>
           <li>
             <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-table.html">Creating and Managing Tables</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/locate-table-hdfs.html"> Identifying HAWQ Table HDFS Files</a>
           </li>
           <li>
             <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-storage.html">Choosing the Table Storage Model</a>
@@ -1002,27 +1029,27 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<p>You can use MADlib, an open source library for in-database analytics, with your HAWQ installation. MADlib functions typically operate on source, output, and model tables. When Ranger is enabled for HAWQ authorization, you will need to provide access to all MADLib-related databases, schemas, tables, and functions to the appropriate users.  </p>
+<p>You can use MADlib, an open source library for in-database analytics, with your HAWQ installation. MADlib functions typically operate on source, output, and model tables. When Ranger is enabled for HAWQ authorization, you will need to explicitly provide access to all MADlib-related databases, schemas, tables, and functions to the appropriate users.  </p>
 
-<p>Consider the following when setting up HAWQ policies for MADlib access:</p>
+<p>Consider the following when setting up HAWQ Ranger policies for MADlib access:</p>
 
 <ul>
-<li>Assign <code>temp</code> permission to the database on which users will run MADlib functions.</li>
-<li>MADlib users often share their output tables. If this is the case in your deployment, create a shared schema dedicated to output tables, assigning <code>usage-schema</code> and <code>create</code> privileges for all MADlib users to this shared schema.</li>
-<li><p>Assign <code>create-schema</code> database permission to those MADlib users that do not choose to share their output tables.</p></li>
+<li>Assign <code>temp</code> permission to the database(s) on which users will run MADlib functions. This permission is required because MADlib creates temporary tables at runtime.</li>
+<li>MADlib users often share their output tables. If this is the case in your deployment, create a shared schema dedicated to output tables, assigning <code>usage-schema</code> and <code>create</code> privileges to this shared schema to all MADlib users. 
+
+<ul>
+<li>When calling a MADlib function, prepend the output table name with the shared schema name; for example, <code>shared_schema.output_table1</code>. This ensures that all tables created by the MADlib function (model summary tables, dictionary tables, etc.) are written to the same, accessible shared schema.</li>
+<li>MADlib sometimes creates output tables in addition to the one specified by the user. Prepending the shared schema name to the output table name ensures that these MADlib-generated output tables are accessible. </li>
+</ul></li>
+<li><p>Assign the <code>create-schema</code> database permission to those MADlib users who choose not to share their output tables. This permits those users to create private schemas for their MADlib output tables, rendering them inaccessible to other users.</p></li>
 <li><p><code>madlib</code> Schema-Level Permissions</p>
 
 <ul>
+<li>By default, MADlib is installed in a schema named <code>madlib</code>. You can choose to install MADlib in a different schema. References to <code>madlib</code> in the list below apply to the schema in which you installed MADlib.</li>
 <li>Assign <code>usage-schema</code> and <code>create</code> privileges to the <code>madlib</code> schema.</li>
 <li>Assign <code>execute</code> permissions on all functions within the <code>madlib</code> schema, including any functions called within.</li>
 <li>Assign <code>insert</code> and <code>select</code> permissions to all tables within the <code>madlib</code> schema.</li>
 <li>Assign the <code>usage-schema</code> and <code>create</code> permissions for the current schema, and any schema in which the source, output, and model tables may reside.</li>
-</ul></li>
-<li><p>Function-Specific Permissions </p>
-
-<ul>
-<li>Assign <code>insert</code> and <code>select</code> permissions for the source, output, and model tables.</li>
-<li>Assign <code>insert</code> and <code>select</code> permissions for the output _summary and __group tables.</li>
 </ul></li>
 </ul>
 

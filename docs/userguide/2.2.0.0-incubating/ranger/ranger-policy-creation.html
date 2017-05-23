@@ -89,6 +89,30 @@
         </ul>
       </li>
       <li class="has_submenu">
+        <a href="/docs/userguide/2.2.0.0-incubating/tutorial/overview.html">Getting Started with HAWQ Tutorial</a>
+          <ul>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/introhawqenv.html">Lesson 1 - Runtime Environment</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/basichawqadmin.html">Lesson 2 - Cluster Administration</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/basicdbadmin.html">Lesson 3 - Database Administration</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/dataandscripts.html">Lesson 4 - Sample Data Set and HAWQ Schemas</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/introhawqtbls.html">Lesson 5 - HAWQ Tables</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.2.0.0-incubating/tutorial/gettingstarted/intropxfhdfs.html">Lesson 6 - HAWQ Extension Framework (PXF)</a>
+            </li>
+          </ul>
+        </li>
+
+      <li class="has_submenu">
         <span>
           Running a HAWQ Cluster
         </span>
@@ -262,6 +286,9 @@
           </li>
           <li>
             <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-table.html">Creating and Managing Tables</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.2.0.0-incubating/ddl/locate-table-hdfs.html"> Identifying HAWQ Table HDFS Files</a>
           </li>
           <li>
             <a href="/docs/userguide/2.2.0.0-incubating/ddl/ddl-storage.html">Choosing the Table Storage Model</a>
@@ -1361,17 +1388,19 @@ Policy 2: testdb/public/table99, select permission
 <li><p>The <code>psql</code> <code>search_path</code> session configuration parameter affects Ranger access control checks for <code>CREATE</code> operations. The object will be created under the <em>first</em> schema in the <code>search_path</code> in which <code>usage-schema</code> permissions were assigned to the user. The schema <code>search_path</code> does not affect <code>SELECT</code> or other operations.</p></li>
 <li><p>When Ranger authorization is enabled for HAWQ, members of HAWQ roles assigned create database permissions must be provided <code>pg_hba.conf</code> access to the <code>postgres</code> database to use the <code>createdb</code> command line utility. This configuration step is not required for <code>CREATE DATABASE</code> operations invoked within the <code>psql</code> shell.</p></li>
 <li><p><code>CREATE LANGUAGE</code> commands (superuser-only) issued for non-built-in languages (pljava, plpython, ..) require the <code>usage</code> permission for the <code>c</code> language.</p></li>
-<li><p>If Ranger is enabled for Hive authorization in your HAWQ cluster:</p>
+<li><p>Using built-in functions may generate the message:  “WARNING: usage privilege of namespace &lt;schema-name&gt; is required.” This message is displayed even though the usage permission on &lt;schema-name&gt; is not actually required to execute the built-in function.</p></li>
+<li><p>When Ranger authorization is enabled for HDFS in your HAWQ cluster:</p>
 
 <ul>
-<li> Create Hive policy(s) providing the user <code>pxf</code> access to any Hive tables you want to expose via PXF HCatalog integration or HAWQ PXF external tables.</li>
-<li>The HAWQ policies providing access to PXF HCatalog integration must identify database <code>hcatalog</code>, schema <code>&lt;hive-schema-name&gt;</code>, and table <code>&lt;hive-table-name&gt;</code> resources.  These privileges are required in addition to any Hive policies for user <code>pxf</code> when Ranger is enabled for Hive authorization.</li>
+<li>The HDFS <code>xasecure.add-hadoop-authorization</code> property determines whether or not HDFS access controls are used as a fallback when no policy exists for a given HDFS resource. HAWQ access to HDFS is not affected when the <code>xasecure.add-hadoop-authorization</code> property is set to <code>true</code>. When this property is set to <code>false</code>, you must define HDFS Ranger policies permitting the <code>gadmin</code> HAWQ user read/write/execute access to the HAWQ HDFS filespace. </li>
+<li>Access to HDFS-backed PXF external tables is not affected by the <code>xasecure.add-hadoop-authorization</code> property value, since the <code>pxf</code> user is a member of the <code>hdfs</code> superuser group.</li>
 </ul></li>
-<li><p>If you have enabled Ranger authorization for HDFS in your HAWQ cluster:</p>
+<li><p>Hive Ranger policies cannot control PXF access to Hive tables.</p>
 
 <ul>
-<li> Create an HDFS policy(s) providing user <code>gpadmin</code> access to the HDFS HAWQ filespace.</li>
-<li> If you plan to use PXF external tables to read and write HDFS data, create HDFS policies providing user <code>pxf</code> access to the HDFS files backing your PXF external tables.</li>
+<li> When Ranger authorization is enabled for HAWQ, the <code>gpadmin</code> user has access permissions to all Hive tables exposed through PXF external tables and HCatalog integration.</li>
+<li>Other HAWQ users may gain access to Hive-backed PXF external tables when provided <code>usage-schema</code> and <code>create</code> permissions on the <code>public</code> or any private schema. To restrict this access, selectively assign permissions to the <code>pxf</code> protocol. </li>
+<li>HCatalog access to Hive tables is restricted by default when Ranger authorization is enabled for HAWQ; you must create policies to explicitly allow this access.</li>
 </ul></li>
 </ul>
 
