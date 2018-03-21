@@ -1,0 +1,1483 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Always force latest IE rendering engine or request Chrome Frame -->
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400italic,400,600' rel='stylesheet' type='text/css'>
+  <!-- Use title if it's in the page YAML frontmatter -->
+  <title>
+      hawq load |
+    Apache HAWQ (Incubating) Docs
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/stylesheets/all.css" rel="stylesheet" media="screen, print" />
+  <link href="/stylesheets/print.css" rel="stylesheet" media="print" />
+  <link href='/images/favicon.ico' rel='shortcut icon'>
+
+  <script src="/javascripts/all.js"></script>
+  
+</head>
+
+<body class="docs docs_userguide docs_userguide_2_3_0_0-incubating docs_userguide_2_3_0_0-incubating_reference docs_userguide_2_3_0_0-incubating_reference_cli docs_userguide_2_3_0_0-incubating_reference_cli_admin_utilities docs_userguide_2_3_0_0-incubating_reference_cli_admin_utilities_hawqload has-subnav">
+
+<div class="viewport">
+  <div class='wrap'>
+    <script type="text/javascript">
+      document.domain = "";
+    </script>
+
+     
+  <header class="header header-layout">
+    <h1 class="logo">
+      <a href="/">Apache HAWQ (incubating) Documentation</a>
+    </h1>
+    
+    <div class="header-links js-bar-links">
+      <div class="btn-menu" data-behavior="MenuMobile"></div>
+      <div class="header-item"><a href="http://hawq.incubator.apache.org/">Back to Apache HAWQ Page</a></div>
+      <div class="header-item">
+        <a href="https://issues.apache.org/jira/browse/HAWQ" target="_blank">Issues</a>
+      </div>
+      
+    </div>
+  </header>
+
+
+    <div class="container">
+
+      <!--googleoff: index-->
+      <div id="sub-nav" class="js-sidenav nav-container" role="navigation">
+  <a class="sidenav-title" data-behavior="SubMenuMobile">  Doc Index</a>
+  <div class="nav-content">
+    <ul>
+      <li>
+        Apache HAWQ (incubating)
+      </li>
+      <li><a href="/docs/userguide/2.3.0.0-incubating/requirements/system-requirements.html">System Requirements</a>
+      </li>
+      <li class="has_submenu">
+        <span>
+          HAWQ System Overview
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/overview/HAWQOverview.html">What is HAWQ?</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/overview/HAWQArchitecture.html">HAWQ Architecture</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/overview/TableDistributionStorage.html">Table Distribution and Storage</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/overview/ElasticSegments.html">Elastic Query Execution Runtime</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/overview/ResourceManagement.html">Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/overview/HDFSCatalogCache.html">HDFS Catalog Cache</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/overview/ManagementTools.html">Management Tools</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/overview/RedundancyFailover.html">High Availability, Redundancy and Fault Tolerance</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <a href="/docs/userguide/2.3.0.0-incubating/tutorial/overview.html">Getting Started with HAWQ Tutorial</a>
+          <ul>
+            <li>
+              <a href="/docs/userguide/2.3.0.0-incubating/tutorial/gettingstarted/introhawqenv.html">Lesson 1 - Runtime Environment</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.3.0.0-incubating/tutorial/gettingstarted/basichawqadmin.html">Lesson 2 - Cluster Administration</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.3.0.0-incubating/tutorial/gettingstarted/basicdbadmin.html">Lesson 3 - Database Administration</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.3.0.0-incubating/tutorial/gettingstarted/dataandscripts.html">Lesson 4 - Sample Data Set and HAWQ Schemas</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.3.0.0-incubating/tutorial/gettingstarted/introhawqtbls.html">Lesson 5 - HAWQ Tables</a>
+            </li>
+            <li>
+              <a href="/docs/userguide/2.3.0.0-incubating/tutorial/gettingstarted/intropxfhdfs.html">Lesson 6 - HAWQ Extension Framework (PXF)</a>
+            </li>
+          </ul>
+        </li>
+
+      <li class="has_submenu">
+        <span>
+          Running a HAWQ Cluster
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/RunningHAWQ.html">Overview</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/setuphawqopenv.html">Introducing the HAWQ Operating Environment</a>
+          </li>
+          <li class="has_submenu">
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/ambari-admin.html">Managing HAWQ Using Ambari</a>
+           <ul>
+            <li>
+              <a href="/docs/userguide/2.3.0.0-incubating/admin/ambari-rest-api.html">Using the Ambari REST API</a>
+            </li>
+           </ul>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/startstop.html">Starting and Stopping HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/ClusterExpansion.html">Expanding a Cluster</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/ClusterShrink.html">Removing a Node</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/BackingUpandRestoringHAWQDatabases.html">Backing Up and Restoring HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/HighAvailability.html">High Availability in HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/MasterMirroring.html">Master Mirroring</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/HAWQFilespacesandHighAvailabilityEnabledHDFS.html">HAWQ Filespaces and High Availability Enabled HDFS</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/FaultTolerance.html">Understanding the Fault Tolerance Service</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/RecommendedMonitoringTasks.html">Recommended Monitoring and Maintenance Tasks</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/maintain.html">Routine System Maintenance Tasks</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/monitor.html">Monitoring a HAWQ System</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/logfiles.html">HAWQ Administrative Log Files</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/admin/packcore.html">HAWQ Packcore Utility</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Managing Resources
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/resourcemgmt/HAWQResourceManagement.html">How HAWQ Manages Resources</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/resourcemgmt/best-practices.html">Best Practices for Configuring Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/resourcemgmt/ConfigureResourceManagement.html">Configuring Resource Management</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/resourcemgmt/YARNIntegration.html">Integrating YARN with HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/resourcemgmt/ResourceQueues.html">Working with Hierarchical Resource Queues</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/resourcemgmt/ResourceManagerStatus.html">Analyzing Resource Manager Status</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Managing Client Access
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/client_auth.html">Configuring Client Authentication</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/ldap.html">Using LDAP Authentication with TLS/SSL</a>
+          </li>
+          <li class="has_submenu">
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/kerberos.html">Using Kerberos Authentication</a>
+            <ul>
+              <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/kerberos-securehdfs.html">Configuring HAWQ/PXF for Secure HDFS</a>
+              </li>
+              <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/kerberos-userauth.html">Configuring Kerberos User Authentication for HAWQ</a>
+              </li>
+              <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/kerberos-mitkdc.html">Example - Setting up an MIT KDC Server</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/disable-kerberos.html">Disabling Kerberos Security</a>
+          </li>
+          <li>
+              <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/hawq-access-checks.html">Overview of HAWQ Authorization</a>
+          </li>
+          <li>
+              <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/roles_privs.html">Using HAWQ Native Authorization</a>
+          </li>
+          <li class="has_submenu">
+                     <span>
+                        Using Ranger for Authorization
+                     </span>
+               <ul>
+                  <li>
+                     <a href="/docs/userguide/2.3.0.0-incubating/ranger/ranger-overview.html">Overview of Ranger Policy Management</a>
+                  </li>
+                  <li>
+                     <a href="/docs/userguide/2.3.0.0-incubating/ranger/ranger-integration-config.html">Configuring HAWQ to use Ranger Policy Management</a>
+                  </li>
+                  <li class="has_submenu">
+                     <a href="/docs/userguide/2.3.0.0-incubating/ranger/ranger-policy-creation.html">Creating HAWQ Authorization Policies in Ranger</a>
+                    <ul>
+                      <li>
+                         <a href="/docs/userguide/2.3.0.0-incubating/ranger/ranger-resource-perms.html">HAWQ Resources and Permissions</a>
+                      </li>
+                      <li>
+                         <a href="/docs/userguide/2.3.0.0-incubating/ranger/ranger-sqlcmd-summary.html">SQL Command Permissions Summary</a>
+                      </li>
+                      <li>
+                         <a href="/docs/userguide/2.3.0.0-incubating/ranger/madlib-ranger.html">Using MADLib with Ranger Authorization</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                     <a href="/docs/userguide/2.3.0.0-incubating/ranger/ranger-auditing.html">Auditing Authorization Events</a>
+                  </li>
+                  <li>
+                     <a href="/docs/userguide/2.3.0.0-incubating/ranger/ranger-ha.html">High Availability and HAWQ Ranger</a>
+                  </li>
+                  <li>
+                     <a href="/docs/userguide/2.3.0.0-incubating/ranger/ranger-kerberos.html">HAWQ Ranger Kerberos Integration</a>
+                  </li>
+               </ul>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/g-establishing-a-database-session.html">Establishing a Database Session</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/g-hawq-database-client-applications.html">HAWQ Client Applications</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/g-connecting-with-psql.html">Connecting with psql</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/g-database-application-interfaces.html">HAWQ Database Drivers and APIs</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/clientaccess/g-troubleshooting-connection-problems.html">Troubleshooting Connection Problems</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Defining Database Objects
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/ddl/ddl.html">Overview</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/ddl/ddl-database.html">Creating and Managing Databases</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/ddl/ddl-tablespace.html">Creating and Managing Tablespaces</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/ddl/ddl-schema.html">Creating and Managing Schemas</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/ddl/ddl-table.html">Creating and Managing Tables</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/ddl/locate-table-hdfs.html"> Identifying HAWQ Table HDFS Files</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/ddl/ddl-storage.html">Choosing the Table Storage Model</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/ddl/ddl-partition.html">Partitioning Large Tables</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/ddl/ddl-view.html">Creating and Managing Views</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <span>
+          Using Procedural Languages
+        </span>
+        <ul>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/plext/UsingProceduralLanguages.html">Using Languages in HAWQ</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/plext/builtin_langs.html">Using HAWQ Built-In Languages</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/plext/using_pljava.html">Using PL/Java</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/plext/using_plpgsql.html">Using PL/pgSQL</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/plext/using_plpython.html">Using PL/Python</a>
+          </li>
+          <li>
+            <a href="/docs/userguide/2.3.0.0-incubating/plext/using_plr.html">Using PL/R</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/dml.html">Managing Data with HAWQ</a>
+        <ul>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/BasicDataOperations.html">Basic Data Operations</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/about_statistics.html">About Database Statistics</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/ConcurrencyControl.html">Concurrency Control</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/Transactions.html">Working with Transactions</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-loading-and-unloading-data.html">Loading and Unloading Data</a>
+            <ul>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-working-with-file-based-ext-tables.html">Working with File-Based External Tables</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-external-tables.html">Accessing File-Based External Tables</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-gpfdist-protocol.html">gpfdist Protocol</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-gpfdists-protocol.html">gpfdists Protocol</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-handling-errors-ext-table-data.html">Handling Errors in External Table Data</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-using-the-hawq-file-server--gpfdist-.html">Using the HAWQ File Server (gpfdist)</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-about-gpfdist-setup-and-performance.html">About gpfdist Setup and Performance</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-controlling-segment-parallelism.html">Controlling Segment Parallelism</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-installing-gpfdist.html">Installing gpfdist</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-starting-and-stopping-gpfdist.html">Starting and Stopping gpfdist</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-troubleshooting-gpfdist.html">Troubleshooting gpfdist</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-creating-and-using-web-external-tables.html">Creating and Using Web External Tables</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-command-based-web-external-tables.html">Command-based Web External Tables</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-url-based-web-external-tables.html">URL-based Web External Tables</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-loading-data-using-an-external-table.html">Loading Data Using an External Table</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-loading-and-writing-non-hdfs-custom-data.html">Loading and Writing Non-HDFS Custom Data</a>
+                <ul>
+                  <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-using-a-custom-format.html">Using a Custom Format</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-importing-and-exporting-fixed-width-data.html">Importing and Exporting Fixed Width Data</a></li>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-examples-read-fixed-width-data.html">Examples - Read Fixed-Width Data</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/creating-external-tables-examples.html">Creating External Tables - Examples</a>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-handling-load-errors.html">Handling Load Errors</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-define-an-external-table-with-single-row-error-isolation.html">Define an External Table with Single Row Error Isolation</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-create-an-error-table-and-declare-a-reject-limit.html">Capture Row Formatting Errors and Declare a Reject Limit </a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-identifying-invalid-csv-files-in-error-table-data.html">Identifying Invalid CSV Files in Error Table Data</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-moving-data-between-tables.html">Moving Data between Tables</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-register_files.html">Registering Files into HAWQ Internal Tables</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-loading-data-with-hawqload.html">Loading Data with hawq load</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-loading-data-with-copy.html">Loading Data with COPY</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-running-copy-in-single-row-error-isolation-mode.html">Running COPY in Single Row Error Isolation Mode</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-optimizing-data-load-and-query-performance.html">Optimizing Data Load and Query Performance</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-unloading-data-from-hawq-database.html">Unloading Data from HAWQ</a>
+                <ul>
+                  <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-defining-a-file-based-writable-external-table.html">Defining a File-Based Writable External Table</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-example-hawq-file-server-gpfdist.html">Example - HAWQ file server (gpfdist)</a></li>
+                    </ul>
+                  </li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-defining-a-command-based-writable-external-web-table.html">Defining a Command-Based Writable External Web Table</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-disabling-execute-for-web-or-writable-external-tables.html">Disabling EXECUTE for Web or Writable External Tables</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-unloading-data-using-a-writable-external-table.html">Unloading Data Using a Writable External Table</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-unloading-data-using-copy.html">Unloading Data Using COPY</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-transforming-xml-data.html">Transforming XML Data</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-determine-the-transformation-schema.html">Determine the Transformation Schema</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-write-a-transform.html">Write a Transform</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-write-the-gpfdist-configuration.html">Write the gpfdist Configuration</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-load-the-data.html">Load the Data</a></li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-transfer-and-store-the-data.html">Transfer and Store the Data</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-transforming-with-gpload.html">Transforming with GPLOAD</a></li>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-transforming-with-insert-into-select-from.html">Transforming with INSERT INTO SELECT FROM</a></li>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-configuration-file-format.html">Configuration File Format</a></li>
+                    </ul>
+                  </li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-xml-transformation-examples.html">XML Transformation Examples</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-example-1-dblp-database-publications-in-demo-directory.html">Command-based Web External Tables</a></li>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-example-irs-mef-xml-files-in-demo-directory.html">Example using IRS MeF XML Files (In demo Directory)</a></li>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-example-witsml-files-in-demo-directory.html">Example using WITSML™ Files (In demo Directory)</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-formatting-data-files.html">Formatting Data Files</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-formatting-rows.html">Formatting Rows</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-formatting-columns.html">Formatting Columns</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-representing-null-values.html">Representing NULL Values</a></li>
+                  <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-escaping.html">Escaping</a>
+                    <ul>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-escaping-in-text-formatted-files.html">Escaping in Text Formatted Files</a></li>
+                      <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-escaping-in-csv-formatted-files.html">Escaping in CSV Formatted Files</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-character-encoding.html">Character Encoding</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/datamgmt/HAWQInputFormatforMapReduce.html">HAWQ InputFormat for MapReduce</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/pxf/HawqExtensionFrameworkPXF.html">Using PXF with Unmanaged Data</a>
+            <ul>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/InstallPXFPlugins.html">Installing PXF Plugins</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/ConfigurePXF.html">Configuring PXF</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/HDFSFileDataPXF.html">Accessing HDFS File Data</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/HivePXF.html">Accessing Hive Data</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/HBasePXF.html">Accessing HBase Data</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/JsonPXF.html">Accessing JSON Data</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/JdbcPXF.html">Accessing External SQL Databases</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/HDFSWritablePXF.html">Writing Data to HDFS</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/ReadWritePXF.html">Using Profiles to Read and Write Data</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/PXFExternalTableandAPIReference.html">PXF External Tables and API</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/pxf/TroubleshootingPXF.html">Troubleshooting PXF</a></li>
+            </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/query/query.html">Querying Data</a>
+        <ul>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/query/HAWQQueryProcessing.html">About HAWQ Query Processing</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/query/gporca/query-gporca-optimizer.html">About GPORCA</a>
+            <ul>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/query/gporca/query-gporca-overview.html">Overview of GPORCA</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/query/gporca/query-gporca-features.html">GPORCA Features and Enhancements</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/query/gporca/query-gporca-enable.html">Enabling GPORCA</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/query/gporca/query-gporca-notes.html">Considerations when Using GPORCA</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/query/gporca/query-gporca-fallback.html">Determining The Query Optimizer In Use</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/query/gporca/query-gporca-changed.html">Changed Behavior with GPORCA</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/query/gporca/query-gporca-limitations.html">GPORCA Limitations</a></li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/query/defining-queries.html">Defining Queries</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/query/functions-operators.html">Using Functions and Operators</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/query/query-performance.html">Query Performance</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/query/query-profiling.html">Query Profiling</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/bestpractices/HAWQBestPracticesOverview.html">Best Practices</a>
+        <ul>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/bestpractices/config_hawq_bestpractices.html">Configuring HAWQ</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/bestpractices/operating_hawq_bestpractices.html">Operating HAWQ</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/bestpractices/secure_bestpractices.html">Securing HAWQ</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/bestpractices/managing_resources_bestpractices.html">Managing Resources</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/bestpractices/managing_data_bestpractices.html">Managing Data</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/bestpractices/querying_data_bestpractices.html">Querying Data</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/troubleshooting/Troubleshooting.html">Troubleshooting</a>
+        <ul>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/troubleshooting/Troubleshooting.html#topic_dwd_rnx_15">Query Performance Issues</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/troubleshooting/Troubleshooting.html#topic_vm5_znx_15">Rejection of Query Resource Requests</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/troubleshooting/Troubleshooting.html#topic_qq4_rkl_wv">Queries Cancelled Due to High VMEM Usage</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/troubleshooting/Troubleshooting.html#topic_hlj_zxx_15">Segments Do Not Appear in gp_segment_configuration</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/troubleshooting/Troubleshooting.html#topic_mdz_q2y_15">Handling Segment Resource Fragmentation</a></li>
+        </ul>
+      </li>
+      <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/reference/hawq-reference.html">HAWQ Reference</a>
+        <ul>
+          <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/reference/SQLCommandReference.html">SQL Commands</a>
+            <ul>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ABORT.html">ABORT</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-AGGREGATE.html">ALTER AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-CONVERSION.html">ALTER CONVERSION</a></li>  
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-DATABASE.html">ALTER DATABASE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-FUNCTION.html">ALTER FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-OPERATOR.html">ALTER OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-OPERATOR-CLASS.html">ALTER OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-RESOURCE-QUEUE.html">ALTER RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-ROLE.html">ALTER ROLE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-SEQUENCE.html">ALTER SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-TABLE.html">ALTER TABLE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-TABLESPACE.html">ALTER TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-TYPE.html">ALTER TYPE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ALTER-USER.html">ALTER USER</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ANALYZE.html">ANALYZE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/BEGIN.html">BEGIN</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CHECKPOINT.html">CHECKPOINT</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CLOSE.html">CLOSE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/COMMIT.html">COMMIT</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/COPY.html">COPY</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-AGGREGATE.html">CREATE AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-CAST.html">CREATE CAST</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-CONVERSION.html">CREATE CONVERSION</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-DATABASE.html">CREATE DATABASE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html">CREATE EXTERNAL TABLE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-FUNCTION.html">CREATE FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-GROUP.html">CREATE GROUP</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-LANGUAGE.html">CREATE LANGUAGE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-OPERATOR.html">CREATE OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-OPERATOR-CLASS.html">CREATE OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-RESOURCE-QUEUE.html">CREATE RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-ROLE.html">CREATE ROLE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-SCHEMA.html">CREATE SCHEMA</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-SEQUENCE.html">CREATE SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-TABLE.html">CREATE TABLE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-TABLE-AS.html">CREATE TABLE AS</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-TABLESPACE.html">CREATE TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-TYPE.html">CREATE TYPE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-USER.html">CREATE USER</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-VIEW.html">CREATE VIEW</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DEALLOCATE.html">DEALLOCATE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DECLARE.html">DECLARE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-AGGREGATE.html">DROP AGGREGATE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-CAST.html">DROP CAST</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-CONVERSION.html">DROP CONVERSION</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-DATABASE.html">DROP DATABASE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-EXTERNAL-TABLE.html">DROP EXTERNAL TABLE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-FILESPACE.html">DROP FILESPACE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-FUNCTION.html">DROP FUNCTION</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-GROUP.html">DROP GROUP</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-LANGUAGE.html">DROP LANGUAGE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-OPERATOR.html">DROP OPERATOR</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-OPERATOR-CLASS.html">DROP OPERATOR CLASS</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-OWNED.html">DROP OWNED</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-RESOURCE-QUEUE.html">DROP RESOURCE QUEUE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-ROLE.html">DROP ROLE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-SCHEMA.html">DROP SCHEMA</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-SEQUENCE.html">DROP SEQUENCE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-TABLE.html">DROP TABLE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-TABLESPACE.html">DROP TABLESPACE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-TYPE.html">DROP TYPE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-USER.html">DROP USER</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/DROP-VIEW.html">DROP VIEW</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/END.html">END</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/EXECUTE.html">EXECUTE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/EXPLAIN.html">EXPLAIN</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/FETCH.html">FETCH</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/GRANT.html">GRANT</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/INSERT.html">INSERT</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/PREPARE.html">PREPARE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/REASSIGN-OWNED.html">REASSIGN OWNED</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/RELEASE-SAVEPOINT.html">RELEASE SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/RESET.html">RESET</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/REVOKE.html">REVOKE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ROLLBACK.html">ROLLBACK</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/ROLLBACK-TO-SAVEPOINT.html">ROLLBACK TO SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/SAVEPOINT.html">SAVEPOINT</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/SELECT.html">SELECT</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/SELECT-INTO.html">SELECT INTO</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/SET.html">SET</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/SET-ROLE.html">SET ROLE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/SET-SESSION-AUTHORIZATION.html">SET SESSION AUTHORIZATION</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/SHOW.html">SHOW</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/TRUNCATE.html">TRUNCATE</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/sql/VACUUM.html">VACUUM</a></li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/reference/HAWQSiteConfig.html">Server Configuration Parameter Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_config.html">About Server Configuration Parameters</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html">Configuration Parameter Categories</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic_hfd_1tl_zp">Append-Only Table Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic39">Client Connection Default Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic12">Connection and Authentication Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic47">Database and Tablespace/Filespace Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic29">Error Reporting and Logging Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic45">External Table Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic57">GPORCA Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic49">HAWQ Array Configuration Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic_pxfparam">HAWQ Extension Framework (PXF) Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic56">HAWQ PL/Java Extension Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#hawq_resource_management">HAWQ Resource Management Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic43">Lock Management Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic48">Past PostgreSQL Version Compatibility Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic21">Query Tuning Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#ranger_related">Ranger Configuration Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#statistics_collection">Statistics Collection Parameters</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/guc_category-list.html#topic15">System Resource Consumption Parameters</a></li>
+                </ul>
+              </li>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html">Configuration Parameters</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#add_missing_from">add_missing_from</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#application_name">application_name</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#array_nulls">array_nulls</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#authentication_timeout">authentication_timeout</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#backslash_quote">backslash_quote</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#block_size">block_size</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#bonjour_name">bonjour_name</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#check_function_bodies">check_function_bodies</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#client_encoding">client_encoding</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#client_min_messages">client_min_messages</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#cpu_index_tuple_cost">cpu_index_tuple_cost</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#cpu_operator_cost">cpu_operator_cost</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#cpu_tuple_cost">cpu_tuple_cost</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#cursor_tuple_fraction">cursor_tuple_fraction</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#custom_variable_classes">custom_variable_classes</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#DateStyle">DateStyle</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#db_user_namespace">db_user_namespace</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#deadlock_timeout">deadlock_timeout</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#debug_assertions">debug_assertions</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#debug_pretty_print">debug_pretty_print</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_parse">debug_print_parse</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_plan">debug_print_plan</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_prelim_plan">debug_print_prelim_plan</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_rewritten">debug_print_rewritten</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#debug_print_slice_table">debug_print_slice_table</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#topic_fqj_4fd_kv">default_hash_table_bucket_number</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#default_statistics_target">default_statistics_target</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#default_tablespace">default_tablespace</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#default_transaction_isolation">default_transaction_isolation</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#default_transaction_read_only">default_transaction_read_only</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#dynamic_library_path">dynamic_library_path</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#effective_cache_size">effective_cache_size</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#enable_bitmapscan">enable_bitmapscan</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#enable_groupagg">enable_groupagg</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#enable_hashagg">enable_hashagg</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#enable_hashjoin">enable_hashjoin</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#enable_indexscan">enable_indexscan</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#enable_mergejoin">enable_mergejoin</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#enable_nestloop">enable_nestloop</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#enable_seqscan">enable_seqscan</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#enable_sort">enable_sort</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#enable_tidscan">enable_tidscan</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#escape_string_warning">escape_string_warning</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#explain_pretty_print">explain_pretty_print</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#extra_float_digits">extra_float_digits</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#from_collapse_limit">from_collapse_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_adjust_selectivity_for_outerjoins">gp_adjust_selectivity_for_outerjoins</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_analyze_relative_error">gp_analyze_relative_error</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_autostats_mode">gp_autostats_mode</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#topic_imj_zhf_gw">gp_autostats_on_change_threshhold</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_backup_directIO">gp_backup_directIO</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_backup_directIO_read_chunk_mb">gp_backup_directIO_read_chunk_mb</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_cached_segworkers_threshold">gp_cached_segworkers_threshold</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_command_count">gp_command_count</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_connections_per_thread">gp_connections_per_thread</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_debug_linger">gp_debug_linger</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_dynamic_partition_pruning">gp_dynamic_partition_pruning</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_agg_distinct">gp_enable_agg_distinct</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_agg_distinct_pruning">gp_enable_agg_distinct_pruning</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_direct_dispatch">gp_enable_direct_dispatch</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_fallback_plan">gp_enable_fallback_plan</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_fast_sri">gp_enable_fast_sri</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_groupext_distinct_gather">gp_enable_groupext_distinct_gather</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_groupext_distinct_pruning">gp_enable_groupext_distinct_pruning</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_multiphase_agg">gp_enable_multiphase_agg</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_predicate_propagation">gp_enable_predicate_propagation</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_preunique">gp_enable_preunique</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sequential_window_plans">gp_enable_sequential_window_plans</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sort_distinct">gp_enable_sort_distinct</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_enable_sort_limit">gp_enable_sort_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_enable_exec">gp_external_enable_exec</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_grant_privileges">gp_external_grant_privileges</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_external_max_segs">gp_external_max_segs</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_count">gp_filerep_tcp_keepalives_count</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_idle">gp_filerep_tcp_keepalives_idle</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_filerep_tcp_keepalives_interval">gp_filerep_tcp_keepalives_interval</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_hashjoin_tuples_per_bucket">gp_hashjoin_tuples_per_bucket</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_idf_deduplicate">gp_idf_deduplicate</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_cache_future_packets">gp_interconnect_cache_future_packets</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_default_rtt">gp_interconnect_default_rtt</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_fc_method">gp_interconnect_fc_method</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_hash_multiplier">gp_interconnect_hash_multiplier</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_retries_before_timeout">gp_interconnect_min_retries_before_timeout</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_min_rto">gp_interconnect_min_rto</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_queue_depth">gp_interconnect_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_setup_timeout">gp_interconnect_setup_timeout</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_snd_queue_depth">gp_interconnect_snd_queue_depth</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_checking_period">gp_interconnect_timer_checking_period</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_timer_period">gp_interconnect_timer_period</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_interconnect_type">gp_interconnect_type</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_log_format">gp_log_format</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_csv_line_length">gp_max_csv_line_length</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_databases">gp_max_databases</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_filespaces">gp_max_filespaces</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_packet_size">gp_max_packet_size</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_plan_size">gp_max_plan_size</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_max_tablespaces">gp_max_tablespaces</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_motion_cost_per_row">gp_motion_cost_per_row</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_reject_percent_threshold">gp_reject_percent_threshold</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_reraise_signal">gp_reraise_signal</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_role">gp_role</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_safefswritesize">gp_safefswritesize</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_segment_connect_timeout">gp_segment_connect_timeout</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_segments_for_planner">gp_segments_for_planner</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_session_id">gp_session_id</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_set_proc_affinity">gp_set_proc_affinity</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_set_read_only">gp_set_read_only</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_statistics_pullup_from_child_partition">gp_statistics_pullup_from_child_partition</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_statistics_use_fkeys">gp_statistics_use_fkeys</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_vmem_idle_resource_timeout">gp_vmem_idle_resource_timeout</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_vmem_protect_segworker_cache_limit">gp_vmem_protect_segworker_cache_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_checksumming">gp_workfile_checksumming</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_compress_algorithm">gp_workfile_compress_algorithm</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_files_per_query">gp_workfile_limit_files_per_query</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_per_query">gp_workfile_limit_per_query</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#gp_workfile_limit_per_segment">gp_workfile_limit_per_segment</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_acl_type">hawq_acl_type</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_dfs_url">hawq_dfs_url</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_global_rm_type">hawq_global_rm_type</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_address_host">hawq_master_address_host</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_address_port">hawq_master_address_port</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_directory">hawq_master_directory</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_master_temp_directory">hawq_master_temp_directory</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_re_memory_overcommit_max">hawq_re_memory_overcommit_max</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_cluster_report">hawq_rm_cluster_report_period</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_force_alterqueue_cancel_queued_request">hawq_rm_force_alterqueue_cancel_queued_request</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_master_port">hawq_rm_master_port</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_memory_limit_perseg">hawq_rm_memory_limit_perseg</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_min_resource_perseg">hawq_rm_min_resource_perseg</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nresqueue_limit">hawq_rm_nresqueue_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nslice_perseg_limit">hawq_rm_nslice_perseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvcore_limit_perseg">hawq_rm_nvcore_limit_perseg</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_perquery_limit">hawq_rm_nvseg_perquery_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_perquery_perseg_limit">hawq_rm_nvseg_perquery_perseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_nvseg_variance_amon_seg_limit">hawq_rm_nvseg_variance_amon_seg_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_rejectrequest_nseg_limit">hawq_rm_rejectrequest_nseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_resource_idle_timeout">hawq_rm_resource_idle_timeout</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_return_percent_on_overcommit">hawq_rm_return_percent_on_overcommit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_segment_heartbeat_interval">hawq_rm_segment_heartbeat_interval</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_segment_port">hawq_rm_segment_port</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_stmt_nvseg">hawq_rm_stmt_nvseg</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_stmt_vseg_memory">hawq_rm_stmt_vseg_memory</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_tolerate_nseg_limit">hawq_rm_tolerate_nseg_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_address">hawq_rm_yarn_address</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_app_name">hawq_rm_yarn_app_name</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_queue_name">hawq_rm_yarn_queue_name</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rm_yarn_scheduler_address">hawq_rm_yarn_scheduler_address</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rps_address_port">hawq_rps_address_port</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_rps_check_local_interval">hawq_rps_check_local_interval</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_address_port">hawq_segment_address_port</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_directory">hawq_segment_directory</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#hawq_segment_temp_directory">hawq_segment_temp_directory</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#integer_datetimes">integer_datetimes</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#IntervalStyle">IntervalStyle</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#join_collapse_limit">join_collapse_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#krb_caseins_users">krb_caseins_users</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#krb_server_keyfile">krb_server_keyfile</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#krb_srvname">krb_srvname</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#lc_collate">lc_collate</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#lc_ctype">lc_ctype</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#lc_messages">lc_messages</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#lc_monetary">lc_monetary</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#lc_numeric">lc_numeric</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#lc_time">lc_time</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#listen_addresses">listen_addresses</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#local_preload_libraries">local_preload_libraries</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_autostats">log_autostats</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_connections">log_connections</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_disconnections">log_disconnections</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_dispatch_stats">log_dispatch_stats</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_duration">log_duration</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_error_verbosity">log_error_verbosity</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_executor_stats">log_executor_stats</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_hostname">log_hostname</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_min_duration_statement">log_min_duration_statement</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_min_error_statement">log_min_error_statement</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_min_messages">log_min_messages</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_parser_stats">log_parser_stats</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_planner_stats">log_planner_stats</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_rotation_age">log_rotation_age</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_rotation_size">log_rotation_size</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_statement">log_statement</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_statement_stats">log_statement_stats</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_timezone">log_timezone</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#log_truncate_on_rotation">log_truncate_on_rotation</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_appendonly_tables">max_appendonly_tables</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_connections">max_connections</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_files_per_process">max_files_per_process</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_fsm_pages">max_fsm_pages</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_fsm_relations">max_fsm_relations</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_function_args">max_function_args</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_identifier_length">max_identifier_length</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_index_keys">max_index_keys</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_locks_per_transaction">max_locks_per_transaction</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_prepared_transactions">max_prepared_transactions</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#max_stack_depth">max_stack_depth</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#optimizer">optimizer</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_analyze_root_partition">optimizer_analyze_root_partition</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_minidump">optimizer_minidump</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_parts_to_force_sort_on_insert">optimizer_parts_to_force_sort_on_insert</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#optimizer_prefer_scalar_dqa_multistage_agg">optimizer_prefer_scalar_dqa_multistage_agg</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#password_encryption">password_encryption</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pgstat_track_activity_query_size">pgstat_track_activity_query_size</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pljava_classpath">pljava_classpath</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pljava_statement_cache_size">pljava_statement_cache_size</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pljava_release_lingering_savepoints">pljava_release_lingering_savepoints</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pljava_vmoptions">pljava_vmoptions</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#port">port</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pxf_enable_filter_pushdown">pxf_enable_filter_pushdown</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pxf_enable_stat_collection">pxf_enable_stat_collection</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pxf_remote_service_login">pxf_remote_service_login</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pxf_remote_service_secret">pxf_remote_service_secret</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pxf_service_address">pxf_service_address</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pxf_service_port">pxf_service_port</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#pxf_stat_max_fragments">pxf_stat_max_fragments</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#random_page_cost">random_page_cost</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#regex_flavor">regex_flavor</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#runaway_detector_activation_percent">runaway_detector_activation_percent</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#search_path">search_path</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#seg_max_connections">seg_max_connections</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#seq_page_cost">seq_page_cost</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#server_encoding">server_encoding</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#server_ticket_renew_interval">server_ticket_renew_interval</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#server_version">server_version</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#server_version_num">server_version_num</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#shared_buffers">shared_buffers</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#shared_preload_libraries">shared_preload_libraries</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#ssl">ssl</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#ssl_ciphers">ssl_ciphers</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#standard_conforming_strings">standard_conforming_strings</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#statement_timeout">statement_timeout</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#superuser_reserved_connections">superuser_reserved_connections</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_count">tcp_keepalives_count</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_idle">tcp_keepalives_idle</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#tcp_keepalives_interval">tcp_keepalives_interval</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#temp_buffers">temp_buffers</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#TimeZone">TimeZone</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#timezone_abbreviations">timezone_abbreviations</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#track_activities">track_activities</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#track_counts">track_counts</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#transaction_isolation">transaction_isolation</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#transaction_read_only">transaction_read_only</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#transform_null_equals">transform_null_equals</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_directory">unix_socket_directory</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_group">unix_socket_group</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#unix_socket_permissions">unix_socket_permissions</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#update_process_title">update_process_title</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_delay">vacuum_cost_delay</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_limit">vacuum_cost_limit</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_page_dirty">vacuum_cost_page_dirty</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_cost_page_miss">vacuum_cost_page_miss</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#vacuum_freeze_min_age">vacuum_freeze_min_age</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/guc/parameter_definitions.html#xid_stop_limit">xid_stop_limit</a></li>
+                </ul>
+              </li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/HAWQSampleSiteConfig.html">Sample hawq-site.xml Configuration File</a></li>
+            </ul>
+          </li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/reference/HDFSConfigurationParameterReference.html">HDFS Configuration Reference</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/reference/HAWQEnvironmentVariables.html">Environment Variables</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/reference/CharacterSetSupportReference.html">Character Set Support Reference</a></li>
+          <li><a href="/docs/userguide/2.3.0.0-incubating/reference/HAWQDataTypes.html">Data Types</a></li>
+          <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/catalog_ref.html">System Catalog Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/catalog_ref-tables.html">System Tables</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/catalog_ref-views.html">System Views</a></li>
+              <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/catalog_ref-html.html">System Catalogs Definitions</a>
+                <ul>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_configuration_history.html">gp_configuration_history</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_distribution_policy.html">gp_distribution_policy</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_global_sequence.html">gp_global_sequence</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_master_mirroring.html">gp_master_mirroring</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_persistent_database_node.html">gp_persistent_database_node</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_persistent_filespace_node.html">gp_persistent_filespace_node</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_persistent_relation_node.html">gp_persistent_relation_node</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_persistent_relfile_node.html">gp_persistent_relfile_node</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_persistent_tablespace_node.html">gp_persistent_tablespace_node</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_relfile_node.html">gp_relfile_node</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_segment_configuration.html">gp_segment_configuration</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/gp_version_at_initdb.html">gp_version_at_initdb</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_aggregate.html">pg_aggregate</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_am.html">pg_am</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_amop.html">pg_amop</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_amproc.html">pg_amproc</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_appendonly.html">pg_appendonly</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_attrdef.html">pg_attrdef</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_attribute.html">pg_attribute</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_attribute_encoding.html">pg_attribute_encoding</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_auth_members.html">pg_auth_members</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_authid.html">pg_authid</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_cast.html">pg_cast</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_class.html">pg_class</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_compression.html">pg_compression</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_constraint.html">pg_constraint</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_conversion.html">pg_conversion</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_database.html">pg_database</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_depend.html">pg_depend</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_description.html">pg_description</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_exttable.html">pg_exttable</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_filespace.html">pg_filespace</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_filespace_entry.html">pg_filespace_entry</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_index.html">pg_index</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_inherits.html">pg_inherits</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_language.html">pg_language</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_largeobject.html">pg_largeobject</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_listener.html">pg_listener</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_locks.html">pg_locks</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_namespace.html">pg_namespace</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_opclass.html">pg_opclass</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_operator.html">pg_operator</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_partition.html">pg_partition</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_partition_columns.html">pg_partition_columns</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_partition_encoding.html">pg_partition_encoding</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_partition_rule.html">pg_partition_rule</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_partition_templates.html">pg_partition_templates</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_partitions.html">pg_partitions</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_pltemplate.html">pg_pltemplate</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_proc.html">pg_proc</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_resqueue.html">pg_resqueue</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_resqueue_status.html">pg_resqueue_status</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_rewrite.html">pg_rewrite</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_roles.html">pg_roles</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_shdepend.html">pg_shdepend</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_shdescription.html">pg_shdescription</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_stat_activity.html">pg_stat_activity</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_stat_last_operation.html">pg_stat_last_operation</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_stat_last_shoperation.html">pg_stat_last_shoperation</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_stat_operations.html">pg_stat_operations</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_stat_partition_operations.html">pg_stat_partition_operations</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_statistic.html">pg_statistic</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_stats.html">pg_stats</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_tablespace.html">pg_tablespace</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_trigger.html">pg_trigger</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_type.html">pg_type</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_type_encoding.html">pg_type_encoding</a></li>
+                  <li><a href="/docs/userguide/2.3.0.0-incubating/reference/catalog/pg_window.html">pg_window</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/reference/toolkit/hawq_toolkit.html">The hawq_toolkit Administrative Schema</a>
+            <ul>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic2">Checking for Tables that Need Routine Maintenance</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic16">Viewing HAWQ Server Log Files</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/toolkit/hawq_toolkit.html#topic38">Checking Database Object Sizes and Disk Space</a></li>
+            </ul>
+          </li>
+          <li class="has_submenu"><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/management_tools.html">HAWQ Management Tools Reference</a>
+            <ul>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/analyzedb.html">analyzedb</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/client_utilities/createdb.html">createdb</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/client_utilities/createuser.html">createuser</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/client_utilities/dropdb.html">dropdb</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/client_utilities/dropuser.html">dropuser</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/gpfdist.html">gpfdist</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/gplogfilter.html">gplogfilter</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqactivate.html">hawq activate</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqcheck.html">hawq check</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqcheckperf.html">hawq checkperf</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqconfig.html">hawq config</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqextract.html">hawq extract</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqfilespace.html">hawq filespace</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqinit.html">hawq init</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqload.html">hawq load</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqregister.html">hawq register</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqrestart.html">hawq restart</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqscp.html">hawq scp</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqssh.html">hawq ssh</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqssh-exkeys.html">hawq ssh-exkeys</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqstart.html">hawq start</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqstate.html">hawq state</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/hawqstop.html">hawq stop</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/client_utilities/pg_dump.html">pg_dump</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/client_utilities/pg_dumpall.html">pg_dumpall</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/client_utilities/pg_restore.html">pg_restore</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/client_utilities/psql.html">psql</a></li>
+              <li><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/client_utilities/vacuumdb.html">vacuumdb</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--end of sub-nav-->
+
+      <!--googleon: index-->
+
+      <main class="content content-layout" id="js-content" role="main">
+        <a id="top"></a>
+        
+          <h1 class="title-container" >
+    hawq load
+  </h1>
+
+
+          <div id="js-quick-links" >
+            <div class="quick-links"><ul>
+<li><a href="#topic1__section2">Synopsis</a></li>
+<li><a href="#topic1__section3">Prerequisites</a></li>
+<li><a href="#topic1__section4">Description</a></li>
+<li><a href="#args">Arguments</a></li>
+<li><a href="#topic1__section5">Options</a></li>
+<li><a href="#topic1__section7">Control File Format</a></li>
+<li><a href="#topic1__section9">Log File Format</a></li>
+<li><a href="#topic1__section10">Examples</a></li>
+<li><a href="#topic1__section11">See Also</a></li>
+</ul></div>
+          </div>
+        <div class="to-top" id="js-to-top">
+          <a href="#top" title="back to top"></a>
+        </div>
+        <!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<p>Acts as an interface to the external table parallel loading feature. Executes a load specification defined in a YAML-formatted control file to invoke the HAWQ parallel file server (<code>gpfdist</code>).</p>
+
+<h2 id="synopsis"><a id="topic1__section2"></a>Synopsis</h2>
+<pre class="highlight plaintext"><code>hawq load -f &lt;control_file&gt; [-l &lt;log_file&gt;]   
+  [--gpfdist_timeout &lt;seconds&gt;] 
+  [[-v | -V] 
+  [-q]]
+  [-D]
+  [&lt;connection_options&gt;]
+
+hawq load -? 
+
+hawq load --version
+</code></pre>
+
+<p>where:</p>
+<pre class="highlight plaintext"><code>&lt;connection_options&gt; =
+  [-h &lt;host&gt;] 
+  [-p &lt;port&gt;] 
+  [-U &lt;username&gt;] 
+  [-d &lt;database&gt;]
+  [-W]
+</code></pre>
+
+<h2 id="prerequisites"><a id="topic1__section3"></a>Prerequisites</h2>
+
+<p>The client machine where <code>hawq load</code> is executed must have the following:</p>
+
+<ul>
+<li><p>Python 2.6.2 or later, <code>pygresql</code> (the Python interface to PostgreSQL), and <code>pyyaml</code>. Note that Python and the required Python libraries are included with the HAWQ server installation, so if you have HAWQ installed on the machine where <code>hawq load</code> is running, you do not need a separate Python installation.
+<strong>Note:</strong> HAWQ Loaders for Windows supports only Python 2.5 (available from <a href="http://python.org">www.python.org</a>).</p></li>
+<li><p>The <a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/gpfdist.html#topic1">gpfdist</a> parallel file distribution program installed and in your <code>$PATH</code>. This program is located in <code>$GPHOME/bin</code> of your HAWQ server installation.</p></li>
+<li><p>Network access to and from all hosts in your HAWQ array (master and segments).</p></li>
+<li><p>Network access to and from the hosts where the data to be loaded resides (ETL servers).</p></li>
+</ul>
+
+<h2 id="description"><a id="topic1__section4"></a>Description</h2>
+
+<p><code>hawq load</code> is a data loading utility that acts as an interface to HAWQ&rsquo;s external table parallel loading feature. Using a load specification defined in a YAML formatted control file, <code>hawq                     load</code> executes a load by invoking the HAWQ parallel file server (<a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/gpfdist.html#topic1">gpfdist</a>), creating an external table definition based on the source data defined, and executing an <code>INSERT</code> operation to load the source data into the target table in the database.</p>
+
+<p>The operation, including any SQL commands specified in the <code>SQL</code> collection of the YAML control file (see <a href="#topic1__section7">Control File Format</a>), are performed as a single transaction to prevent inconsistent data when performing multiple, simultaneous load operations on a target table.</p>
+
+<h2 id="arguments"><a id="args"></a>Arguments</h2>
+
+<p><dt>-f &lt;control_file&gt;  </dt>
+<dd>A YAML file that contains the load specification details. See <a href="#topic1__section7">Control File Format</a>.</dd></p>
+
+<h2 id="options"><a id="topic1__section5"></a>Options</h2>
+
+<p><dt>--gpfdist_timeout &lt;seconds&gt;  </dt>
+<dd>Sets the timeout for the <code>gpfdist</code> parallel file distribution program to send a response. Enter a value from <code>0</code> to <code>30</code> seconds (entering &ldquo;<code>0</code>&rdquo; to disables timeouts). Note that you might need to increase this value when operating on high-traffic networks.</dd></p>
+
+<p><dt>-l &lt;log_file&gt;  </dt>
+<dd>Specifies where to write the log file. Defaults to <code>~/hawqAdminLogs/hawq_load_YYYYMMDD</code>. For more information about the log file, see <a href="#topic1__section9">Log File Format</a>.</dd></p>
+
+<p><dt>-q (no screen output)  </dt>
+<dd>Run in quiet mode. Command output is not displayed on the screen, but is still written to the log file.</dd></p>
+
+<p><dt>-D (debug mode)  </dt>
+<dd>Check for error conditions, but do not execute the load.</dd></p>
+
+<p><dt>-v (verbose mode)  </dt>
+<dd>Show verbose output of the load steps as they are executed.</dd></p>
+
+<p><dt>-V (very verbose mode)  </dt>
+<dd>Shows very verbose output.</dd></p>
+
+<p><dt>-? (show help)  </dt>
+<dd>Show help, then exit.</dd></p>
+
+<p><dt>--version  </dt>
+<dd>Show the version of this utility, then exit.</dd></p>
+
+<p><strong>Connection Options</strong></p>
+
+<p><dt>-d &lt;database&gt;  </dt>
+<dd>The database to load into. If not specified, reads from the load control file, the environment variable <code>$PGDATABASE</code> or defaults to the current system user name.</dd></p>
+
+<p><dt>-h &lt;hostname&gt;  </dt>
+<dd>Specifies the host name of the machine on which the HAWQ master database server is running. If not specified, reads from the load control file, the environment variable <code>$PGHOST</code> or defaults to <code>localhost</code>.</dd></p>
+
+<p><dt>-p &lt;port&gt;  </dt>
+<dd>Specifies the TCP port on which the HAWQ master database server is listening for connections. If not specified, reads from the load control file, the environment variable <code>$PGPORT</code> or defaults to 5432.</dd></p>
+
+<p><dt>-U &lt;username&gt;  </dt>
+<dd>The database role name to connect as. If not specified, reads from the load control file, the environment variable <code>$PGUSER</code> or defaults to the current system user name.</dd></p>
+
+<p><dt>-W (force password prompt)  </dt>
+<dd>Force a password prompt. If not specified, reads the password from the environment variable <code>$PGPASSWORD</code> or from a password file specified by <code>$PGPASSFILE</code> or in <code>~/.pgpass</code>. If these are not set, then <code>hawq                                 load</code> will prompt for a password even if <code>-W</code> is not supplied.</dd></p>
+
+<h2 id="control-file-format"><a id="topic1__section7"></a>Control File Format</h2>
+
+<p>The <code>hawq load</code> control file uses the <a href="http://yaml.org/spec/1.1/">YAML 1.1</a> document format and then implements its own schema for defining the various steps of a HAWQ load operation. The control file must be a valid YAML document.</p>
+
+<p>The <code>hawq load</code> program processes the control file document in order and uses indentation (spaces) to determine the document hierarchy and the relationships of the sections to one another. The use of white space is significant. White space should not be used simply for formatting purposes, and tabs should not be used at all.</p>
+
+<p>The basic structure of a load control file is:</p>
+<pre class="highlight plaintext"><code>---
+VERSION: 1.0.0.1
+DATABASE: db_name
+USER: db_username
+HOST: master_hostname
+PORT: master_port
+GPLOAD:
+   INPUT:
+    - SOURCE:
+         LOCAL_HOSTNAME:
+           - hostname_or_ip
+         PORT: http_port
+       | PORT_RANGE: [start_port_range, end_port_range]
+         FILE: 
+           - /path/to/input_file
+         SSL: true | false
+         CERTIFICATES_PATH: /path/to/certificates
+    - COLUMNS:
+           - field_name: data_type
+    - TRANSFORM: 'transformation'
+    - TRANSFORM_CONFIG: 'configuration-file-path' 
+    - MAX_LINE_LENGTH: integer 
+    - FORMAT: text | csv
+    - DELIMITER: 'delimiter_character'
+    - ESCAPE: 'escape_character' | 'OFF'
+    - NULL_AS: 'null_string'
+    - FORCE_NOT_NULL: true | false
+    - QUOTE: 'csv_quote_character'
+    - HEADER: true | false
+    - ENCODING: database_encoding
+    - ERROR_LIMIT: integer
+    - ERROR_TABLE: schema.table_name
+   OUTPUT:
+    - TABLE: schema.table_name
+    - MODE: insert | update | merge
+    - MATCH_COLUMNS:
+           - target_column_name
+    - UPDATE_COLUMNS:
+           - target_column_name
+    - UPDATE_CONDITION: 'boolean_condition'
+    - MAPPING:
+              target_column_name: source_column_name | 'expression'
+   PRELOAD:
+    - TRUNCATE: true | false
+    - REUSE_TABLES: true | false
+   SQL:
+    - BEFORE: "sql_command"
+    - AFTER: "sql_command"
+</code></pre>
+
+<p><strong>Control File Schema Elements</strong>  </p>
+
+<p>The control file contains the schema elements for:</p>
+
+<ul>
+<li>  Version</li>
+<li>  Database</li>
+<li>  User</li>
+<li>  Host</li>
+<li>  Port</li>
+<li>  GPLOAD file</li>
+</ul>
+
+<p><dt>VERSION  </dt>
+<dd>Optional. The version of the <code>hawq load</code> control file schema, for example: 1.0.0.1.</dd></p>
+
+<p><dt>DATABASE  </dt>
+<dd>Optional. Specifies which database in HAWQ to connect to. If not specified, defaults to <code>$PGDATABASE</code> if set or the current system user name. You can also specify the database on the command line using the <code>-d</code> option.</dd></p>
+
+<p><dt>USER  </dt>
+<dd>Optional. Specifies which database role to use to connect. If not specified, defaults to the current user or <code>$PGUSER</code> if set. You can also specify the database role on the command line using the <code>-U</code> option.</p>
+
+<p>If the user running <code>hawq load</code> is not a HAWQ superuser, then the server configuration parameter <code>gp_external_grant_privileges</code> must be set to <code>on</code> for the load to be processed.</dd></p>
+
+<p><dt>HOST  </dt>
+<dd>Optional. Specifies HAWQ master host name. If not specified, defaults to localhost or <code>$PGHOST</code> if set. You can also specify the master host name on the command line using the <code>-h</code> option.</dd></p>
+
+<p><dt>PORT  </dt>
+<dd>Optional. Specifies HAWQ master port. If not specified, defaults to 5432 or <code>$PGPORT</code> if set. You can also specify the master port on the command line using the <code>-p</code> option.</dd></p>
+
+<p><dt>GPLOAD  </dt>
+<dd>Required. Begins the load specification section. A <code>GPLOAD</code> specification must have an <code>INPUT</code> and an <code>OUTPUT</code> section defined.</dd></p>
+
+<p><dt>INPUT  </dt>
+<dd>Required element. Defines the location and the format of the input data to be loaded. <code>hawq load</code> will start one or more instances of the <a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/gpfdist.html#topic1">gpfdist</a> file distribution program on the current host and create the required external table definition(s) in HAWQ that point to the source data. Note that the host from which you run <code>hawq load</code> must be accessible over the network by all HAWQ hosts (master and segments).</dd></p>
+
+<p><dt>SOURCE  </dt>
+<dd>Required. The <code>SOURCE</code> block of an <code>INPUT</code> specification defines the location of a source file. An <code>INPUT</code> section can have more than one <code>SOURCE</code> block defined. Each <code>SOURCE</code> block defined corresponds to one instance of the <a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/gpfdist.html#topic1">gpfdist</a> file distribution program that will be started on the local machine. Each <code>SOURCE</code> block defined must have a <code>FILE</code> specification.</dd></p>
+
+<p><dt>LOCAL_HOSTNAME  </dt>
+<dd>Optional. Specifies the host name or IP address of the local machine on which <code>hawq                                                   load</code> is running. If this machine is configured with multiple network interface cards (NICs), you can specify the host name or IP of each individual NIC to allow network traffic to use all NICs simultaneously. The default is to use the local machine&rsquo;s primary host name or IP only.</dd></p>
+
+<p><dt>PORT  </dt>
+<dd>Optional. Specifies the specific port number that the <a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/gpfdist.html#topic1">gpfdist</a> file distribution program should use. You can also supply a <code>PORT_RANGE</code> to select an available port from the specified range. If both <code>PORT</code> and <code>PORT_RANGE</code> are defined, then <code>PORT</code> takes precedence. If neither <code>PORT</code> or <code>PORT_RANGE</code> are defined, the default is to select an available port between 8000 and 9000.</p>
+
+<p>If multiple host names are declared in <code>LOCAL_HOSTNAME</code>, this port number is used for all hosts. This configuration is desired if you want to use all NICs to load the same file or set of files in a given directory location.</dd></p>
+
+<p><dt>PORT_RANGE  </dt>
+<dd>Optional. Can be used instead of <code>PORT</code> to supply a range of port numbers from which <code>hawq load</code> can choose an available port for this instance of the <a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/gpfdist.html#topic1">gpfdist</a> file distribution program.</dd></p>
+
+<p><dt>FILE  </dt>
+<dd>Required. Specifies the location of a file, named pipe, or directory location on the local file system that contains data to be loaded. You can declare more than one file so long as the data is of the same format in all files specified.</p>
+
+<p>If the files are compressed using <code>gzip</code> or <code>bzip2</code> (have a <code>.gz</code> or <code>.bz2</code> file extension), the files will be uncompressed automatically (provided that <code>gunzip</code> or <code>bunzip2</code> is in your path).</p>
+
+<p>When specifying which source files to load, you can use the wildcard character (<code>*</code>) or other C-style pattern matching to denote multiple files. The files specified are assumed to be relative to the current directory from which <code>hawq                                                   load</code> is executed (or you can declare an absolute path).</dd></p>
+
+<p><dt>SSL  </dt>
+<dd>Optional. Specifies usage of SSL encryption.</dd></p>
+
+<p><dt>CERTIFICATES_PATH  </dt>
+<dd>Required when SSL is <code>true</code>; cannot be specified when SSL is <code>false</code> or unspecified. The location specified in <code>CERTIFICATES_PATH</code> must contain the following files:</p>
+
+<ul>
+<li>  The server certificate file, <code>server.crt</code></li>
+<li>  The server private key file, <code>server.key</code></li>
+<li>  The trusted certificate authorities, <code>root.crt</code></li>
+</ul>
+
+<p>The root directory (<code>/</code>) cannot be specified as <code>CERTIFICATES_PATH</code>.</dd></p>
+
+<p><dt>COLUMNS  </dt>
+<dd>Optional. Specifies the schema of the source data file(s) in the format of <code>field_name:data_type</code>. The <code>DELIMITER</code> character in the source file is what separates two data value fields (columns). A row is determined by a line feed character (<code>0x0a</code>).</p>
+
+<p>If the input <code>COLUMNS</code> are not specified, then the schema of the output <code>TABLE</code> is implied, meaning that the source data must have the same column order, number of columns, and data format as the target table.</p>
+
+<p>The default source-to-target mapping is based on a match of column names as defined in this section and the column names in the target <code>TABLE</code>. This default mapping can be overridden using the <code>MAPPING</code> section.</dd></p>
+
+<p><dt>TRANSFORM  </dt>
+<dd>Optional. Specifies the name of the input XML transformation passed to <code>hawq                                                   load</code>. <span class="ph">For more information about XML transformations, see <a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-loading-and-unloading-data.html#topic1">&ldquo;Loading and Unloading Data.&rdquo;</a>.</span></dd></p>
+
+<p><dt>TRANSFORM_CONFIG  </dt>
+<dd>Optional. Specifies the location of the XML transformation configuration file that is specified in the <code>TRANSFORM</code> parameter, above.</dd></p>
+
+<p><dt>MAX_LINE_LENGTH  </dt>
+<dd>Optional. An integer that specifies the maximum length of a line in the XML transformation data passed to <code>hawq load</code>.</dd></p>
+
+<p><dt>FORMAT  </dt>
+<dd>Optional. Specifies the format of the source data file(s) - either plain text (<code>TEXT</code>) or comma separated values (<code>CSV</code>) format. Defaults to <code>TEXT</code> if not specified.<span class="ph"> For more information about the format of the source data, see <a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-loading-and-unloading-data.html#topic1">&ldquo;Loading and Unloading Data&rdquo;</a> .</span></dd></p>
+
+<p><dt>DELIMITER  </dt>
+<dd>Optional. Specifies a single ASCII character that separates columns within each row (line) of data. The default is a tab character in TEXT mode, a comma in CSV mode.You can also specify a non-printable ASCII character via an escape sequence\ using the decimal representation of the ASCII character. For example, <code>\014</code> represents the shift out character..</dd></p>
+
+<p><dt>ESCAPE  </dt>
+<dd>Specifies the single character that is used for C escape sequences (such as <code>\n</code>, <code>\t</code>, <code>\100</code>, and so on) and for escaping data characters that might otherwise be taken as row or column delimiters. Make sure to choose an escape character that is not used anywhere in your actual column data. The default escape character is a \ (backslash) for text-formatted files and a <code>&quot;</code> (double quote) for csv-formatted files, however it is possible to specify another character to represent an escape. It is also possible to disable escaping in text-formatted files by specifying the value <code>&#39;OFF&#39;</code> as the escape value. This is very useful for data such as text-formatted web log data that has many embedded backslashes that are not intended to be escapes.</dd></p>
+
+<p><dt>NULL_AS  </dt>
+<dd>Optional. Specifies the string that represents a null value. The default is <code>\N</code> (backslash-N) in <code>TEXT</code> mode, and an empty value with no quotations in <code>CSV</code> mode. You might prefer an empty string even in <code>TEXT</code> mode for cases where you do not want to distinguish nulls from empty strings. Any source data item that matches this string will be considered a null value.</dd></p>
+
+<p><dt>FORCE_NOT_NULL  </dt>
+<dd>Optional. In CSV mode, processes each specified column as though it were quoted and hence not a NULL value. For the default null string in CSV mode (nothing between two delimiters), this causes missing values to be evaluated as zero-length strings.</dd></p>
+
+<p><dt>QUOTE  </dt>
+<dd>Required when <code>FORMAT</code> is <code>CSV</code>. Specifies the quotation character for <code>CSV</code> mode. The default is double-quote (<code>&quot;</code>).</dd></p>
+
+<p><dt>HEADER  </dt>
+<dd>Optional. Specifies that the first line in the data file(s) is a header row (contains the names of the columns) and should not be included as data to be loaded. If using multiple data source files, all files must have a header row. The default is to assume that the input files do not have a header row.</dd></p>
+
+<p><dt>ENCODING  </dt>
+<dd>Optional. Character set encoding of the source data. Specify a string constant (such as <code>&#39;SQL_ASCII&#39;</code>), an integer encoding number, or <code>&#39;DEFAULT&#39;</code> to use the default client encoding. If not specified, the default client encoding is used.</dd></p>
+
+<p><dt>ERROR_LIMIT  </dt>
+<dd>Optional. Sets the error limit count for HAWQ segment instances during input processing. Error rows will be written to the table specified in <code>ERROR_TABLE</code>. The value of ERROR_LIMIT must be 2 or greater.</dd></p>
+
+<p><dt>ERROR_TABLE  </dt>
+<dd>Optional when <code>ERROR_LIMIT</code> is declared. Specifies an error table where rows with formatting errors will be logged when running in single row error isolation mode. You can then examine this error table to see error rows that were not loaded (if any). If the <code>ERROR_TABLE</code> specified already exists, it will be used. If it does not exist, it will be automatically generated.</p>
+
+<p>For more information about handling load errors, see &ldquo;<a href="/docs/userguide/2.3.0.0-incubating/datamgmt/load/g-loading-and-unloading-data.html#topic1">Loading and Unloading Data</a>&rdquo;.</dd></p>
+
+<p><dt>OUTPUT   </dt>
+<dd>Required element. Defines the target table and final data column values that are to be loaded into the database.</dd></p>
+
+<p><dt>TABLE  </dt>
+<dd>Required. The name of the target table to load into.</dd></p>
+
+<p><dt>MODE  </dt>
+<dd>Optional. Defaults to <code>INSERT</code> if not specified. There are three available load modes:</dd></p>
+
+<p><dt>INSERT  </dt>
+<dd>Loads data into the target table using the following method:</p>
+<pre class="highlight plaintext"><code>INSERT INTO target_table SELECT * FROM input_data;
+</code></pre>
+
+<p></dd></p>
+
+<p><dt>UPDATE</dt>
+<dd>Updates the <code>UPDATE_COLUMNS</code> of the target table where the rows have <code>MATCH_COLUMNS</code> attribute values equal to those of the input data, and the optional <code>UPDATE_CONDITION</code> is true.</dd></p>
+
+<p><dt>MERGE</dt>
+<dd>Inserts new rows and updates the <code>UPDATE_COLUMNS</code> of existing rows where <code>MATCH_COLUMNS</code> attribute values are equal to those of the input data, and the optional <code>UPDATE_CONDITION</code> is true. New rows are identified when the <code>MATCH_COLUMNS</code> value in the source data does not have a corresponding value in the existing data of the target table. In those cases, the <strong>entire row</strong> from the source file is inserted, not only the <code>MATCH</code> and <code>UPDATE</code> columns. If there are multiple new <code>MATCH_COLUMNS</code> values that are the same, only one new row for that value will be inserted. Use <code>UPDATE_CONDITION</code> to filter out the rows to discard.</dd></p>
+
+<p><dt>MATCH_COLUMNS  </dt>
+<dd>Required if <code>MODE</code> is <code>UPDATE</code> or <code>MERGE</code>. Specifies the column(s) to use as the join condition for the update. The attribute value in the specified target column(s) must be equal to that of the corresponding source data column(s) in order for the row to be updated in the target table.</dd></p>
+
+<p><dt>UPDATE_COLUMNS  </dt>
+<dd>Required if <code>MODE</code> is <code>UPDATE</code> or <code>MERGE</code>. Specifies the column(s) to update for the rows that meet the <code>MATCH_COLUMNS</code> criteria and the optional <code>UPDATE_CONDITION</code>.</dd></p>
+
+<p><dt>UPDATE_CONDITION  </dt>
+<dd>Optional. Specifies a Boolean condition (similar to what you would declare in a <code>WHERE</code> clause) that must be met for a row in the target table to be updated (or inserted in the case of a <code>MERGE</code>).</dd></p>
+
+<p><dt>MAPPING  </dt>
+<dd>Optional. If a mapping is specified, it overrides the default source-to-target column mapping. The default source-to-target mapping is based on a match of column names as defined in the source <code>COLUMNS</code> section and the column names of the target <code>TABLE</code>. A mapping is specified as either:</p>
+
+<p><code>target_column_name:                                                   source_column_name</code></p>
+
+<p>or</p>
+
+<p><code>target_column_name:                                                   &#39;expression&#39;</code></p>
+
+<p>Where &lt;expression&gt; is any expression that you would specify in the <code>SELECT</code> list of a query, such as a constant value, a column reference, an operator invocation, a function call, and so on.</dd></p>
+
+<p><dt>PRELOAD  </dt>
+<dd>Optional. Specifies operations to run prior to the load operation. Currently, the only preload operation is <code>TRUNCATE</code>.</dd></p>
+
+<p><dt>TRUNCATE  </dt>
+<dd>Optional. If set to true, <code>hawq load</code> will remove all rows in the target table prior to loading it.</dd></p>
+
+<p><dt>REUSE_TABLES  </dt>
+<dd>Optional. If set to true, <code>hawq load</code> will not drop the external table objects and staging table objects it creates. These objects will be reused for future load operations that use the same load specifications. Reusing objects improves performance of trickle loads (ongoing small loads to the same target table).</dd></p>
+
+<p><dt>SQL  </dt>
+<dd>Optional. Defines SQL commands to run before and/or after the load operation. Commands that contain spaces or special characters must be enclosed in quotes. You can specify multiple <code>BEFORE</code> and/or <code>AFTER</code> commands. List commands in the desired order of execution.</dd></p>
+
+<p><dt>BEFORE  </dt>
+<dd>Optional. A SQL command to run before the load operation starts. Enclose commands in quotes.</dd></p>
+
+<p><dt>AFTER  </dt>
+<dd>Optional. A SQL command to run after the load operation completes. Enclose commands in quotes.</dd></p>
+
+<h2 id="notes">Notes</h2>
+
+<p>If your database object names were created using a double-quoted identifier (delimited identifier), you must specify the delimited name within single quotes in the <code>hawq load</code> control file. For example, if you create a table as follows:</p>
+<pre class="highlight sql"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">"MyTable"</span> <span class="p">(</span><span class="nv">"MyColumn"</span> <span class="n">text</span><span class="p">);</span>
+</code></pre>
+
+<p>Your YAML-formatted <code>hawq load</code> control file would refer to the above table and column names as follows:</p>
+<pre class="highlight plaintext"><code>- COLUMNS:
+   - '"MyColumn"': text
+OUTPUT:
+   - TABLE: public.'"MyTable"'
+</code></pre>
+
+<h2 id="log-file-format"><a id="topic1__section9"></a>Log File Format</h2>
+
+<p>Log files output by <code>hawq load</code> have the following format:</p>
+<pre class="highlight plaintext"><code>timestamp|level|message
+</code></pre>
+
+<p>Where &lt;timestamp&gt; takes the form: <code>YYYY-MM-DD                     HH:MM:SS</code>, &lt;level&gt; is one of <code>DEBUG</code>, <code>LOG</code>, <code>INFO</code>, <code>ERROR</code>, and &lt;message&gt; is a normal text message.</p>
+
+<p>Some <code>INFO</code> messages that may be of interest in the log files are (where <em>#</em> corresponds to the actual number of seconds, units of data, or failed rows):</p>
+<pre class="highlight plaintext"><code>INFO|running time: #.## seconds
+INFO|transferred #.# kB of #.# kB.
+INFO|hawq load succeeded
+INFO|hawq load succeeded with warnings
+INFO|hawq load failed
+INFO|1 bad row
+INFO|# bad rows
+</code></pre>
+
+<h2 id="examples"><a id="topic1__section10"></a>Examples</h2>
+
+<p>Run a load job as defined in <code>my_load.yml</code>:</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>hawq load -f my_load.yml
+</code></pre>
+
+<p>Example load control file:</p>
+<pre class="highlight plaintext"><code>---
+VERSION: 1.0.0.1
+DATABASE: ops
+USER: gpadmin
+HOST: mdw-1
+PORT: 5432
+GPLOAD:
+   INPUT:
+    - SOURCE:
+         LOCAL_HOSTNAME:
+           - etl1-1
+           - etl1-2
+           - etl1-3
+           - etl1-4
+         PORT: 8081
+         FILE: 
+           - /var/load/data/*
+    - COLUMNS:
+           - name: text
+           - amount: float4
+           - category: text
+           - desc: text
+           - date: date
+    - FORMAT: text
+    - DELIMITER: '|'
+    - ERROR_LIMIT: 25
+    - ERROR_TABLE: payables.err_expenses
+   OUTPUT:
+    - TABLE: payables.expenses
+    - MODE: INSERT
+   SQL:
+   - BEFORE: "INSERT INTO audit VALUES('start', current_timestamp)"
+   - AFTER: "INSERT INTO audit VALUES('end', 
+current_timestamp)"
+</code></pre>
+
+<h2 id="see-also"><a id="topic1__section11"></a>See Also</h2>
+
+<p><a href="/docs/userguide/2.3.0.0-incubating/reference/cli/admin_utilities/gpfdist.html#topic1">gpfdist</a>, <a href="/docs/userguide/2.3.0.0-incubating/reference/sql/CREATE-EXTERNAL-TABLE.html#topic1">CREATE EXTERNAL TABLE</a></p>
+
+        
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<div id="scrim"></div>
+
+<div class="container">
+  <footer class="site-footer-links">
+    
+  </footer>
+</div><!--end of container-->
+
+</body>
+</html>
