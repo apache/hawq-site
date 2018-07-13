@@ -392,26 +392,13 @@
                   <a href="https://www.apache.org/dist/incubator/hawq/KEYS">KEYS</a>
               </p>
               <p>
-                  The PGP signatures can be verified using PGP or GPG. First download the <a href="https://www.apache.org/dist/incubator/hawq/KEYS">KEYS</a> 
+                  The PGP signatures can be verified using GPG. First download the <a href="https://www.apache.org/dist/incubator/hawq/KEYS">KEYS</a> 
                   as well as the asc signature file for the particular distribution. Then verify the signatures using:
               </p>
               <p>
-                  % pgpk -a KEYS
-                  <br><br>
-                  % pgpv ${filename}.tar.gz.asc
-                  <br><br>
-                  or
-                  <br><br>
-                  % pgp -ka KEYS
-                  <br><br>
-                  % pgp ${filename}.tar.gz.asc
-                  <br><br>
-                  or
-                  <br><br>
                   % gpg --import KEYS
-                  <br><br>
+                  <br>
                   % gpg --verify ${filename}.tar.gz.asc ${filename}.tar.gz
-                  <br><br>
               </p>
               <p>
                   Alternatively, you can verify the SHA signature on the files.<br>
