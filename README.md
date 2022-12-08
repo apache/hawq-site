@@ -1,2 +1,2 @@
 # hawq-site
-Apache Hawq site: http://hawq.apache.org/
+Apache Hawq site: https://hawq.apache.org/
